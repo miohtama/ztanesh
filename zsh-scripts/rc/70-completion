@@ -1,4 +1,1 @@
-local _myhosts
-_myhosts=( $(cat /etc/hosts|cut -f 1 -d \#|cut -f 2- -d ' ' ) )
-_myhosts=($_myhosts $(<$HOME/.zsh/conf/hosts) )
-zstyle ':completion:*' hosts $_myhosts
+source ~/tools/zsh-scripts/completion/compinst

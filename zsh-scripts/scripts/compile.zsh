@@ -2,7 +2,8 @@
 
 export LOCALRC=~/.zsh-local/rc
 export GLOBALRC=~/.zsh/rc
-export ALLRCS=$GLOBALRC/../compiled/allrcs
+export ALLRCS=$GLOBALRC/../var/compiled/allrcs.new
+export ALLRCS_TO=$GLOBALRC/../var/compiled/allrcs
 
 if mkdir -p ~/.zsh-local/rc 2>&1 > /dev/null 
 then
@@ -25,5 +26,10 @@ zsh -c '
 	done
 '
 
-sleep 2
-zcompile $ALLRCS
+if zcompile $ALLRCS
+then
+    mv -f $ALLRCS     $ALLRCS_TO
+    mv -f $ALLRCS.zwc $ALLRCS_TO.zwc
+else
+    echo "Some errors when compiling, pls fix!"
+fi

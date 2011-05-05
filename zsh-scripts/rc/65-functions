@@ -1,16 +1,55 @@
+function comprc {
+    if ~/.zsh/scripts/compile.zsh
+    then
+        exec zsh
+    fi
+} 
+
 function update-zsh-rcs {
     (
        cd ~/.zsh/
-       if [[ -e ~/.zsh/.svn ]]
+       if [[ -e ~/tools/zsh-scripts/.svn ]]
        then
+           echo "Updating ~/tools"
+           cd ~/tools
+           svn up
+       elif [[ -e ~/.zsh/.svn ]]
+       then
+           echo "Updating ~/.zsh"
            svn up
        elif [[ -e ~/.zsh/.bzr ]]
        then
+           echo "Updating ~/.zsh"
            bzr up
        else
            echo "Do not know how to up" ~/.zsh
        fi
-       ~/.zsh/scripts/compile.zsh
     )
-    exec zsh
+
+    comprc
 }
+
+function get-zsh-tools-file {
+    echo "~/.zsh/$1"
+}
+
+function conditional-update {
+    TEMPFILE=`tempfile`
+    touch -d "today 00:00" $TEMPFILE 
+
+    if [[ ! -e ~/.zsh/var/run/last_updated ]]
+    then
+        touch -d yesterday ~/.zsh/var/run/last_updated
+    fi
+
+    if [[ "$TEMPFILE" -nt ~/.zsh/var/run/last_updated ]]
+    then
+        rm "$TEMPFILE"
+        echo "Checking updates for RC files"
+        touch ~/.zsh/var/run/last_updated
+        update-zsh-rcs
+    fi
+    rm "$TEMPFILE"
+}
+
+conditional-update

@@ -1,5 +1,6 @@
 function setup_prompt {
-    PROMPT=`echo -ne "%B[%{\033[${PROMPT_USER_COLOR:-1;33}m%}%n%{\033[0m%}%B@%{\033[${PROMPT_HOST_COLOR:-1;33}m%}%m%b%B][%{\033[1;32m%}%T%b%B][%{\033[1;36m%}%~%b%B]%#"`" "
+    RPROMPT=`echo -ne "%B[%{\033[${PROMPT_USER_COLOR:-1;33}m%}%n%{\033[0m%}%B@%{\033[${PROMPT_HOST_COLOR:-1;33}m%}%m%b%B][%{\033[1;32m%}%T%b%B]"`
+    PROMPT=`echo -ne "[%{\033[1;36m%}%~%b%B]%#"`" " 
 
     PROPOSED_VIRTUAL_ENV=$(check_unset_venv)
     proposed_envname=`basename "$PROPOSED_VIRTUAL_ENV"`
@@ -7,7 +8,7 @@ function setup_prompt {
     if [[ "$VIRTUAL_ENV" != "" ]]
     then
         envname=`basename "$VIRTUAL_ENV"`
-
+        
         if [[ "$PROPOSED_VIRTUAL_ENV" != "" && "$PROPOSED_VIRTUAL_ENV" != "$VIRTUAL_ENV" ]]
         then
             PROMPT=`echo -ne "%{\033[1;33m%}[%{\033[0;31;43m%}$proposed_envname%{\033[0;33;1m%}]%{\033[0m%}"`"$PROMPT"

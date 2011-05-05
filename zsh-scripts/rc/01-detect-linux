@@ -1,5 +1,6 @@
 if [[ `uname` == 'Linux' ]]
 then
         export LINUX=1
+else
+	export LINUX=
 fi
-

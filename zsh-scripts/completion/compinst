@@ -1,0 +1,13 @@
+zstyle ':completion:*' completer _expand _complete _ignored _approximate
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' glob on
+zstyle ':compinstall'  filename ~/tools/zsh-scripts/completion/compinst
+zstyle ':completion::complete:*' use-cache 1
+
+# local _myhosts=()
+# _myhosts=( $(cat /etc/hosts|cut -f 1 -d \#|cut -f 2- -d ' ' ) )
+# _myhosts=( $_myhosts $(<$HOME/.zsh/conf/hosts) )
+# zstyle ':completion:*' hosts $_myhosts
+
+autoload -Uz compinit
+compinit

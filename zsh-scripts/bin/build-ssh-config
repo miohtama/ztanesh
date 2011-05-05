@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+
+ls -1 ~/tools/etc/ssh-configs/* | sort
+
+do
+    
+done

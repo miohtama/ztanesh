@@ -1,1 +1,5 @@
 source ~/.zsh/scripts/advancedrc
+
+export EC2_PRIVATE_KEY=~/.pem/pk-x509.pem
+export EC2_CERT=~/.pem/cert-x509.pem
+export EC2_URL=https://eu-west-1.ec2.amazonaws.com

@@ -10,6 +10,7 @@ function check_unset_venv {
 }
 
 function activate-venv {
+    local new_env
     new_env=$(check_unset_venv)
     if [[ "$new_env" == "" ]] 
     then

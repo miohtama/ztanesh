@@ -1,13 +1,11 @@
-PROMPT="[prompt not set, zsh rcs failed? fix the bugs, run refreshrc to fix]\n"
+PROMPT="[prompt not set, zsh rcs failed? fix the bugs, run refreshrc to fix]
+"
 
 alias refreshrc='. ~/.zsh/scripts/runrcs'
 
-if [[ -e ~/.zsh/compiled/allrcs ]] 
+if [[ -e ~/.zsh/var/compiled/allrcs ]] 
 then
-	source ~/.zsh/compiled/allrcs
+	source ~/.zsh/var/compiled/allrcs
 else
-	source ~/.zsh/compiled/runrcs
+	source ~/.zsh/scripts/runrcs
 fi
-
-alias refreshrc='. ~/.zsh/scripts/runrcs'
-

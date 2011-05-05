@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 35
+/sub/tools/!svn/ver/17/etc/packages
+END
+10_Monitoring_and_intrusion_detection
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/sub/tools/!svn/ver/17/etc/packages/10_Monitoring_and_intrusion_detection
+END
+20_PostgreSQL
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/sub/tools/!svn/ver/17/etc/packages/20_PostgreSQL
+END
+01_Base_server_packages
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/sub/tools/!svn/ver/17/etc/packages/01_Base_server_packages
+END
