@@ -1,5 +1,19 @@
 #!/bin/sh
 
+echo "Checking your shell"
+
+(if [[ '1' == '1' ]]
+then
+    exit 0
+fi
+exit 1) > /dev/null 2>&1
+
+if test "$?" "!=" "0"
+then
+    echo "You are using some borken shell, try bash, zsh!"
+    exit 1
+fi
+
 echo -n "Checking which installation program to use: "
 
 if which apt-get
@@ -37,7 +51,7 @@ function optional {
     doinstall $1
 }
 
-mandatory zsha
+mandatory zsh
 mandatory git
 optional lesspipe
 optional wget
