@@ -60,5 +60,8 @@ optional highlight
 echo "Installation complete."
 echo "Checking out new shell files"
 
+mkdir ~/tools
+cd ~/tools
+git init
 git pull http://haapala.iki.fi/tools ~/tools
 ~/tools/setup.zsh
