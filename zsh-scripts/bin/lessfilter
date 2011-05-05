@@ -1,0 +1,24 @@
+#!/usr/bin/env zsh
+
+# do not try without highlight
+if [[ ! -e "`which highlight`" ]]
+then
+    exit 1
+fi
+
+type=`file -Li -- "$1" | grep "text/"`
+if [[ "$type" == "" ]]
+then
+    exit 1
+fi
+
+case "$1" in
+    (*.pl|*.cc|*.hh|*.[cCh]|*.java|*.cpp|*.pas|*.html|*.htm|*.perl|*.sh|*.zsh|*.xml|*.py)
+          highlight --ansi -- "$1"
+          exit 0
+          ;;
+    *)
+          # We don’t handle this format.
+          exit 1
+esac
+

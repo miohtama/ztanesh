@@ -1,0 +1,22 @@
+#!/usr/bin/env zsh
+
+if [[ ! -e `which lesspipe` ]]
+then
+    echo "suggested: install lesspipe"
+else
+    echo "lesspipe has been installed."
+    if [[ ! -e ~/.lessfilter ]]
+    then
+        echo "symlinking custom lessfilter:"
+        echo "    " ln -s ~/.zsh/bin/lessfilter ~/.lessfilter
+        ln -s ~/.zsh/bin/lessfilter ~/.lessfilter
+    fi
+fi
+
+if [[ ! -e `which highlight` ]]
+then
+    echo "suggested: install highlight"
+else
+    echo "highlight has been installed."
+fi
+

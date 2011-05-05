@@ -1,0 +1,34 @@
+if echo $TERM | egrep -i "^(xterm|eterm|aterm|rxvt|screen)$" > /dev/null 2>&1
+then
+        STATUSBAR=1
+fi
+function preexec {
+	if [[ "$STATUSBAR" == "1" ]]
+	then
+		echo -ne "\e]1;\a\e]2;`whoami`@`hostname` - $1\a"
+       	fi
+	echo -ne "\033[0m"
+}
+
+stacked_dirs=()
+
+function precmd {
+        setup_prompt
+	stacked_dirs=("`pwd`" $dirstack);
+        saved_dirstack=($dirstack)
+        stacked_dirs_current=1
+
+	if [[ "$STATUSBAR" == "1" ]]
+	then
+		echo -ne "\e]1;\a\e]2;`whoami`@`hostname` - zsh (`pwd`)\a"
+	fi
+       
+	echo -ne "\017"
+
+	if [[ -e ~/.newmailnotify ]]
+	then
+		echo -n '\033[01mUutta postia:\033[00m' | cat - ~/.newmailnotify | /bin/more
+		rm -f ~/.newmailnotify
+	fi	
+}
+

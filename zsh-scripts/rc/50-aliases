@@ -1,0 +1,68 @@
+alias -g .......='../../../../../..'
+alias -g ......='../../../../..'
+alias -g .....='../../../..'
+alias -g ....='../../..'
+alias -g ...='../..'
+
+alias /quit=exit
+
+alias c='clear'
+alias calvin='ssh -l ztane lyseo.edu.ouka.fi'
+alias cd.......='cd ../../../../../..'
+alias cd......='cd ../../../../..'
+alias cd.....='cd ../../../..'
+alias cd....='cd ../../..'
+alias cd...='cd ../..'
+alias cd..='cd ..'
+alias clr='echo -n > '
+alias clrscr='clear'
+alias cls='clear'
+alias copy='cp'
+
+alias d='ls'
+alias del='rm'
+alias deltree='rm -r'
+alias dir='ls'
+
+alias e='exit'
+alias edit='pico'
+alias exit='clear;exit'
+
+alias f='finger'
+alias friends='wf'
+
+alias kapsi='ssh -l ztane box.kapsi.fi'
+alias tuomi='ssh -l haapala tuomi.oulu.fi'
+alias xob='ssh -l ztane xob.kapsi.fi'
+alias koti='ssh -l ztane loota.psoas.suomi.net'
+alias ksilta='ssh -l ilmo ksilta.edu.ouka.fi'
+
+alias lastmsg='cat ~/.lastmsg'
+alias less='less +g -RSC~'
+alias logout='exit'
+alias ls='lsx'
+
+alias m='more'
+alias md='mkdir'
+alias more='less'
+alias move='mv'
+
+alias pico='nano -wz'
+
+alias q='exit'
+alias quit='exit'
+
+alias rd='rmdir'
+alias ren='mv'
+alias reset='echo -e \\017; reset'
+
+alias save="echo SAVED."
+alias slrn='slrn -n'
+alias sudo='sudo '
+alias sz='source ~/.zshrc'
+
+alias xcopy='cp'
+
+alias cal='cal -m'
+alias zshcheckinstalledapps='~/.zsh/bin/checkinstalledapps'
+alias comprc='~/.zsh/scripts/compile.zsh; exec zsh'

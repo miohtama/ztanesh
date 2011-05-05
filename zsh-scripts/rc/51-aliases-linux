@@ -1,0 +1,6 @@
+if [[ "$LINUX" == '1' ]]
+then
+#	alias ls="ls --color -lF"
+#	alias lsa="ls --color -alF"
+	alias grep="grep --color=AUTO"
+fi

@@ -1,0 +1,16 @@
+function update-zsh-rcs {
+    (
+       cd ~/.zsh/
+       if [[ -e ~/.zsh/.svn ]]
+       then
+           svn up
+       elif [[ -e ~/.zsh/.bzr ]]
+       then
+           bzr up
+       else
+           echo "Do not know how to up" ~/.zsh
+       fi
+       ~/.zsh/scripts/compile.zsh
+    )
+    exec zsh
+}

@@ -1,0 +1,104 @@
+#!/usr/bin/perl -w
+use strict;
+
+my $ls_command = '/usr/local/bin/gls';
+$ls_command = '/bin/ls' if ! -e $ls_command;
+
+my %ucs = ();
+my $a;
+
+my ($name,$passwd,$uid,$gid,$quota,$comment,$gcos,$dir,$shell,$expire) = getpwuid($<);
+
+$dir = "$dir/.zsh";
+
+open UCOLORS, "< $dir/etc/ls_u_colors";
+foreach (<UCOLORS>) {
+  chomp;
+  my ($unames, $color) = split /=/;
+
+  next if !defined $unames or !defined $color;
+  next if $unames =~ /^\s+$/;  
+  foreach $a (split /;/, $unames) {
+    if ($a eq "%self") {
+      $ucs{$name} = $color;
+    }
+    else {
+      $ucs{$a} = $color;
+    }
+  }
+}
+close UCOLORS;
+
+my %gcs = ();
+
+my $grname = getgrgid($gid);
+
+open GCOLORS, "< $dir/etc/ls_g_colors";
+foreach (<GCOLORS>) {
+  chomp;
+  my $color;
+  my $gnames;
+  ($gnames, $color) = split /=/;
+
+  next if !defined $gnames or !defined $color;
+  next if $gnames =~ /^\s+$/;  
+  foreach $a (split /;/, $gnames) {
+    if ($a eq "%self") {
+      $gcs{$name} = $color;
+    }
+    else {
+      $gcs{$a} = $color;
+    }
+  }
+}
+close GCOLORS;
+
+$0 = $ENV{ARGV0ENV} if defined $ENV{ARGV0ENV};
+
+my $dont_process = 0;
+my $no_ops = 0;
+my @ARGS = ();
+
+foreach (@ARGV) {
+  $dont_process = 1       if m/^-1/;
+  $dont_process = 1, next if m/^-nc/;
+  $no_ops       = 1, next if $_ eq '-none';
+  push @ARGS, $_;
+}
+
+(exec "$ls_command", @ARGS), exit if $dont_process;
+
+$_ = quotemeta foreach (@ARGS);
+
+my $args = join ' ', @ARGS;
+my @lines = `$ls_command --color -lF $args`;
+
+if ($?) {
+   print @lines;
+   exit $?;
+} 
+
+$lines[0] =~ s/^\033\[.*?m//;
+
+foreach (@lines) {
+    s/
+       ^(.{10}\+?                   # drwxrwxrwx + optional +
+
+       \s+\d+\s+)                   # links
+        
+       (\w+)                        # user
+       (\s+)
+       (\w+)                        # group
+     
+     / 
+
+        qq{$1${ 
+            exists $ucs{$2} ? \ "\033[$ucs{$2}" : \"" 
+        }$2\033[0m$3${ 
+            exists $gcs{$4} ? \ "\033[$gcs{$4}" : \"" 
+        }$4\033[0m} # qq
+
+    /egx; # s
+
+    print "\033[0m$_";
+}

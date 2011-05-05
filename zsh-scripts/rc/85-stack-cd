@@ -1,0 +1,31 @@
+function stack-cd {
+    stacked_dirs_current=$(($stacked_dirs_current + $1))
+    if [[ $stacked_dirs_current -lt 1 ]] {
+        stacked_dirs_current=1
+    }
+    if [[ $stacked_dirs_current -gt $#stacked_dirs ]] {
+        stacked_dirs_current=$#stacked_dirs
+    }
+
+    setopt NOAUTO_PUSHD
+    cd "$stacked_dirs[$stacked_dirs_current]" 2> /dev/null
+    setopt AUTO_PUSHD
+
+    if zle
+    then
+        setup_prompt
+        zle reset-prompt
+    fi
+    dir_stack=($saved_dirstack)
+}
+
+function stack-cd-forward {
+   stack-cd 1 
+}
+
+function stack-cd-backward {
+    stack-cd -1
+}
+
+zle -N stack-cd-forward
+zle -N stack-cd-backward

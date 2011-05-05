@@ -1,0 +1,25 @@
+#!/bin/bash
+
+if [[ "$1" == "" ]]
+then
+    echo "Need path for /path/to/my/venv as argument"
+    exit 1
+fi
+
+if which virtualenv > /dev/null
+then
+    echo -n
+else
+    echo "Install virtualenv first: easy_install virtualenv"
+    exit 1
+fi
+
+VENVPATH="$1"
+virtualenv --no-site-packages $VENVPATH
+source $VENVPATH/bin/activate
+rehash
+
+easy_install -H "*localhost*" -i http://localhost:7999 tg.devtools
+
+echo "virtual env created, enjoy"
+echo -e "run \033[1;32msource $VENVPATH/bin/activate\033[0m in your shell to activate"

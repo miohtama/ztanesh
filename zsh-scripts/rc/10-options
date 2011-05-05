@@ -1,0 +1,35 @@
+umask 022
+
+autoload predict-on		2> /dev/null
+zle -N predict-on		2> /dev/null
+
+setopt AUTO_COMPLETE		2> /dev/null
+setopt AUTO_CD			2> /dev/null
+setopt AUTO_LIST		2> /dev/null
+setopt AUTO_NAME_DIRS		2> /dev/null
+setopt AUTO_PARAM_SLASH		2> /dev/null
+setopt AUTO_PUSHD		2> /dev/null
+setopt BANG_HIST		2> /dev/null
+setopt BARE_GLOB_QUAL		2> /dev/null
+setopt BSD_ECHO			2> /dev/null
+setopt CDABLE_VARS		2> /dev/null
+setopt CHECK_JOBS		2> /dev/null
+setopt CSH_NULL_GLOB		2> /dev/null
+setopt C_BASES			2> /dev/null
+setopt EXTENDED_HISTORY		2> /dev/null
+setopt IGNORE_EOF		2> /dev/null
+setopt INTERACTIVE_COMMENTS	2> /dev/null
+setopt NOBEEP			2> /dev/null
+setopt NO_BG_NICE		2> /dev/null
+setopt NO_LIST_BEEP		2> /dev/null
+setopt PATH_DIRS		2> /dev/null
+setopt PRINT_EIGHT_BIT		2> /dev/null
+setopt RM_STAR_WAIT		2> /dev/null
+setopt SHARE_HISTORY		2> /dev/null
+
+export HISTSIZE=2048
+export SAVEHIST=2048
+export HISTFILE=~/.zhistory
+
+export PAGER='less +g -RSC'
+
