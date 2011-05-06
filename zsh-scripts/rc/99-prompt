@@ -1,9 +1,15 @@
 function setup_prompt {
     RPROMPT=`echo -ne "%B[%{\033[${PROMPT_USER_COLOR:-1;33}m%}%n%{\033[0m%}%B@%{\033[${PROMPT_HOST_COLOR:-1;33}m%}%m%b%B][%{\033[1;32m%}%T%b%B]"`
-    PROMPT=`echo -ne "[%{\033[1;36m%}%~%b%B]%#"`" " 
+    PROMPT=`echo -ne "%{\033[0m%}[%{\033[1;36m%}%~%b%B]%#"`" " 
 
     PROPOSED_VIRTUAL_ENV=$(check_unset_venv)
     proposed_envname=`basename "$PROPOSED_VIRTUAL_ENV"`
+
+    if [[ -e "/etc/server-status" ]]
+    then
+        SERVERSTATUS=`xargs echo -ne < /etc/server-status`
+        PROMPT=`echo -ne "%{\033[1;37m%}[%{\033[0;30;46m%}$SERVERSTATUS%{\033[0;37;1m%}]%{\033[0m%}"`"$PROMPT"
+    fi
 
     if [[ "$VIRTUAL_ENV" != "" ]]
     then
