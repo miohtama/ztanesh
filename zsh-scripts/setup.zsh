@@ -36,6 +36,6 @@ echo "Compiling rc-files"
 zsh "$BASE_DIR"/tools/zsh-scripts/scripts/compile.zsh
 
 echo "Checking installed helper programs"
-zsh ~/.zsh/bin/checkinstalledapps
+zsh "$BASE_DIR/.zsh/bin/checkinstalledapps" "$BASE_DIR"
 
 echo "All done - enjoy!"
