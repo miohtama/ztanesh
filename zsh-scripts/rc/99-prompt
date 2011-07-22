@@ -3,8 +3,10 @@ then
     SERVER_STATUS_ENABLED=1
 fi
 
+PROMPT_HOSTNAME=`hostname`
+
 function setup_prompt {
-    RPROMPT=`echo -ne "%B[%{\033[${PROMPT_USER_COLOR:-1;33}m%}%n%{\033[0m%}%B@%{\033[${PROMPT_HOST_COLOR:-1;33}m%}%m%b%B][%{\033[1;32m%}%T%b%B]"`
+    RPROMPT=`echo -ne "%B[%{\033[${PROMPT_USER_COLOR:-1;33}m%}%n%{\033[0m%}%B@%{\033[${PROMPT_HOST_COLOR:-1;33}m%}$PROMPT_HOSTNAME%b%B][%{\033[1;32m%}%T%b%B]"`
     PROMPT=`echo -ne "%{\033[0m%}%B[%{\033[36m%}%~%b%B]%#"`" " 
 
     PROPOSED_VIRTUAL_ENV=$(check_unset_venv)
