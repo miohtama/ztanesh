@@ -2,6 +2,10 @@
 use strict;
 
 my $ls_command = '/usr/local/bin/gls';
+
+# OSX + Macports
+$ls_command = '/opt/local/libexec/gnubin/ls' if ! -e $ls_command;
+
 $ls_command = '/bin/ls' if ! -e $ls_command;
 
 my %ucs = ();
