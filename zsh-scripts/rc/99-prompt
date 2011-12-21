@@ -3,9 +3,12 @@ then
     SERVER_STATUS_ENABLED=1
 fi
 
+PROMPT_HOSTNAME=`hostname`
+IMAGE_NAME="`grep 'Image:.*' /etc/issue|grep -o 'liilak[^ ]*'`"
+
 function setup_prompt {
-    RPROMPT=`echo -ne "%B[%{\033[${PROMPT_USER_COLOR:-1;33}m%}%n%{\033[0m%}%B@%{\033[${PROMPT_HOST_COLOR:-1;33}m%}%m%b%B][%{\033[1;32m%}%T%b%B]"`
-    PROMPT=`echo -ne "%{\033[0m%}%B[%{\033[36m%}%~%b%B]%#"`" " 
+    RPROMPT=`echo -ne "%{\033[A%}%B[%{\033[${PROMPT_USER_COLOR:-1;33}m%}%n%{\033[0m%}%B@%{\033[${PROMPT_HOST_COLOR:-1;33}m%}$PROMPT_HOSTNAME%b%B][%{\033[1;32m%}%T%b%B]%{\033[B%}"`
+    PROMPT=`echo -ne "\n%{\033[0m%}%B[%{\033[36m%}%~%b%B]%#"`" " 
 
     PROPOSED_VIRTUAL_ENV=$(check_unset_venv)
     proposed_envname=`basename "$PROPOSED_VIRTUAL_ENV"`
@@ -19,7 +22,11 @@ function setup_prompt {
         else
             COLOR="0;30;46m"
         fi
-        PROMPT=`echo -ne "%{\033[1;37m%}[%{\033[$COLOR%}$SERVER_STATUS%{\033[0;37;1m%}]%{\033[0m%}"`"$PROMPT"
+        if [[ $IMAGE_NAME != '' ]]
+        then
+            IMAGENAME="%B[%b$IMAGE_NAME%B]%b"
+        fi
+        PROMPT=`echo -ne "%{\033[1;37m%}[%{\033[$COLOR%}$SERVER_STATUS%{\033[0;37;1m%}]%{\033[0m%}$IMAGENAME"`"$PROMPT"
         unset COLOR
     fi
 

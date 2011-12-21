@@ -3,4 +3,9 @@ source ~/.zsh/scripts/advancedrc
 export EC2_PRIVATE_KEY=~/.pem/pk-x509.pem
 export EC2_CERT=~/.pem/cert-x509.pem
 export EC2_URL=https://eu-west-1.ec2.amazonaws.com
-export PROD=/srv/liilak-development/development-checkout
+export PROD=/srv/liilak-production/Liilak-Web
+
+if [[ -x /usr/bin/hostname-filter ]]
+then
+    PROMPT_HOSTNAME=`/usr/bin/hostname-filter`
+fi
