@@ -11,7 +11,7 @@ OSX install commands::
 
 Ubuntu install commands::
 
-    apt-get install git-core highlight
+    apt-get install git-core highlight zsh
     git clone git@github.com:miohtama/ztanesh.git ~/tools
     ~/tools/zsh-scripts/setup.zsh
 
