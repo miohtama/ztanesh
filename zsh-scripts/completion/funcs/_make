@@ -1,0 +1,230 @@
+#compdef make gmake pmake dmake
+
+# TODO: Based on targets given on the command line, show only variables that
+# are used in those targets and their dependencies.
+
+_make-expandVars() {
+  local open close var val front ret tmp=$1
+
+  front=${tmp%%\$*}
+  case $tmp in
+    (\(*) # Variable of the form $(foobar)
+    open='('
+    close=')'
+    ;;
+
+    ({*) # ${foobar}
+    open='{'
+    close='}'
+    ;;
+
+    ([[:alpha:]]*) # $foobar. This is exactly $(f)oobar.
+    open=''
+    close=''
+    var=${(s::)var[1]}
+    ;;
+
+    (\$*) # Escaped $.
+    print -- "${front}\$$(_make-expandVars ${tmp#\$})"
+    return
+    ;;
+
+    (*) # Nothing left to substitute.
+    print -- $tmp
+    return
+    ;;
+  esac
+
+  if [[ -n $open ]]
+  then
+    var=${tmp#$open}
+    var=${var%%$close*}
+  fi
+
+  case $var in
+    ([[:alnum:]_]#)
+    val=${VARIABLES[$var]}
+    ret=${ret//\$$open$var$close/$val}
+    ;;
+
+    (*)
+    # Improper variable name. No replacement.
+    # I'm not sure if this is desired behavior.
+    front+="\$$open$var$close"
+    ret=${ret/\$$open$var$close/}
+    ;;
+  esac
+
+  print -- "${front}$(_make-expandVars ${ret})"
+}
+
+_make-parseMakefile () {
+  local input var val target dep TAB=$'\t' dir=$1 tmp
+
+  while read input
+  do
+    case "$input " in
+      # VARIABLE = value
+      ([[:alnum:]][[:alnum:]_]#[ $TAB]#=*)
+      var=${input%%[ $TAB]#=*}
+      val=${input#*=}
+      val=${val##[ $TAB]#}
+      VARIABLES[$var]=$val
+      ;;
+
+      # VARIABLE := value
+      # Evaluated immediately
+      ([[:alnum:]][[:alnum:]_]#[ $TAB]#:=*)
+      var=${input%%[ $TAB]#:=*}
+      val=${input#*=}
+      val=${val##[ $TAB]#}
+      val=$(_make-expandVars $val)
+      VARIABLES[$var]=$val
+      ;;
+
+      # TARGET: dependencies
+      # TARGET1 TARGET2 TARGET3: dependencies
+      ([[:alnum:]][^$TAB:=]#:[^=]*)
+      input=$(_make-expandVars $input)
+      target=${input%%:*}
+      dep=${input#*:}
+      dep=${(z)dep}
+      dep="$dep"
+      for tmp in ${(z)target}
+      do
+        TARGETS[$tmp]=$dep
+      done
+      ;;
+
+      # Include another makefile
+      (${~incl} *)
+      local f=${input##${~incl} ##}
+      if [[ $incl == '.include' ]]
+      then
+        f=${f#[\"<]}
+        f=${f%[\">]}
+      fi
+      f=$(_make-expandVars $f)
+      case $f in
+        (/*) ;;
+        (*) f=$dir/$f ;;
+      esac
+
+      if [[ -r $f ]]
+      then
+        _make-parseMakefile ${f%%/[^/]##} < $f
+      fi
+      ;;
+    esac
+  done
+}
+
+_make-findBasedir () {
+  local file index basedir
+  basedir=$PWD
+  for (( index=0; index < $#@; index++ ))
+  do
+    if [[ $@[index] == -C ]]
+    then
+      file=${~@[index+1]};
+      if [[ -z $file ]]
+      then
+        # make returns with an error if an empty arg is given
+        # even if the concatenated path is a valid directory
+        return
+      elif [[ $file == /* ]]
+      then
+        # Absolute path, replace base directory
+        basedir=$file
+      else
+        # Relative, concatenate path
+        basedir=$basedir/$file
+      fi
+    fi
+  done
+  print -- $basedir
+}
+
+_make() {
+
+  local prev="$words[CURRENT-1]" file expl tmp is_gnu dir incl match
+  local -A TARGETS VARIABLES
+  local ret=1
+
+  _pick_variant -r is_gnu gnu=GNU unix -v -f
+
+  if [[ $is_gnu == gnu ]]
+  then
+    incl="(-|)include"
+  else
+    incl=.include
+  fi
+
+  if [[ "$prev" == -[CI] ]]
+  then
+    _files -W ${(q)$(_make-findBasedir ${words[1,CURRENT-1]})} -/ && ret=0
+  elif [[ "$prev" == -[foW] ]]
+  then
+    _files -W ${(q)$(_make-findBasedir $words)} && ret=0
+  else
+    file="$words[(I)-f]"
+    if (( file ))
+    then
+      file=${~words[file+1]}
+      [[ $file == [^/]* ]] && file=${(q)$(_make-findBasedir $words)}/$file
+      [[ -r $file ]] || file=
+    else
+      local basedir
+      basedir=${$(_make-findBasedir $words)}
+      if [[ $is_gnu == gnu && -r $basedir/GNUmakefile ]]
+      then
+        file=$basedir/GNUmakefile
+      elif [[ -r $basedir/makefile ]]
+      then
+        file=$basedir/makefile
+      elif [[ -r $basedir/Makefile ]]
+      then
+        file=$basedir/Makefile
+      else
+        file=''
+      fi
+    fi
+
+    if [[ -n "$file" ]]
+    then
+      if [[ $is_gnu == gnu ]] && zstyle -t ":completion:${curcontext}:targets" call-command
+      then
+        _make-parseMakefile $PWD < <(_call_program targets "$words[1]" -nsp --no-print-directory -f "$file" .PHONY 2> /dev/null)
+      else
+        case "$OSTYPE" in
+          freebsd*)
+          _make-parseMakefile $PWD < <(_call_program targets "$words[1]" -nsp -f "$file" .PHONY 2> /dev/null)
+    ;;
+    *)
+          _make-parseMakefile $PWD < $file
+        esac
+      fi
+    fi
+
+    if [[ $PREFIX == *'='* ]]
+    then
+      # Complete make variable as if shell variable
+      compstate[parameter]="${PREFIX%%\=*}"
+      compset -P 1 '*='
+      _value "$@" && ret=0
+    else
+      _tags targets variables
+      while _tags
+      do
+        _requested targets expl 'make targets' \
+          compadd -- ${(k)TARGETS} && ret=0
+        _requested variables expl 'make variables' \
+          compadd -S '=' -- ${(k)VARIABLES} && ret=0
+      done
+    fi
+  fi
+
+  return ret
+}
+
+_make "$@"
