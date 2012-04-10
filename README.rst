@@ -15,6 +15,10 @@ Ubuntu install commands::
     git clone git@github.com:miohtama/ztanesh.git ~/tools
     ~/tools/zsh-scripts/setup.zsh
 
+Then activat zsh for your user by default::
+
+    usermod -s /bin/zsh root
+
 For root installation you might need to enable SSH agent forwarding for sudo::
 
     sudo nano /etc/sudoers
