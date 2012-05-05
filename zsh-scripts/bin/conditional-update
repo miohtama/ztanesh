@@ -1,6 +1,9 @@
 #!/usr/bin/env zsh
 
-TEMPFILE=`tempfile`
+#TEMPFILE=`tempfile`
+
+TEMPFILE=`mktemp`
+
 touch -d "today 00:00" $TEMPFILE 
 
 if [[ $TEMPFILE -nt ~/.zsh/var/run/last_updated ]]
