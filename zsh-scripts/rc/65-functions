@@ -34,7 +34,8 @@ function get-zsh-tools-file {
 }
 
 function conditional-update {
-    TEMPFILE=`tempfile`
+    
+    TEMPFILE=`mktemp -t ztanesh-conditional-update-XXXXXXXXXXXX`
     touch -d "today 00:00" $TEMPFILE 
 
     if [[ ! -e ~/.zsh/var/run/last_updated ]]

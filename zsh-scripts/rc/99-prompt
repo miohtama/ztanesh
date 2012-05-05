@@ -4,7 +4,13 @@ then
 fi
 
 PROMPT_HOSTNAME=`hostname`
-IMAGE_NAME="`grep 'Image:.*' /etc/issue|grep -o 'liilak[^ ]*'`"
+
+IMAGE_NAME=""
+
+if [[ -e /etc/issue ]] 
+then
+    IMAGE_NAME="`grep 'Image:' /etc/issue|sed 's/Image: *\([^ ]\+\).*/\1/'`"
+fi
 
 function setup_prompt {
     RPROMPT=`echo -ne "%{\033[A%}%B[%{\033[${PROMPT_USER_COLOR:-1;33}m%}%n%{\033[0m%}%B@%{\033[${PROMPT_HOST_COLOR:-1;33}m%}$PROMPT_HOSTNAME%b%B][%{\033[1;32m%}%T%b%B]%{\033[B%}"`
@@ -48,4 +54,10 @@ function setup_prompt {
     fi
 }
 
+if [[ -x /usr/bin/hostname-filter ]]
+then
+    PROMPT_HOSTNAME=`/usr/bin/hostname-filter`
+fi
+
 setup_prompt
+

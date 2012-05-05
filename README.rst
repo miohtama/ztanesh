@@ -9,6 +9,10 @@ OSX install commands::
     git clone git@github.com:miohtama/ztanesh.git ~/tools
     ~/tools/zsh-scripts/setup.zsh
 
+    # Fix missing locale environment variables
+    # XXX: Is this problem with every OSX install?
+    cat > ~/.zsh-local/ <<< EOF
+
 Ubuntu install commands::
 
     apt-get install git-core highlight zsh
