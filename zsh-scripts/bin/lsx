@@ -94,7 +94,7 @@ sub stripe ($) {
  
     foreach my $i (@rvs) {
         $color = !$color;
-        my $code = $color ? "37;0" : "33;1";
+        my $code = $color ? "38;5;227" : "38;5;249";
         $i = "\033[${code}m" . reverse($i);
     }
 
