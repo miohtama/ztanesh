@@ -32,4 +32,3 @@ export SAVEHIST=16384
 export HISTFILE=~/.zhistory
 
 export PAGER='less +g -RSC'
-
