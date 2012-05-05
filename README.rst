@@ -11,7 +11,10 @@ OSX install commands::
 
     # Fix missing locale environment variables
     # XXX: Is this problem with every OSX install?
-    cat > ~/.zsh-local/ <<< EOF
+    echo "" > ~/.zsh-local/rc/locales 
+    echo "export LC_ALL=en_US.UTF-8" >> ~/.zsh-local/rc/locales
+    echo "export LANG=en_US.UTF-8" >> ~/.zsh-local/rc/locales
+    comprc
 
 Ubuntu install commands::
 
