@@ -3,9 +3,27 @@ Ztane supershell powers
 
 Make your ZSH experience feel good.
 
+Features
+------------
+
+* Very good prompt
+
+* Set-up GNU userland coloring functions
+
+* Special ``ls`` with additional coloring
+
+* Automatic updates
+
+* Global and local RC files 
+
+* OSX and Ubuntu/Debian tested 
+
+Installation
+----------------
+
 OSX install commands::
 
-    sudo port install coreutils lesspipe highlight +with_default_names
+    sudo port install perl5 coreutils lesspipe highlight +with_default_names
     git clone git@github.com:miohtama/ztanesh.git ~/tools
     ~/tools/zsh-scripts/setup.zsh
 
@@ -18,7 +36,7 @@ OSX install commands::
 
 Ubuntu install commands::
 
-    apt-get install git-core highlight zsh
+    apt-get install git-core highlight zsh perl
     git clone git@github.com:miohtama/ztanesh.git ~/tools
     ~/tools/zsh-scripts/setup.zsh
 

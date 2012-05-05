@@ -1,4 +1,7 @@
 #!/usr/bin/env perl
+#
+# A wrapper around ls providing extra coloring
+#
 use strict;
 
 my $ls_command = '/usr/local/bin/gls';
