@@ -1,21 +1,20 @@
+# Global aliases (inside command arguments too)
 alias -g .......='../../../../../..'
 alias -g ......='../../../../..'
 alias -g .....='../../../..'
 alias -g ....='../../..'
 alias -g ...='../..'
 
+# This ain't IRC
 alias /quit=exit
 
 alias c='clear'
-alias cal='cal -m'
 alias cd.......='cd ../../../../../..'
 alias cd......='cd ../../../../..'
 alias cd.....='cd ../../../..'
 alias cd....='cd ../../..'
 alias cd...='cd ../..'
 alias cd..='cd ..'
-alias clr='echo -n > '
-alias clrscr='clear'
 alias cls='clear'
 alias copy='cp'
 
@@ -54,4 +53,3 @@ alias sudo='sudo '
 
 alias xcopy='cp'
 
-alias cleanssh='kill `ps aux|grep "ssh liilak"|cut -c 6-15`; ssh liilak killall sshd; ssh liilak'
