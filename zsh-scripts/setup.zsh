@@ -29,8 +29,8 @@ then
 	mv "$ZSHRC" "$ZSHRC".backup
 fi
 
-echo "Symlinking .zshrc"
-ln -s ".zsh/zshrc.template" "$BASE_DIR/.zshrc"
+echo "Copying .zshrc"
+cp "$BASE_DIR/.zsh/zshrc.template" "$BASE_DIR/.zshrc"
 
 echo "Compiling rc-files"
 zsh "$BASE_DIR"/tools/zsh-scripts/scripts/compile.zsh
