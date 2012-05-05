@@ -1,4 +1,4 @@
-if [[ "$LINUX" == '1' ]]
+if [[ "$GNU_USERLAND" == '1' ]]
 then
 	alias grep="grep --color=AUTO"
 fi

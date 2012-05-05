@@ -26,9 +26,7 @@ export PATH
 
 eval "$(lesspipe 2> /dev/null)" 2>&1 > /dev/null
 
-if [[ "$LINUX" == '1' ]]
-then
-    eval `dircolors ~/.zsh/etc/dircolors` 2>&1 > /dev/null
-fi
+# More colors in ls: zips, e.g.
+eval `dircolors ~/.zsh/etc/dircolors` 2>&1 > /dev/null
 
 fpath=(~/tools/zsh-scripts/completion/func/ $fpath)
