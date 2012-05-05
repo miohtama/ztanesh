@@ -26,6 +26,12 @@ Then activat zsh for your user by default::
 
     usermod -s /bin/zsh root
 
+Put other local settings to ``~/.zsh-local/rc`` 
+and run ``comprc`` alias.
+
+Misc
+------
+
 For root installation you might need to enable SSH agent forwarding for sudo::
 
     sudo nano /etc/sudoers

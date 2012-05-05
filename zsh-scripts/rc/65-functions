@@ -7,22 +7,13 @@ function comprc {
 
 function update-zsh-rcs {
     (
-       cd ~/.zsh/
-       if [[ -e ~/tools/zsh-scripts/.svn ]]
+       cd ~/tools/
+       if [[ -e .git ]]
        then
            echo "Updating ~/tools"
-           cd ~/tools
-           svn up
-       elif [[ -e ~/.zsh/.svn ]]
-       then
-           echo "Updating ~/.zsh"
-           svn up
-       elif [[ -e ~/.zsh/.bzr ]]
-       then
-           echo "Updating ~/.zsh"
-           bzr up
+           git pull
        else
-           echo "Do not know how to up" ~/.zsh
+           echo "Do not know how to up" ~/tools
        fi
     )
 
