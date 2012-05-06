@@ -166,6 +166,7 @@ EXEC 01;32
 .log 00;32
 .tex 00;32
 .doc 00;32
+.xml 00;32
 
 # audio formats
 .flac 01;35
@@ -180,3 +181,9 @@ EXEC 01;32
 .aac 00;36
 .ra 01;36
 .mka 01;36
+
+# Config files
+.conf 00;36
+.cfg 00;36
+.ini 00;36
+
