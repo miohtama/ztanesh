@@ -137,8 +137,8 @@ EXEC 01;32
 .mkv 01;35  # Matroska (http://matroska.org/)
 .ogm 01;35  # Ogg Media File
 .mp4 01;35  # 'Offical' container for MPEG-4
-.m4v 01;35  # MPEG-4 Video only
-.mp4v 01;35 # MPEG-4 Video only
+.m4v 01;35  # MPEG-4 Video 
+.mp4v 01;35 # MPEG-4 Video 
 .vob 01;35  # MPEG-2 DVD
 .qt 01;35   # Quicktime (http://developer.apple.com/qa/qtw/qtw99.html)
 .nuv 01;35
@@ -153,6 +153,8 @@ EXEC 01;32
 .dl 01;35
 .xcf 01;35
 .xwd 01;35
+.svg 01;35
+
 
 # Document files
 .pdf 00;32
@@ -204,7 +206,7 @@ EXEC 01;32
 .sh 00;33
 .bash 00;33
 .php 00;33
-
+.java 00;33
 
 # Data / database
 .db 00;32
