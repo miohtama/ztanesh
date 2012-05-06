@@ -167,6 +167,7 @@ EXEC 01;32
 .tex 00;32
 .doc 00;32
 .xml 00;32
+.json 00;32
 
 # audio formats
 .flac 01;35
@@ -186,4 +187,22 @@ EXEC 01;32
 .conf 00;36
 .cfg 00;36
 .ini 00;36
+# LS can't parse
+#Makefile 00;36
+
+# Source code files
+.c 00;33
+.cpp 00;33
+.py 00;33
+.coffesscript 00;33
+.js 00;33
+.rb 00;33
+.sh 00;33
+.bash 00;33
+
+# Data / database
+.db 00;32
+.sql 00;32
+.json 00;32
+.plist 00;32
 
