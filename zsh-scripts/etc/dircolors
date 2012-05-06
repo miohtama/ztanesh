@@ -167,7 +167,11 @@ EXEC 01;32
 .tex 00;32
 .doc 00;32
 .xml 00;32
-.json 00;32
+
+# Template files 
+.pt 00;32 # Zope page template
+.tmpl 00;32
+.in 00;32
 
 # audio formats
 .flac 01;35
@@ -199,6 +203,8 @@ EXEC 01;32
 .rb 00;33
 .sh 00;33
 .bash 00;33
+.php 00;33
+
 
 # Data / database
 .db 00;32
