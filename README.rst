@@ -3,6 +3,8 @@ Ztane ZSH
 
 Take your ZSH experience to the next level.
 
+.. image:: https://github.com/downloads/miohtama/ztanesh/Screen%20shot%202012-05-07%20at%201.25.37%20PM.png
+
 Features
 ------------
 
