@@ -195,7 +195,7 @@ EXEC 01;32
 .ini 00;36
 .yaml 00;36
 .yml 00;36
-
+.zcml 00;36 # Zope configuration mark-up language
 
 # LS can't parse
 #Makefile 00;36
