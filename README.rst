@@ -36,7 +36,7 @@ to change the scripts breaking everything for you any day.
 But you can also feel free to hack this project into pieces. If you find good patches
 just make Pull request on Github.
 
-**The installation instructions are based on the assumption you checkout Git repository under ``~/tools`` folder**. 
+**The installation instructions are based on the assumption you checkout Git repository under ~/tools folder**. 
 
 Ubuntu
 ++++++
