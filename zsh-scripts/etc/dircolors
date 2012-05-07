@@ -193,6 +193,10 @@ EXEC 01;32
 .conf 00;36
 .cfg 00;36
 .ini 00;36
+.yaml 00;36
+.yml 00;36
+
+
 # LS can't parse
 #Makefile 00;36
 
