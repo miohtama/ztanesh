@@ -10,6 +10,8 @@ Features
 
 * Automatic update mechanism via git to multiple machines
 
+* Remote autocompletion support for ``scp``, ``svn``
+
 * Readable prompt: bold text by default, timestamps, virtualenv detection, etc.
 
 * Install scripts sets up GNU userland coloring functions
@@ -44,7 +46,7 @@ Ubuntu
 Ubuntu install commands::
 
     sudo apt-get install git-core highlight zsh perl
-    git clone git@github.com:miohtama/ztanesh.git ~/tools
+    git clone git://github.com/miohtama/ztanesh.git ~/tools
     ~/tools/zsh-scripts/setup.zsh
 
 Test that ZSH starts properly::
@@ -62,7 +64,7 @@ Install `GNU userland tools <http://opensourcehacker.com/2012/04/27/python-and-j
 `Macports <http://macports.org>`_::
 
     sudo port install perl5 coreutils lesspipe highlight +with_default_names
-    git clone git@github.com:miohtama/ztanesh.git ~/tools
+    git clone git://github.com/miohtama/ztanesh.git ~/tools
     ~/tools/zsh-scripts/setup.zsh
 
 Test that ZSH starts properly::
