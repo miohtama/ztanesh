@@ -1,0 +1,22 @@
+zstyle ':completion:*' completer _expand _complete _ignored _approximate
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' glob on
+zstyle ':compinstall'  filename ~/tools/zsh-scripts/completion/compinst
+zstyle ':completion::complete:*' use-cache 1
+
+# expand globs on tab
+zstyle ':completion:*:expand:*' tag-order all-expansions
+zstyle ':completion:*:history-words' remove-all-dups yes
+zstyle ':completion:*'               menu select=5
+
+zstyle ':completion:*:manuals'    separate-sections true
+zstyle ':completion:*:manuals.*'  insert-sections   true
+zstyle ':completion:*:man:*'      menu yes select
+
+# local _myhosts=()
+# _myhosts=( $(cat /etc/hosts|cut -f 1 -d \#|cut -f 2- -d ' ' ) )
+# _myhosts=( $_myhosts $(<$HOME/.zsh/conf/hosts) )
+# zstyle ':completion:*' hosts $_myhosts
+
+autoload -Uz compinit
+compinit

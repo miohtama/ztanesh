@@ -1,0 +1,38 @@
+function check_unset_venv {
+    for i in . .. ../.. ../../.. ../../../.. ../../../../.. 
+    do
+        if [[ -r "$i/.venv-path" ]]
+        then
+            cat "$i/.venv-path"
+	    return
+        fi
+    done
+}
+
+function activate-venv {
+    local new_env
+    new_env=$(check_unset_venv)
+    if [[ "$new_env" == "" ]] 
+    then
+        echo "No environment found"
+        return
+    fi
+
+    if [[ "$VIRTUAL_ENV" == "$new_env" ]]
+    then
+        echo "The environment is already enabled"
+        return
+    fi
+
+    if [[ ! -r "$new_env/bin/activate" ]]
+    then
+        echo "Missing virtual env, script $new_env/bin/activate not found!"
+        return
+    fi
+
+    source "$new_env/bin/activate"
+}
+
+function deactivate-venv {
+    deactivate 2> /dev/null
+}

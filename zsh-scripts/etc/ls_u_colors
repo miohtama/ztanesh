@@ -1,0 +1,4 @@
+# http://www.wiki.csoft.at/images/f/fd/ANSI_colors.gif
+%self=32;1m
+root=31;1m
+www-data;postgres=33;1m

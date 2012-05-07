@@ -1,0 +1,12 @@
+
+
+if [[ `uname` == "Darwin" ]] ; then
+	export PATH=/opt/local/libexec/gnubin:/opt/local/bin:/opt/local/sbin:$PATH
+	export CLICOLOR=1
+	export LESSOPEN='| /opt/local/bin/lesspipe.sh %s'
+
+	# Sublime Edit 2
+	alias subl="'/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl'"
+	alias nano="subl"
+       export EDITOR="subl"
+fi

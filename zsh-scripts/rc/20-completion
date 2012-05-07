@@ -1,0 +1,9 @@
+zstyle ':completion:*' completer _complete _correct _approximate
+zstyle ':completion:*' glob on
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle :compinstall filename ~/.zshrc
+
+autoload -U compinit
+compinit
+zstyle ':completion::complete:*' use-cache 1
+

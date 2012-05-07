@@ -1,0 +1,55 @@
+# Global aliases (inside command arguments too)
+alias -g .......='../../../../../..'
+alias -g ......='../../../../..'
+alias -g .....='../../../..'
+alias -g ....='../../..'
+alias -g ...='../..'
+
+# This ain't IRC
+alias /quit=exit
+
+alias c='clear'
+alias cd.......='cd ../../../../../..'
+alias cd......='cd ../../../../..'
+alias cd.....='cd ../../../..'
+alias cd....='cd ../../..'
+alias cd...='cd ../..'
+alias cd..='cd ..'
+alias cls='clear'
+alias copy='cp'
+
+alias d='ls'
+alias del='rm'
+alias deltree='rm -r'
+alias dir='ls'
+
+alias e='exit'
+alias edit='pico'
+alias exit='clear;exit'
+
+alias f='finger'
+alias friends='wf'
+
+alias less='less +g -RSC~'
+alias logout='exit'
+alias ls='lsx'
+
+alias m='more'
+alias md='mkdir'
+alias more='less'
+alias move='mv'
+
+alias pico='nano -wz'
+
+alias q='exit'
+alias quit='exit'
+
+alias rd='rmdir'
+alias ren='mv'
+alias reset='echo -e \\017; reset'
+
+alias save="echo SAVED."
+alias sudo='sudo '
+
+alias xcopy='cp'
+

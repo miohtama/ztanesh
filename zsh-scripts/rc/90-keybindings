@@ -1,0 +1,14 @@
+bindkey '^[[1~' beginning-of-line
+bindkey '^[[2~' overwrite-mode
+bindkey '^[[3~' delete-char
+bindkey '^[[4~' end-of-line
+bindkey '^[[5~' up-history
+bindkey '^[[6~' down-history
+bindkey '^[[7~' beginning-of-line
+bindkey '^[[8~' end-of-line
+bindkey '^[OD'  backward-word
+bindkey '^[OC'  forward-word
+bindkey '^[^[[D' stack-cd-forward
+bindkey '^[^[[C' stack-cd-backward
+bindkey '^[[1;3D' stack-cd-forward
+bindkey '^[[1;3C' stack-cd-backward

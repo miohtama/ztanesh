@@ -1,0 +1,49 @@
+#!/usr/bin/python
+import os
+import sys
+
+config = os.path.join(os.path.abspath(
+        os.path.dirname(__file__)),
+        "../etc/start-config")
+
+if len(sys.argv) > 2:
+    print "Usage: start [path]"
+    print
+    print "If path is not specified, spawn a new terminal"
+    print "in the given directory, if possible."
+    sys.exit(2)
+
+if len(sys.argv) == 1:
+   try:
+       os.execlp("konsole", "konsole")
+   except:
+       pass
+
+   try:
+       os.execlp("gnome-terminal", "gnome-terminal")
+   except:
+       pass
+   
+   try:
+       os.execlp("xterm", "xterm")
+   except:
+       print >> sys.stderr, "Failed to find any terminal program"
+       sys.exit(2)
+
+path = sys.argv[1]
+if not os.path.exists(path):
+    print >> sys.stderr, "File not found, %s" % path
+    sys.exit(2)
+
+if os.path.isdir(path):
+    try:
+        os.execlp("dolphin", "dolphin", path)
+    except:
+        exit(2)
+
+import mimetypes
+
+type, encoding = mimetypes.guess_type(path)
+if type == None:
+    print >> sys.stderr, "Can't deduce the type for %s" % path
+
