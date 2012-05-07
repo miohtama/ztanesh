@@ -10,6 +10,8 @@ Features
 
 * Automatic update mechanism via git to multiple machines
 
+* Remote autocompletion support for ``scp``, ``svn``
+
 * Readable prompt: bold text by default, timestamps, virtualenv detection, etc.
 
 * Install scripts sets up GNU userland coloring functions
