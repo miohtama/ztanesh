@@ -3,6 +3,8 @@ Ztane ZSH
 
 Take your ZSH experience to the next level.
 
+.. image:: https://github.com/downloads/miohtama/ztanesh/Screen%20shot%202012-05-07%20at%201.25.37%20PM.png
+
 Features
 ------------
 
@@ -34,7 +36,7 @@ to change the scripts breaking everything for you any day.
 But you can also feel free to hack this project into pieces. If you find good patches
 just make Pull request on Github.
 
-**The installation instructions are based on the assumption you checkout Git repository under ``~/tools`` folder**. 
+**The installation instructions are based on the assumption you checkout Git repository under ~/tools folder**. 
 
 Ubuntu
 ++++++
@@ -56,7 +58,8 @@ Then activat zsh for your user by default::
 OSX install commands
 +++++++++++++++++++++++
 
-Install `GNU userland tools http://opensourcehacker.com/2012/04/27/python-and-javascript-developer-setup-hints-for-osx-lion/>`_ using `Macports <http://macports.org>`_::
+Install `GNU userland tools <http://opensourcehacker.com/2012/04/27/python-and-javascript-developer-setup-hints-for-osx-lion/>`_ using 
+`Macports <http://macports.org>`_::
 
     sudo port install perl5 coreutils lesspipe highlight +with_default_names
     git clone git@github.com:miohtama/ztanesh.git ~/tools
