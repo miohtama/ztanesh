@@ -26,7 +26,7 @@ setopt NO_LIST_BEEP		2> /dev/null
 setopt PATH_DIRS		2> /dev/null
 setopt PRINT_EIGHT_BIT		2> /dev/null
 setopt RM_STAR_WAIT		2> /dev/null
-#setopt SHARE_HISTORY		2> /dev/null
+setopt SHARE_HISTORY		2> /dev/null
 
 export HISTSIZE=16384
 export SAVEHIST=16384

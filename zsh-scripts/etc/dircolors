@@ -200,19 +200,19 @@ EXEC 01;32
 #Makefile 00;36
 
 # Source code files
-.c 00;33
-.cpp 00;33
-.py 00;33
-.pyc 00;33
-.pyo 00;33
-.coffesscript 00;33
-.js 00;33
-.rb 00;33
-.sh 00;33
-.bash 00;33
-.php 00;33
-.java 00;33
-.class 00;33
+.c 01;33
+.cpp 01;33
+.py 01;33
+.pyc 01;33
+.pyo 01;33
+.coffesscript 01;33
+.js 01;33
+.rb 01;33
+.sh 01;33
+.bash 01;33
+.php 01;33
+.java 01;33
+.class 01;33
 
 # Data / database
 .db 00;32
