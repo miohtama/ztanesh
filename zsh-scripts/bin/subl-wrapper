@@ -1,0 +1,15 @@
+#!/bin/sh
+#
+# Open Sublime Text 2in waiting mode,
+# so it can be used e.g. with git rebase -i.
+# (otherwise it returns immediately)
+#
+
+SUBL="/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl"
+
+if [ ! -e "$SUBL" ] ; then
+    echo "Sublime not found: $SUBL"
+    exit 1
+fi
+
+"$SUBL" --new-window -wait $@

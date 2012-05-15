@@ -8,5 +8,5 @@ if [[ `uname` == "Darwin" ]] ; then
 	# Sublime Edit 2
 	alias subl="'/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl'"
 	alias nano="subl"
-       export EDITOR="subl"
+    export EDITOR="subl-wrapper"
 fi
