@@ -53,3 +53,6 @@ alias sudo='sudo '
 
 alias xcopy='cp'
 
+# Display processes listening to TCP/IP ports
+alias openports="lsof -n -P -i4TCP|grep LISTEN"
+
