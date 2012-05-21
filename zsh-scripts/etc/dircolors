@@ -214,5 +214,6 @@ EXEC 01;32
 .db 00;32
 .sql 00;32
 .json 00;32
-.plist 00;32
+.plist 00;32 # OSX properties
+.fs 00;32 # ZODB Data.fs
 
