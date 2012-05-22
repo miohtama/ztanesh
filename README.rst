@@ -9,7 +9,7 @@ Take your ZSH experience to the next level.
 
 .. image:: https://github.com/downloads/miohtama/ztanesh/Screen%20Shot%202012-05-22%20at%2011.01.46%20PM.png
 
-*Colorize terminal tabs automatically based on which server you are logged in. No need to preconfigure servers.*
+*Colorize terminal tabs automatically based on which server you are logged in. No need to preconfigure servers - the color is calculated from the hostname*
 
 Features
 ------------
