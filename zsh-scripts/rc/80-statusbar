@@ -2,6 +2,7 @@ if echo $TERM | egrep -i "^(xterm|eterm|aterm|rxvt|screen)$" > /dev/null 2>&1
 then
         STATUSBAR=1
 fi
+
 function preexec {
 	if [[ "$STATUSBAR" == "1" ]]
 	then
@@ -12,24 +13,31 @@ function preexec {
 
 stacked_dirs=()
 
+bell=`tput bel`
+
 function precmd {
-        setup_prompt
-	stacked_dirs=("`pwd`" $dirstack);
-        saved_dirstack=($dirstack)
-        stacked_dirs_current=1
+       setup_prompt
+       stacked_dirs=("`pwd`" $dirstack);
+       saved_dirstack=($dirstack)
+       stacked_dirs_current=1
 
-	if [[ "$STATUSBAR" == "1" ]]
-	then
-		echo -ne "\e]1;\a\e]2;`whoami`@`hostname` - zsh (`pwd`)\a"
-	fi
-       
-	echo -ne "\017"
+       if [[ "$STATUSBAR" == "1" ]]
+       then
+              echo -ne "\e]1;\a\e]2;`whoami`@`hostname` - zsh (`pwd`)\a"
 
-	if [[ -e ~/.newmailnotify ]]
-	then
-		echo -n '\033[01mUutta postia:\033[00m' | cat - ~/.newmailnotify | /bin/more
-		rm -f ~/.newmailnotify
-	fi	
+              # Set tab (not window) title on iTerm.
+              # We only set the last part of the directory and the server due to limited space
+              tab_title="${PWD##*/}@`hostname`" # http://stackoverflow.com/a/1371283/315168
+              echo -ne "\033]0;"$tab_title"\007"
+       fi
+
+       echo -ne "\017"
+
+       if [[ -e ~/.newmailnotify ]]
+       then
+              echo -n '\033[01mUutta postia:\033[00m' | cat - ~/.newmailnotify | /bin/more
+              rm -f ~/.newmailnotify
+       fi	
 
        # Restore this shells tab decoration color
        echo $TAB_DECORATOR

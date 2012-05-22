@@ -1,7 +1,11 @@
 #!/usr/bin/env python
 """
 
-       Set terminal tab / decoration color by server name
+       Set terminal tab / decoration color by the server name.
+
+       Get a random colour which matches the server name and use it for the tab colour:
+       the benefit is that each server gets a distinct color which you do not need
+       to configure beforehand.
 
 """
 
