@@ -6,7 +6,6 @@
 """
 
 import socket
-import binascii
 import random
 import colorsys
 import sys
@@ -28,16 +27,14 @@ An iTerm 2 example (recolorize dark grey background and black text):
 """
 
 
-def get_random_by_string(s, min, max):
+def get_random_by_string(s):
     """
-    Get always the same random number based on an arbitrary string
+    Get always the same 0...1 random number based on an arbitrary string
     """
 
-    # Calculate CRC32 for the string
-    seed = binascii.crc32(s)
-    print seed
-    random.seed(seed)
-    return random.randrange(min, max)
+    # Initialize random gen by server name hash
+    random.seed(s)
+    return random.random()
 
 
 def decorate_terminal(color):
@@ -78,7 +75,7 @@ def rainbow_unicorn(lightness, saturation):
     name = socket.gethostname()
     print name
 
-    hue = get_random_by_string(name, 0, 1)
+    hue = get_random_by_string(name)
 
     color = colorsys.hls_to_rgb(hue, lightness, saturation)
 
