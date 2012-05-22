@@ -35,6 +35,7 @@ def get_random_by_string(s, min, max):
 
     # Calculate CRC32 for the string
     seed = binascii.crc32(s)
+    print seed
     random.seed(seed)
     return random.randrange(min, max)
 
@@ -48,6 +49,8 @@ def decorate_terminal(color):
 
     :param color: tuple of (r, g, b)
     """
+
+    print color
 
     r, g, b = color
 
@@ -73,6 +76,7 @@ def rainbow_unicorn(lightness, saturation):
     """
 
     name = socket.gethostname()
+    print name
 
     hue = get_random_by_string(name, 0, 1)
 
