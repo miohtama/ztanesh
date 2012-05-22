@@ -62,4 +62,7 @@ alias pico='nano -wz'
 alias openports="lsof -n -P -i4TCP|grep LISTEN"
 
 # Quick upstream git commit fix 
-function git-add-commit-push() { git add -A && git commit -m "$1" && git push } 
+function git-add-commit-push() {
+        git add -A && git commit -m "$1" && git push 
+}
+
