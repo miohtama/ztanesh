@@ -47,8 +47,6 @@ def decorate_terminal(color):
     :param color: tuple of (r, g, b)
     """
 
-    print color
-
     r, g, b = color
 
     # iTerm 2
@@ -73,7 +71,6 @@ def rainbow_unicorn(lightness, saturation):
     """
 
     name = socket.gethostname()
-    print name
 
     hue = get_random_by_string(name)
 

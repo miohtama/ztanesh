@@ -30,5 +30,8 @@ function precmd {
 		echo -n '\033[01mUutta postia:\033[00m' | cat - ~/.newmailnotify | /bin/more
 		rm -f ~/.newmailnotify
 	fi	
+
+       # Restore this shells tab decoration color
+       echo $TAB_DECORATOR
 }
 
