@@ -19,40 +19,47 @@ alias cls='clear'
 alias copy='cp'
 
 alias d='ls'
-alias del='rm'
-alias deltree='rm -r'
-alias dir='ls'
-
 alias e='exit'
-alias edit='pico'
+
 alias exit='clear;exit'
 
 alias f='finger'
 alias friends='wf'
 
-alias less='less +g -RSC~'
-alias logout='exit'
+
+# Super ls
 alias ls='lsx'
 
+# Colored less
+alias less='less +g -RSC~'
+
+alias logout='exit'
 alias m='more'
+
+alias q='exit'
+alias quit='exit'
+alias reset='echo -e \\017; reset'
+alias save="echo SAVED."
+alias sudo='sudo '
+
+# Windows/DOS still in your muscle memory
+alias xcopy='cp'
+alias rd='rmdir'
+alias ren='mv'
+alias deltree='rm -r'
+alias dir='ls'
+alias del='rm'
+alias edit='nano'
 alias md='mkdir'
 alias more='less'
 alias move='mv'
 
+
+# World stopped using pico long time ago
 alias pico='nano -wz'
-
-alias q='exit'
-alias quit='exit'
-
-alias rd='rmdir'
-alias ren='mv'
-alias reset='echo -e \\017; reset'
-
-alias save="echo SAVED."
-alias sudo='sudo '
-
-alias xcopy='cp'
 
 # Display processes listening to TCP/IP ports
 alias openports="lsof -n -P -i4TCP|grep LISTEN"
 
+# Quick upstream git commit fix 
+function git-add-commit-push() { git add -A && git commit $1 && git push } 
