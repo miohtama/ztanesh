@@ -53,9 +53,10 @@ def decorate_terminal(color):
 
     # iTerm 2
     # http://www.iterm2.com/#/section/documentation/escape_codes"
-    sys.stderr.write("\033]6;1;bg;red;brightness;%d\a" % int(r * 255))
-    sys.stderr.write("\033]6;1;bg;green;brightness;%d\a" % int(g * 255))
-    sys.stderr.write("\033]6;1;bg;blue;brightness;%d\a" % int(b * 255))
+    sys.stdout.write("\033]6;1;bg;red;brightness;%d\a" % int(r * 255))
+    sys.stdout.write("\033]6;1;bg;green;brightness;%d\a" % int(g * 255))
+    sys.stdout.write("\033]6;1;bg;blue;brightness;%d\a" % int(b * 255))
+    sys.stdout.flush()
 
     # Konsole
     # TODO
@@ -91,6 +92,7 @@ def main():
     saturation = float(sys.argv[2])
 
     rainbow_unicorn(lightness, saturation)
+
 
 if __name__ == "__main__":
     main()
