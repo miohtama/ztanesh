@@ -7,22 +7,28 @@ Take your ZSH experience to the next level.
 
 *The screenshot above shows additional ls coloring. Prompt: top left is active virtualenv etc. development environment, top right is server, time, bottom right is path*. 
 
+.. image:: https://github.com/downloads/miohtama/ztanesh/Screen%20Shot%202012-05-22%20at%2011.01.46%20PM.png
+
+*Colorize terminal tabs automatically based on which server you are logged in*
+
 Features
 ------------
 
 * Automatic update mechanism via git to multiple machines
 
-* Remote autocompletion support for ``scp``, ``svn``
+* Colorize terminal tabs based on which server you are connected
+
+* Remote aware autocompletion support for ``scp``, ``svn``
 
 * Readable prompt: bold text by default, timestamps, virtualenv detection, etc.
 
-* Install scripts sets up GNU userland coloring functions
+* Install scripts sets up GNU userland coloring functions, even on OSX
 
 * Special ``ls`` with additional coloring to enhance readabilility
 
-* Global (shared between machines) and local .rc settings files 
+* Global and local .rc settings files. Global settings files shared via Github.
 
-* Settings files are preprocessed by ``comprc`` command for very fast start-up
+* Settings files are preprocessed by ``comprc`` command for very fast shell start-up
 
 * Dircolors maintained for the latest trends (new source code files, new file formats)
 
