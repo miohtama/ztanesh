@@ -35,5 +35,5 @@ if [ $? -eq 1 ] ; then
 fi 
 
 # Export our terminal (iTerm 2)
-export LC_TERM_PROGRAM="$TERM_PROGRAM"
+[[ "$TERM_PROGRAM" != "" ]] && export LC_TERM_PROGRAM="$TERM_PROGRAM"
 
