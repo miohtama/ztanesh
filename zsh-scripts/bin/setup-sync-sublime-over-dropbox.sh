@@ -32,13 +32,13 @@ else
 fi
 
 # Check that settings really exist on this computer
-if [ ! -e "$SOURCE/Settings/" ]; then
+if [ ! -e "$SOURCE/Packages/" ]; then
         echo "Could not find $SOURCE/Settings/"
         exit 1
 fi
 
 # Detect that we don't try to install twice and screw up
-if [ -L "$SOURCE/Settings" ] ; then
+if [ -L "$SOURCE/Packages" ] ; then
         echo "Dropbox settings already symlinked"
         exit 1
 fi
