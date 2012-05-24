@@ -2,6 +2,8 @@
 #
 # Set-up Sublime settings + packages sync over Dropbox
 #
+# Will sync settings + Installed plug-ins
+#
 # Tested on OSX - should support Linux too as long as
 # you set-up correct SOURCE folder
 #
@@ -9,10 +11,14 @@
 # Licensed under WTFPL
 #
 
-# No Warranty! Use on your own risk. Take backup first.
+# Note: If there is an existing installation in Dropbox,
+# it will replace settings on a local computer
+
+# No Warranty! Use on your own risk. Take backup of Library/Application Support/Sublime Text 2 folder first.
 
 DROPBOX="$HOME/Dropbox"
 
+# Where do we put Sublime settings in our Dropbox
 SYNC_FOLDER="$DROPBOX/Sublime"
 
 # Where Sublime settings have been installed
@@ -35,23 +41,29 @@ if [[ -L "$SOURCE/Settings" ]] ; then
         exit 1
 fi
 
+# XXX: Disabled Settings/ folder syncing as looks like
+# Sublime keeps only license and .sublime_session files -
+# the latter
+# which are autosaved and would cause unnecessary conflicts
+# and traffic
+
 # Dropbox has not been set-up on any computer before?
 if [[ ! -e "$SYNC_FOLDER" ]] ; then
         echo "Setting up Dropbox sync folder"
         mkdir "$SYNC_FOLDER"
         cp -r "$SOURCE/Installed Packages/" "$SYNC_FOLDER"
         cp -r "$SOURCE/Packages/" "$SYNC_FOLDER"
-        cp -r "$SOURCE/Settings/" "$SYNC_FOLDER"
+#        cp -r "$SOURCE/Settings/" "$SYNC_FOLDER"
 fi
 
 # Now when settings are in Dropbox delete existing files
 rm -rf "$SOURCE/Installed Packages"
 rm -rf "$SOURCE/Packages"
-rm -rf "$SOURCE/Settings"
+#rm -rf "$SOURCE/Settings"
 
 # Symlink settings folders from Drobox
 ln -s "$SYNC_FOLDER/Installed Packages" "$SOURCE"
 ln -s "$SYNC_FOLDER/Packages" "$SOURCE"
-ln -s "$SYNC_FOLDER/Settings" "$SOURCE"
+#ln -s "$SYNC_FOLDER/Settings" "$SOURCE"
 
 
