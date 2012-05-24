@@ -9,6 +9,8 @@ TAB_DECORATOR=`rainbow-parade.py 0.7 0.4`
 
 # Activate the decoration now when the shell is started.
 # Note that we need to re-activate this on preexit() hook because we might SSH into another box
-# from this computer and then we need to restore the color of this server 
-echo $TAB_DECORATOR
-
+# from this computer and then we need to restore the color of this server
+if [[ "$LC_TERM_PROGRAM" == "iTerm.app" ]]
+then
+        echo $TAB_DECORATOR
+fi
