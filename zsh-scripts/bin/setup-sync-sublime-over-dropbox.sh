@@ -22,21 +22,23 @@ DROPBOX="$HOME/Dropbox"
 SYNC_FOLDER="$DROPBOX/Sublime"
 
 # Where Sublime settings have been installed
-if [[ `uname` == "Darwin" ]] ; then
+if [ `uname` = "Darwin" ];then
         SOURCE="$HOME/Library/Application Support/Sublime Text 2"
+elif [ `uname` = "Linux" ];then
+        SOURCE="$HOME/.config/sublime-text-2"
 else
         echo "Unknown operating system"
         exit 1
 fi
 
 # Check that settings really exist on this computer
-if [[ ! -e "$SOURCE/Settings/" ]] ; then
+if [ ! -e "$SOURCE/Packages/" ]; then
         echo "Could not find $SOURCE/Settings/"
         exit 1
 fi
 
 # Detect that we don't try to install twice and screw up
-if [[ -L "$SOURCE/Settings" ]] ; then
+if [ -L "$SOURCE/Packages" ] ; then
         echo "Dropbox settings already symlinked"
         exit 1
 fi
@@ -48,7 +50,7 @@ fi
 # and traffic
 
 # Dropbox has not been set-up on any computer before?
-if [[ ! -e "$SYNC_FOLDER" ]] ; then
+if [ ! -e "$SYNC_FOLDER" ] ; then
         echo "Setting up Dropbox sync folder"
         mkdir "$SYNC_FOLDER"
         cp -r "$SOURCE/Installed Packages/" "$SYNC_FOLDER"
