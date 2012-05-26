@@ -18,7 +18,7 @@ setopt CHECK_JOBS		2> /dev/null
 setopt CSH_NULL_GLOB		2> /dev/null
 setopt C_BASES			2> /dev/null
 setopt EXTENDED_HISTORY		2> /dev/null
-setopt IGNORE_EOF		2> /dev/null
+#setopt IGNORE_EOF		2> /dev/null
 setopt INTERACTIVE_COMMENTS	2> /dev/null
 setopt NOBEEP			2> /dev/null
 setopt NO_BG_NICE		2> /dev/null

@@ -1,0 +1,8 @@
+# Install git colors and alias support
+
+# Drop our base template in HOME
+if [[ ! -e "$HOME/.gitconfig" ]]
+then
+        cp $HOME/tools/etc/git/.gitconfig $HOME
+fi
+

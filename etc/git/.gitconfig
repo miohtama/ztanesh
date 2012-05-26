@@ -1,0 +1,34 @@
+[branch]
+autosetupmerge = true
+
+[push]
+default = current
+
+[core]
+excludesfile = .gitignore
+
+[color]
+diff = auto
+branch = auto
+status = auto
+
+[diff]
+renames = true
+
+[alias]
+m = merge --no-ff
+st = status
+ai = add -i
+ap = add -p
+d = diff
+r = remote
+dc = diff --cached
+ci = commit -v
+cia = commit -v -a
+co = checkout
+cp = cherry-pick
+l = log
+ll = log -p
+b = branch
+reha = reset --hard
+lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative

@@ -1,0 +1,39 @@
+#
+# Make sure SSH fowards certain environment variables
+# so that we know the used operating system on remote terminals too.
+#
+# Note - you need forward these envs in /etc/sudoers too
+#
+# sudo nano /etc/sudoers
+# Defaults    env_keep+=LC_TERM_PROGRAM
+#
+
+# http://groups.google.com/group/iterm2-discuss/msg/7cc214c487d31bc8
+# We need to use LC_ named environment variable
+# as looks like Ubuntu hosts are configured to pass in thru by default -
+# all other SendEnv forwards are being ignored
+# in /etc/ssh/sshd_config
+FORWARD_TERM="SendEnv LC_TERM_PROGRAM"
+
+CONFIG=~/.ssh/config
+
+# Make sure we have ~/.ssh/config
+if [ ! -e ~/.ssh ] ; then
+       mkdir ~/.ssh
+fi
+
+if [ ! -e "$CONFIG" ] ; then
+       touch "$CONFIG"
+fi
+
+# Make sure our SendEnv forwards are in place in ssh config
+grep "$FORWARD_TERM" "$CONFIG" >/dev/null
+
+if [ $? -eq 1 ] ; then
+       CONTENT=$(cat $CONFIG) # no cat abuse this time
+       echo -en "$FORWARD_TERM\n\n$CONTENT" > $CONFIG
+fi
+
+# Export our terminal (iTerm 2)
+[[ "$TERM_PROGRAM" != "" ]] && export LC_TERM_PROGRAM="$TERM_PROGRAM"
+
