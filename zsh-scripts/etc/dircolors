@@ -100,6 +100,7 @@ EXEC 01;32
 .Z   01;31
 .gz  01;31
 .bz2 01;31
+.bzip2 01;31
 .bz  01;31
 .tbz2 01;31
 .tz  01;31
@@ -137,8 +138,8 @@ EXEC 01;32
 .mkv 01;35  # Matroska (http://matroska.org/)
 .ogm 01;35  # Ogg Media File
 .mp4 01;35  # 'Offical' container for MPEG-4
-.m4v 01;35  # MPEG-4 Video 
-.mp4v 01;35 # MPEG-4 Video 
+.m4v 01;35  # MPEG-4 Video
+.mp4v 01;35 # MPEG-4 Video
 .vob 01;35  # MPEG-2 DVD
 .qt 01;35   # Quicktime (http://developer.apple.com/qa/qtw/qtw99.html)
 .nuv 01;35
@@ -170,7 +171,7 @@ EXEC 01;32
 .doc 00;32
 .xml 00;32
 
-# Template files 
+# Template files
 .pt 00;32 # Zope page template
 .tmpl 00;32
 .in 00;32
