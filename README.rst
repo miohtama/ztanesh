@@ -71,7 +71,7 @@ OSX install commands
 Install `GNU userland tools <http://opensourcehacker.com/2012/04/27/python-and-javascript-developer-setup-hints-for-osx-lion/>`_ using 
 `Macports <http://macports.org>`_::
 
-    sudo port install perl5 coreutils lesspipe highlight +with_default_names
+    sudo port install perl5 coreutils lesspipe highlight grep +with_default_names
     git clone git://github.com/miohtama/ztanesh.git ~/tools
     ~/tools/zsh-scripts/setup.zsh
 
