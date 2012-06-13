@@ -226,3 +226,11 @@ EXEC 01;32
 .plist 00;32 # OSX properties
 .fs 00;32 # ZODB Data.fs
 
+# Machine generated files / non-important
+.class 01;30
+.pyc 01;30
+.pyo 01;30
+.o 01;30
+.obj 01;30
+
+
