@@ -170,6 +170,13 @@ EXEC 01;32
 .tex 00;32
 .doc 00;32
 .xml 00;32
+.xls 00;32
+.xlsx 00;32
+.doc 00;32
+.docx 00;32
+.ppt 00;32
+.pptx 00;32
+
 
 # Template files
 .pt 00;32 # Zope page template
@@ -210,6 +217,7 @@ EXEC 01;32
 .bash 01;33
 .php 01;33
 .java 01;33
+.zcml 01;33 # Zope configuration language
 
 # Data / database
 .db 00;32
@@ -217,4 +225,12 @@ EXEC 01;32
 .json 00;32
 .plist 00;32 # OSX properties
 .fs 00;32 # ZODB Data.fs
+
+# Machine generated files / non-important
+.class 01;30
+.pyc 01;30
+.pyo 01;30
+.o 01;30
+.obj 01;30
+
 
