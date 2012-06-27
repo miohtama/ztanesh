@@ -52,10 +52,16 @@ fi
 # Dropbox has not been set-up on any computer before?
 if [ ! -e "$SYNC_FOLDER" ] ; then
         echo "Setting up Dropbox sync folder"
-        mkdir "$SYNC_FOLDER"
-        cp -r "$SOURCE/Installed Packages/" "$SYNC_FOLDER"
-        cp -r "$SOURCE/Packages/" "$SYNC_FOLDER"
-#        cp -r "$SOURCE/Settings/" "$SYNC_FOLDER"
+        
+        # Creating the folders in separated categories
+        mkdir -p "$SYNC_FOLDER/Installed Packages"
+        mkdir -p "$SYNC_FOLDER/Packages"
+#        mkdir -p "$SYNC_FOLDER/Settings"
+        
+        # Copy the files into their respective folder
+        cp -r "$SOURCE/Installed Packages/" "$SYNC_FOLDER/Installed Packages"
+        cp -r "$SOURCE/Packages/" "$SYNC_FOLDER/Packages"
+#        cp -r "$SOURCE/Settings/" "$SYNC_FOLDER/Settings"
 fi
 
 # Now when settings are in Dropbox delete existing files
@@ -64,8 +70,12 @@ rm -rf "$SOURCE/Packages"
 #rm -rf "$SOURCE/Settings"
 
 # Symlink settings folders from Drobox
-ln -s "$SYNC_FOLDER/Installed Packages" "$SOURCE"
-ln -s "$SYNC_FOLDER/Packages" "$SOURCE"
-#ln -s "$SYNC_FOLDER/Settings" "$SOURCE"
+# The "Installed Packages" and "Packages" was never
+# created inside of Dropbox folder. These lines are not working.
+# Fixed to the correct folder.
+
+ln -s "$SYNC_FOLDER/Installed Packages" "$SOURCE/Installed Packages"
+ln -s "$SYNC_FOLDER/Packages" "$SOURCE/Packages"
+#ln -s "$SYNC_FOLDER/Settings" "$SOURCE/Settings"
 
 
