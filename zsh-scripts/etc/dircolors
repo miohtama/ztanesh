@@ -176,6 +176,7 @@ EXEC 01;32
 .docx 00;32
 .ppt 00;32
 .pptx 00;32
+.key 00;32 # Keynote presentation
 
 
 # Template files
