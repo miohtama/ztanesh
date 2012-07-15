@@ -1,0 +1,2 @@
+source ~/tools/zsh-scripts/scripts/mouse.zsh
+bindkey '^[m' zle-toggle-mouse
