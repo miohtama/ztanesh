@@ -94,7 +94,7 @@ def run():
             dirpath = os.path.dirname(full)
 
             if not dirpath in matches:
-                print "Adding log rorate entry for: %s" % folder
+                print "Adding log rorate entry for: %s" % dirpath
                 matches.append(dirpath)
 
     for match in matches:
