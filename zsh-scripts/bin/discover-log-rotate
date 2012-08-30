@@ -83,6 +83,8 @@ def run():
 
     out = open(config, "wt")
 
+    print "Running log rotate discovery on: %s" % folder
+
     # Find any folders containing log files
     matches = []
     for root, dirnames, filenames in os.walk(folder):
@@ -92,13 +94,12 @@ def run():
             dirpath = os.path.dirname(full)
 
             if not dirpath in matches:
+                print "Adding log rorate entry for: %s" % folder
                 matches.append(dirpath)
 
     for match in matches:
 
         folder = os.path.abspath(match)
-
-        print "Adding entry for: %s" % folder
 
         # Assume the main Zope installation folder is format /srv/plone/xxx
         # and the underlying log folder /srv/plone/xxx/var/log
@@ -107,6 +108,8 @@ def run():
         out.write(cooked)
 
     out.close()
+
+    print "Wrote %s" % config
 
 if __name__ == "__main__":
     run()
