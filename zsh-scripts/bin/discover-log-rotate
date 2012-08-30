@@ -22,9 +22,15 @@
         # picked up by a log rotate on the next run
         discover-log-rotate /etc/logrotate.d/plone-all /srv/plone
 
-    Confirm that it works by running logrotate manualy::
+    Confirm that it works by running logrotate manualy.
 
-        logrotate -f -d /etc/logrotate.config
+    Dry run, outputs a lot but doesn't touch the files::
+
+        logrotate -f -d /etc/logrotate.conf
+
+    Test run, rotates the files::
+
+        logrotate -f /etc/logrotate.conf
 
     Also see that your processes can re-open log files after logrotate run
     by restating a sample process.
@@ -94,7 +100,7 @@ def run():
             dirpath = os.path.dirname(full)
 
             if not dirpath in matches:
-                print "Adding log rorate entry for: %s" % dirpath
+                print "Adding log rotate entry for: %s" % dirpath
                 matches.append(dirpath)
 
     for match in matches:
