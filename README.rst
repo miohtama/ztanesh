@@ -18,6 +18,10 @@ Features
 
 * Colorize terminal tabs based on which server you are connected
 
+* No need to type ``cd``: just type in the directory name on the command prompt to enter into it
+
+* Double-tap TAB for autocompletion with arrow navigation
+
 * Remote aware autocompletion support for ``scp``, ``svn``
 
 * Readable prompt: bold text by default, timestamps, virtualenv detection, etc.
