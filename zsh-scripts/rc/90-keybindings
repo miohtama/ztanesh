@@ -13,3 +13,11 @@ bindkey '^[^[[C'  stack-cd-backward
 bindkey '^[[1;3D' stack-cd-forward
 bindkey '^[[1;3C' stack-cd-backward
 bindkey '^[[Z'    reverse-menu-complete
+
+copy-region-as-kill-deactivate-mark () {
+  zle copy-region-as-kill
+  zle set-mark-command -n -1
+}
+
+zle -N copy-region-as-kill-deactivate-mark
+bindkey '^[w' copy-region-as-kill-deactivate-mark
