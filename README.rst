@@ -5,7 +5,7 @@ Take your ZSH experience to the next level.
 
 .. image:: https://github.com/downloads/miohtama/ztanesh/Screen%20shot%202012-05-07%20at%207.52.12%20PM.png
 
-*The screenshot above shows additional ls coloring. Prompt: top left is active virtualenv etc. development environment, top right is server, time, bottom right is path*. 
+*The screenshot above shows additional ls coloring. Prompt: top left is active virtualenv etc. development environment, top right is server, time, bottom right is path*.
 
 .. image:: https://github.com/downloads/miohtama/ztanesh/Screen%20Shot%202012-05-22%20at%2011.01.46%20PM.png
 
@@ -20,7 +20,9 @@ Features
 
 * No need to type ``cd``: just type in the directory name on the command prompt to enter into it
 
-* Double-tap TAB for autocompletion with arrow navigation
+* Double-tap TAB for autocompletion with arrow navigation. Type ./ [TAB] to
+  start file explorer in the current folder. Press space to advance the next folder.
+  Press backspace to undo the selection.
 
 * Remote aware autocompletion support for ``scp``, ``svn``
 
@@ -36,9 +38,9 @@ Features
 
 * Dircolors maintained for the latest trends (new source code files, new file formats)
 
-* OSX and Ubuntu/Debian tested 
+* OSX and Ubuntu/Debian tested
 
-* Over ten years of running in production experience 
+* Over ten years of running in production experience
 
 Installation
 ----------------
@@ -50,7 +52,7 @@ to change the scripts breaking everything for you any day.
 But you can also feel free to hack this project into pieces. If you find good patches
 just make Pull request on Github.
 
-**The installation instructions are based on the assumption you checkout Git repository under ~/tools folder**. 
+**The installation instructions are based on the assumption you checkout Git repository under ~/tools folder**.
 
 Ubuntu
 ++++++
@@ -72,7 +74,7 @@ Then activat zsh for your user by default::
 OSX install commands
 +++++++++++++++++++++++
 
-Install `GNU userland tools <http://opensourcehacker.com/2012/04/27/python-and-javascript-developer-setup-hints-for-osx-lion/>`_ using 
+Install `GNU userland tools <http://opensourcehacker.com/2012/04/27/python-and-javascript-developer-setup-hints-for-osx-lion/>`_ using
 `Macports <http://macports.org>`_::
 
     sudo port install perl5 coreutils lesspipe findutils highlight grep +with_default_names
@@ -87,7 +89,7 @@ Then you MIGHT want to `fix locales for OSX <http://const-cast.blogspot.com/2009
 
     # Fix missing locale environment variables on OSX
     # XXX: Is this problem with every OSX install or just me?
-    echo "" > ~/.zsh-local/rc/locales 
+    echo "" > ~/.zsh-local/rc/locales
     echo "export LC_ALL=en_US.UTF-8" >> ~/.zsh-local/rc/locales
     echo "export LANG=en_US.UTF-8" >> ~/.zsh-local/rc/locales
     comprc
@@ -118,7 +120,7 @@ Push your changes to Github.
 Editing local settings
 +++++++++++++++++++++++++
 
-Put your local settings to ``~/.zsh-local/rc`` 
+Put your local settings to ``~/.zsh-local/rc``
 and run ``comprc`` alias to make them effective for the next zsh startup.
 
 License
