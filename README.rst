@@ -69,7 +69,11 @@ Test that ZSH starts properly::
 
 Then activat zsh for your user by default::
 
-    sudo usermod -s /bin/zsh YOURUSENAME
+  chsh -s /bin/zsh $USER
+
+... or for the other users::
+
+    sudo usermod -s /bin/zsh TARGETUSERNAME
 
 OSX install commands
 +++++++++++++++++++++++
