@@ -16,27 +16,31 @@ Features
 
 * Automatic update mechanism via git to multiple machines
 
-* Colorize terminal tabs based on which server you are connected
+* Colorize terminal tabs based on which server you are connected (iterm2)
 
-* No need to type ``cd``: just type in the directory name on the command prompt to enter into it
+* No need to type ``cd``: just type in the directory name on the command prompt to enter into it. Cdable environment variables for fast navigation.
+
+* Forward- and backward moving in directories stack using alt+left/right arrows.
 
 * Double-tap TAB for autocompletion with arrow navigation. Type ./ [TAB] to
   start file explorer in the current folder. Press space to advance the next folder.
   Press backspace to undo the selection.
 
-* Remote aware autocompletion support for ``scp``, ``svn``
+* Default settings should give you the best of the world autocomplete features of ZSH (including features such as remote autocompletion support for ``scp``, ``svn``)
 
-* Readable prompt: bold text by default, timestamps, virtualenv detection, etc.
+* Readable prompt: bold text by default, timestamps, python virtualenv detection, etc.
 
 * Install scripts sets up GNU userland coloring functions, even on OSX
 
-* Special ``ls`` with additional coloring to enhance readabilility
+* Special ``ls`` with additional coloring to enhance readabilility - users and groups colorized; filesizes colorized in groups of 3
 
-* Global and local .rc settings files. Global settings files shared via Github.
+* Global and local .rc settings files. Global settings files shared via Github or any private git repo (just fork it if needed ;)
 
 * Settings files are preprocessed by ``comprc`` command for very fast shell start-up
 
 * Dircolors maintained for the latest trends (new source code files, new file formats)
+
+* Mouse support on command line courtesy of Stephane Chazelas (mouse.zsh); press alt-m (meta-m) to toggle mouse mode and position cursor on command line with a simple click.
 
 * OSX and Ubuntu/Debian tested
 
@@ -45,9 +49,9 @@ Features
 Installation
 ----------------
 
-For your convenience, fork this repository on Github under your own user account.
-The authors are less benevolent dictators of this project and may feel
-to change the scripts breaking everything for you any day.
+For your convenience, fork this repository on Github under your own user account, or 
+set up your own private fork on anywhere you want. The authors are less benevolent dictators 
+(read: BOFHs) of this project and may feel to change the scripts breaking everything for you any day.
 
 But you can also feel free to hack this project into pieces. If you find good patches
 just make Pull request on Github.
