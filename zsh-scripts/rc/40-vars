@@ -24,9 +24,17 @@ export GREP_COLOR="1;31"
 
 export PATH
 
-eval "$(lesspipe 2> /dev/null)" 2>&1 > /dev/null
+less_pipe_cmd=$(lesspipe 2> /dev/null)
+if [[ "$less_pipe_cmd" == export* ]]; then
+    eval "$less_pipe_cmd" 2>&1 > /dev/null
+else
+    if which lesspipe 2>&1 > /dev/null; then
+        export LESSOPEN='| lesspipe %s'
+    fi
+fi
+unset less_pipe_cmd
 
 # More colors in ls: zips, e.g.
 eval `dircolors ~/.zsh/etc/dircolors` 2>&1 > /dev/null
 
-fpath=(~/tools/zsh-scripts/completion/func/ $fpath)
+fpath=(~/.zsh/completion/func/ $fpath)
