@@ -39,11 +39,10 @@ Features
 
 * Settings files are preprocessed for **fast shell start-up**
 
-* Global (across machines) and local (macine specific) .rc settings files
+* **Mouse support on command line**; press alt-m (meta-m) to toggle mouse mode and 
+  enable position text edit cursor with the mouse 
 
-* Mouse support on command line; press alt-m (meta-m) to toggle mouse mode and position cursor on command line with a simple click.
-
-* **Automatic update** via Github
+* **Automatic update** via Github. Global (across machines, autoupdated) and local (macine specific) .rc settings files
 
 * **Over ten years** of running in production experience
 
