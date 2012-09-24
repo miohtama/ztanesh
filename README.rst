@@ -37,15 +37,15 @@ Features
 
 * **Improved *ls* output colors**
 
-* Settings files are preprocessed by ``comprc`` command for very fast shell start-up
+* Settings files are preprocessed for **fast shell start-up**
 
-* Global and local .rc settings files. Global settings files shared via Github or any private git repo (just fork it if needed ;)
+* Global (across machines) and local (macine specific) .rc settings files
 
 * Mouse support on command line; press alt-m (meta-m) to toggle mouse mode and position cursor on command line with a simple click.
 
-* Automatic update mechanism via git to multiple machines
+* **Automatic update** via Github
 
-* Over ten years of running in production experience
+* **Over ten years** of running in production experience
 
 Installation
 ----------------
