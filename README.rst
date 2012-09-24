@@ -15,18 +15,6 @@ will make your shell more powerful and easier to use.
 
 *Colorize terminal tabs automatically based on which server you are logged in. No need to preconfigure servers - the color is calculated from the hostname*
 
-Tested on 
-
-* Ubuntu 
-
-* Debian
-
-* Gentoo Linux
-
-* OSX
-
-... other *NIX favors will most likely to work. Please report your findings.
-
 
 Features
 ------------
@@ -114,7 +102,7 @@ Then activat zsh for your user by default::
     sudo usermod -s /bin/zsh TARGETUSERNAME
 
 
-OSX install commands
+OSX (Macports)
 +++++++++++++++++++++++
 
 Install `GNU userland tools <http://opensourcehacker.com/2012/04/27/python-and-javascript-developer-setup-hints-for-osx-lion/>`_ using
@@ -140,6 +128,12 @@ Then you MIGHT want to `fix locales for OSX <http://const-cast.blogspot.com/2009
 Activate zsh for your user account as the default shell::
 
     sudo dscl . -create /Users/YOURUSERNAME UserShell /opt/local/bin/zsh
+
+Other 'NIX operating systems
+++++++++++++++++++++++++++++++
+
+Other UNIX flavour operating systems should work just fine. Please adjust the installation
+commands according to your distribution and `report back to us how you did it <https://github.com/miohtama/ztanesh/issues>`_.
 
 Usage
 -------------
