@@ -1,7 +1,11 @@
-Ztane ZSH
+Ztanesh
 =======================
 
-Take your ZSH experience to the next level.
+Improve your UNIX command line experience and productivity with the  
+the configuration provided by *ztanesh* project. The tools
+will make your shell easier to use and more powerful.
+
+.. contents :: 
 
 .. image:: https://github.com/downloads/miohtama/ztanesh/Screen%20shot%202012-05-07%20at%207.52.12%20PM.png
 
@@ -11,38 +15,47 @@ Take your ZSH experience to the next level.
 
 *Colorize terminal tabs automatically based on which server you are logged in. No need to preconfigure servers - the color is calculated from the hostname*
 
+Tested on 
+
+* Ubuntu 
+
+* Debian
+
+* Gentoo Linux
+
+* OSX
+
+... other *NIX favors will most likely to work. Please report your findings.
+
+
 Features
 ------------
 
-* Automatic update mechanism via git to multiple machines
+* **Colorize** terminal tabs based on which server you are connected (iTerm2, KDE)
 
-* Colorize terminal tabs based on which server you are connected (iterm2)
-
-* No need to type ``cd``: just type in the directory name on the command prompt to enter into it. Cdable environment variables for fast navigation.
+* **No need for cd**: just type in the directory name on the command prompt to enter into it. Cdable environment variables for fast navigation.
 
 * Forward- and backward moving in directories stack using alt+left/right arrows.
 
-* Double-tap TAB for autocompletion with arrow navigation. Type ./ [TAB] to
+* Double-tap TAB for **autocompletion menu with arrow navigation**. Type ./ [TAB] to
   start file explorer in the current folder. Press space to advance the next folder.
   Press backspace to undo the selection.
 
-* Default settings should give you the best of the world autocomplete features of ZSH (including features such as remote autocompletion support for ``scp``, ``svn``)
+* **Autocompletion for remote server commands** like *svn*, *scp*
 
-* Readable prompt: bold text by default, timestamps, python virtualenv detection, etc.
+* **Improved prompt readability**: bold text by default, timestamps, user, server name and smart current working directory indicator
 
-* Install scripts sets up GNU userland coloring functions, even on OSX
+* Turn on colored output for tools like *less* and *grep* 
 
-* Special ``ls`` with additional coloring to enhance readabilility - users and groups colorized; filesizes colorized in groups of 3
-
-* Global and local .rc settings files. Global settings files shared via Github or any private git repo (just fork it if needed ;)
+* **Improved *ls* output colors**
 
 * Settings files are preprocessed by ``comprc`` command for very fast shell start-up
 
-* Dircolors maintained for the latest trends (new source code files, new file formats)
+* Global and local .rc settings files. Global settings files shared via Github or any private git repo (just fork it if needed ;)
 
-* Mouse support on command line courtesy of Stephane Chazelas (mouse.zsh); press alt-m (meta-m) to toggle mouse mode and position cursor on command line with a simple click.
+* Mouse support on command line; press alt-m (meta-m) to toggle mouse mode and position cursor on command line with a simple click.
 
-* OSX and Ubuntu/Debian tested
+* Automatic update mechanism via git to multiple machines
 
 * Over ten years of running in production experience
 
@@ -78,6 +91,28 @@ Then activat zsh for your user by default::
 ... or for the other users::
 
     sudo usermod -s /bin/zsh TARGETUSERNAME
+
+Gentoo
++++++++
+
+Gentoo Linux install commands::
+
+    sudo emerge -av git highlight zsh
+    git clone git://github.com/miohtama/ztanesh.git ~/tools
+    ~/tools/zsh-scripts/setup.zsh
+
+Test that ZSH starts properly::
+
+    zsh
+
+Then activat zsh for your user by default::
+
+  chsh -s /bin/zsh $USER
+
+... or for the other users::
+
+    sudo usermod -s /bin/zsh TARGETUSERNAME
+
 
 OSX install commands
 +++++++++++++++++++++++
@@ -143,4 +178,7 @@ Authors
 
 * Cleaned up for public release by `Mikko Ohtamaa <http://opensourcehacker.com>`_
 
+* mouse.zsh: Stephane Chazelas
+
+* Gentoo: Alberto Zuin
 
