@@ -33,7 +33,7 @@ Features
 
 * Turn on colored output for tools like *less* and *grep* 
 
-* **Improved *ls* output colors**
+* **Improved ls output colors**
 
 * Settings files are preprocessed for **fast shell start-up**
 
