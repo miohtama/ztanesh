@@ -23,8 +23,6 @@ Features
 
 * **No need for cd**: just type in the directory name on the command prompt to enter into it. Cdable environment variables for fast navigation.
 
-* Forward- and backward moving in directories stack using alt+left/right arrows.
-
 * Double-tap TAB for **autocompletion menu with arrow navigation**. Type ./ [TAB] to
   start file explorer in the current folder. Press space to advance the next folder.
   Press backspace to undo the selection.
@@ -42,6 +40,11 @@ Features
 * **Mouse support on command line**; press alt-m (meta-m) to toggle mouse mode and 
   enable position text edit cursor with the mouse 
 
+* **Forward- and backward moving in directories stack** using alt+left/right arrows (Linux only)
+
+* **Support for Mac standard edit keys**: *alt+arrow* to move between words. *fn+arrow*
+  to go to the beginning and end of the line
+  
 * **Automatic update** via Github. Global (across machines, autoupdated) and local (macine specific) .rc settings files
 
 * **Over ten years** of running in production experience
