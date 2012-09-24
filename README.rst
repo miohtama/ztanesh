@@ -19,7 +19,7 @@ will make your shell more powerful and easier to use.
 Features
 ------------
 
-* **Colorize** terminal tabs based on which server you are connected (iTerm2, KDE)
+* **Colorize** terminal tabs based on SSH connection. Each server automatically gets its own color. (iTerm2, KDE)
 
 * **No need for cd**: just type in the directory name on the command prompt to enter into it. Cdable environment variables for fast navigation.
 
