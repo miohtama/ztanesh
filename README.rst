@@ -1,9 +1,9 @@
-Ztanesh
-=======================
+Introduction
+----------------------
 
 Improve your UNIX command line experience and productivity with the  
-the configuration provided by *ztanesh* project. The tools
-will make your shell easier to use and more powerful.
+the configuration provided by **ztanesh** project: the tools
+will make your shell more powerful and easier to use.
 
 .. contents :: 
 
