@@ -3,7 +3,7 @@ umask 022
 autoload predict-on		2> /dev/null
 zle -N predict-on		2> /dev/null
 
-setopt APPEND_HISTOY	2> /dev/null
+setopt APPEND_HISTORY           2> /dev/null
 setopt AUTO_COMPLETE		2> /dev/null
 setopt AUTO_CD			2> /dev/null
 setopt AUTO_LIST		2> /dev/null
@@ -18,6 +18,8 @@ setopt CHECK_JOBS		2> /dev/null
 setopt CSH_NULL_GLOB		2> /dev/null
 setopt C_BASES			2> /dev/null
 setopt EXTENDED_HISTORY		2> /dev/null
+setopt HIST_SAVE_BY_COPY        2> /dev/null
+
 #setopt IGNORE_EOF		2> /dev/null
 setopt INTERACTIVE_COMMENTS	2> /dev/null
 setopt NOBEEP			2> /dev/null
