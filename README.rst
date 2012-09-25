@@ -52,21 +52,22 @@ Features
 Installation
 ----------------
 
-For your convenience, fork this repository on Github under your own user account, or 
-set up your own private fork on anywhere you want. The authors are less benevolent dictators 
-(read: BOFHs) of this project and may feel to change the scripts breaking everything for you any day.
+The installation instructions are based on the assumption you checkout Git repository under *~/tools* folder
+in your home directory.
 
-But you can also feel free to hack this project into pieces. If you find good patches
-just make Pull request on Github.
+ZSH versions
+++++++++++++++++
 
-**The installation instructions are based on the assumption you checkout Git repository under ~/tools folder**.
+We recommend using `ZSH 5.0 <http://sourceforge.net/projects/zsh/files/>`_ which is the latest stable version.
+As the writing of this most operating systems ship with older versions.
 
 Ubuntu
 ++++++
 
 Ubuntu install commands::
 
-    sudo apt-get install git-core highlight zsh perl
+    # Note: zsh-devel installs the version 5.0 of zsh shell (latest stable)
+    sudo apt-get install git-core highlight zsh-devel perl
     git clone git://github.com/miohtama/ztanesh.git ~/tools
     ~/tools/zsh-scripts/setup.zsh
 
@@ -136,6 +137,16 @@ Other 'NIX operating systems
 
 Other UNIX flavour operating systems should work just fine. Please adjust the installation
 commands according to your distribution and `report back to us how you did it <https://github.com/miohtama/ztanesh/issues>`_.
+
+Autoupdate notes
+++++++++++++++++++
+
+If you want to autoupdate deploy your own global ZSH rc changes fork this repository on Github under your own user account, or 
+set up your own private fork on anywhere you want. The authors are less benevolent dictators 
+(read: BOFHs) of this project and may feel to change the scripts breaking everything for you any day.
+
+But you can also feel free to hack this project into pieces. If you find good patches
+just make Pull request on Github.
 
 Usage
 -------------
