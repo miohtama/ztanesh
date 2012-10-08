@@ -158,12 +158,15 @@ Misc tips
 
 * Use CTRL+R to search shared ZSH history
 
-Editing global settings
+Editing global settings 
 +++++++++++++++++++++++
 
-Edit ``~/tools/zsh-scripts/rc`` files.
+ZtaneSH scripts are located in ``~/tools/zsh-scripts/rc`` folder. They are 
+processed pretty much like ``init.d`` scripts (loaded in number prefix order).
 
-Run ``comprc``.
+Edit these source scripts.
+Then run ``comprc``. This will update ``~/tools/zsh-scripts/var/compiled/allrcs`` file.
+This file is optimized ZSH script output and loaded on every start up.
 
 Push your changes to Github.
 
