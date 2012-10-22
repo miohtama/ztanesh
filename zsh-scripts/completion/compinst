@@ -13,10 +13,5 @@ zstyle ':completion:*:manuals'    separate-sections true
 zstyle ':completion:*:manuals.*'  insert-sections   true
 zstyle ':completion:*:man:*'      menu yes select
 
-# local _myhosts=()
-# _myhosts=( $(cat /etc/hosts|cut -f 1 -d \#|cut -f 2- -d ' ' ) )
-# _myhosts=( $_myhosts $(<$HOME/.zsh/conf/hosts) )
-# zstyle ':completion:*' hosts $_myhosts
-
 autoload -Uz compinit
 compinit
