@@ -29,6 +29,8 @@ Features
 
 * **Autocompletion for remote server commands** like *svn*, *scp*
 
+* **Typo correction** when autocompleting: wrong case, mispelt character, etc.
+
 * **Improved prompt readability**: bold text by default, timestamps, user, server name and smart current working directory indicator
 
 * Turn on colored output for tools like *less* and *grep* 
