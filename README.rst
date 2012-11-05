@@ -68,8 +68,7 @@ Ubuntu
 
 Ubuntu install commands::
 
-    # Note: zsh-devel installs the version 5.0 of zsh shell (latest stable)
-    sudo apt-get install git-core highlight zsh-devel perl
+    sudo apt-get install git-core highlight zsh perl
     git clone git://github.com/miohtama/ztanesh.git ~/tools
     ~/tools/zsh-scripts/setup.zsh
 
@@ -113,7 +112,8 @@ OSX (Macports)
 Install `GNU userland tools <http://opensourcehacker.com/2012/04/27/python-and-javascript-developer-setup-hints-for-osx-lion/>`_ using
 `Macports <http://macports.org>`_::
 
-    sudo port install perl5 coreutils lesspipe findutils highlight grep +with_default_names
+    # Note: zsh-devel installs the version 5.0 of zsh shell (latest stable)
+    sudo port install zsh-devel perl5 coreutils lesspipe findutils highlight grep +with_default_names
     git clone git://github.com/miohtama/ztanesh.git ~/tools
     ~/tools/zsh-scripts/setup.zsh
 
