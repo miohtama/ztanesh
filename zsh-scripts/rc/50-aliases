@@ -66,6 +66,9 @@ function git-add-commit-push() {
         git add -A && git commit -m "$1" && git push
 }
 
+# Power grep with better output and case-insensitivity
+alias xgrep='grep -Ri --line-number --before-context=3 --after-context=3 --color=always'
+
 # Search ASCII-string from multiple files in the currect working directory
 # E.g.
 # search "foobar" "*.html"
