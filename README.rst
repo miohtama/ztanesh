@@ -178,8 +178,16 @@ Editing local settings
 Put your local settings to ``~/.zsh-local/rc``
 and run ``comprc`` alias to make them effective for the next zsh startup.
 
+Community
+-----------
+
+IRC
+++++
+
+Join us at *#ztanesh* on irc.freenode.org.
+
 Submitting patches
---------------------
+++++++++++++++++++++
 
 1) Press *Fork* button on Github -> creates your personal ZtaneSH repo on github.com
 
