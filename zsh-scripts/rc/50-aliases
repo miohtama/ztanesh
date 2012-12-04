@@ -55,7 +55,8 @@ alias more='less'
 alias move='mv'
 
 # Colored svn output
-alias svn='colorsvn'
+# Please see https://github.com/miohtama/ztanesh/issues/9
+#alias svn='colorsvn'
 
 
 # World stopped using pico long time ago
