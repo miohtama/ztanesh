@@ -54,6 +54,9 @@ alias md='mkdir'
 alias more='less'
 alias move='mv'
 
+# Colored svn output
+alias svn='colorsvn'
+
 
 # World stopped using pico long time ago
 alias pico='nano -wz'
