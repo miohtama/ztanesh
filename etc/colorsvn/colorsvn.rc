@@ -34,7 +34,7 @@ A: cyan
 R: cyan
 D: red
 I: bold
-?: reset
+?: bold black
 !: red
 ~: red
 
