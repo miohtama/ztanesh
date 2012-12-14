@@ -1,11 +1,15 @@
 PROMPT="[prompt not set, zsh rcs failed? fix the bugs, run refreshrc to fix]
 "
 
-alias refreshrc='. ~/.zsh/scripts/runrcs'
+alias refreshrc='. ~/.zsh/scripts/advancedrc'
 
-if [[ -e ~/.zsh/var/compiled/allrcs ]] 
+if [[ -z "$ZSH" ]]
 then
-	source ~/.zsh/var/compiled/allrcs
-else
-	source ~/.zsh/scripts/runrcs
+    ZSH="$HOME/.zsh"
 fi
+
+export ZSH
+
+source "$ZSH/etc/oh-my-zsh-settings"
+
+source ~/.zsh/scripts/oh-my-zsh.zsh

@@ -16,6 +16,14 @@ will make your shell more powerful and easier to use.
 *Colorize terminal tabs automatically based on which server you are logged in. No need to preconfigure servers - the color is calculated from the hostname*
 
 
+Oh my ZSH
+----------------------
+
+As of December 14, 2012, an attempt to merge the code with the `Oh my zsh <https://github.com/robbyrussell/oh-my-zsh>`_ code started, due to the 
+enormous amount of plugins readily available for the latter project. The goal is to merge the both projects into something where the startup
+files could be automatically compiled and catenated for superfast startup as is done for the ztanesh currently, while enabling the drop-in 
+use of Oh my zsh plugins and themes.
+
 Features
 ------------
 

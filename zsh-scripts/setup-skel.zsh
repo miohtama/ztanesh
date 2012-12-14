@@ -6,5 +6,5 @@ then
 fi
 
 dir=`dirname $0`
-(cd /etc/skel && git clone http://haapala.iki.fi/tools/.git)
+(cd /etc/skel && git clone https://github.com/miohtama/ztanesh)
 zsh $dir/setup.zsh /etc/skel

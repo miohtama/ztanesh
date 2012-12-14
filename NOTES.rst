@@ -1,11 +1,6 @@
 Misc notes
 ============
 
-Oh my ZSH
-----------------------
-
-`See if they can provide anything useful <https://github.com/robbyrussell/oh-my-zsh>`_
-
 Other best practices
 ----------------------
 

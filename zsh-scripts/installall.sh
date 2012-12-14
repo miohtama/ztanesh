@@ -62,6 +62,5 @@ echo "Checking out new shell files"
 
 mkdir ~/tools
 cd ~/tools
-git init
-git pull http://haapala.iki.fi/tools/.git
+git clone https://github.com/miohtama/ztanesh
 ~/tools/zsh-scripts/setup.zsh
