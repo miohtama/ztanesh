@@ -25,7 +25,7 @@ fi
 
 function setup_prompt {
     RPROMPT=`echo -ne "%{\033[A%}%B[%{\033[${PROMPT_USER_COLOR:-1;33}m%}%n%{\033[0m%}%B@%{\033[${PROMPT_HOST_COLOR:-1;33}m%}$PROMPT_HOSTNAME%b%B][%{\033[1;32m%}%T%b%B]%{\033[B%}"`
-    PROMPT=`echo -ne '\n%{\033[0m%}%B[%{\033[36m%}%~%b%B]$(git_prompt_info)%#'`" "
+    PROMPT=`echo -ne '%B$(git_prompt_info)\n%{\033[0m%}%B[%{\033[36m%}%~%b%B]%#'`" "
 
     PROPOSED_VIRTUAL_ENV=$(check_unset_venv)
     proposed_envname=`basename "$PROPOSED_VIRTUAL_ENV"`
