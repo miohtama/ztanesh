@@ -17,6 +17,6 @@ then
                 echo -n "$TAB_DECORATOR"
         }
 
-        autoload add-zsh-hook
+        autoload -U add-zsh-hook
         add-zsh-hook precmd statusbar_precmd
 fi

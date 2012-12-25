@@ -1,4 +1,4 @@
-autoload add-zsh-hook
+autoload -U add-zsh-hook
 
 if echo $TERM | egrep -i "^(xterm|eterm|aterm|rxvt|screen)$" > /dev/null 2>&1
 then
