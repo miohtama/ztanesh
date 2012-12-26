@@ -8,11 +8,15 @@
 # and https://jon.sprig.gs/blog/post/9
 #
 
+# Abort script if any command fails
+set -e
+
 #
 # Create a gmail SSL wrapper script
 #
 
-if [ -n "$GMAIL_USER" || -n "$GMAIL_PASSWORD" || -n "$TEST_ADDRESS" ] ; then
+if [ -z "$GMAIL_USER" ] || [ -z "$GMAIL_PASSWORD" ] || [ -z "$TEST_ADDRESS" ] ; then
+    echo "Setup sendmail via gmail proxy on your Ubuntu box"
     echo "Usage:"
     echo "GMAIL_USER=foobar@gmail.com GMAIL_PASSWORD=12312312 TEST_ADDRESS=youremail@example.com sh setup-nullmailer.sh"
     exit 1
@@ -61,3 +65,7 @@ sudo /etc/init.d/nullmailer reload
 
 # send test email
 echo "This is a test message from ${USER}@${HOSTNAME} at $(date)" | sendmail $TEST_ADDRESS
+
+echo "Test mail send to $TEST_ADDRESS"
+
+
