@@ -34,4 +34,9 @@ export HISTSIZE=16384
 export SAVEHIST=16384
 export HISTFILE=~/.zhistory
 
+function _run_pager {
+        ${=PAGER} "$@"
+}
+
 export PAGER='less +g -RSC'
+READNULLCMD='_run_pager'
