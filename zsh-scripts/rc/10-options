@@ -1,6 +1,6 @@
 umask 022
 
-autoload predict-on		2> /dev/null
+autoload -U predict-on		2> /dev/null
 zle -N predict-on		2> /dev/null
 
 setopt APPEND_HISTORY           2> /dev/null
