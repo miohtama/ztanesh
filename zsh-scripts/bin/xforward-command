@@ -1,0 +1,35 @@
+#!/usr/bin/env python
+import os
+import sys
+import glob
+
+libdir = os.path.abspath(os.path.join(
+    os.path.dirname(__file__),
+    '../python-lib'
+))
+
+sys.path.append(libdir)
+eggs = [ os.path.join(libdir, i) for i in os.listdir(libdir)
+    if i[-4:] in [ '.egg', '.zip' ] ]
+
+sys.path.extend(eggs)
+
+import Xlib
+import Xlib.display
+
+def main():
+    display = Xlib.display.Display(':0')
+    root = display.screen().root
+    y = root.query_tree()
+    children = y.children
+
+    print "The named windows on your display are:"
+    for w in children:
+        name = w.get_wm_name()
+        if not name or not name.strip():
+            continue
+
+        print "  *", name
+
+if __name__ == "__main__":
+    main()
