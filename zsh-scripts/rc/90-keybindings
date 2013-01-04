@@ -14,7 +14,7 @@ bindkey '^[[1;3D' stack-cd-forward
 bindkey '^[[1;3C' stack-cd-backward
 bindkey '^[[Z'    reverse-menu-complete
 
-copy-region-as-kill-deactivate-mark () {
+function copy-region-as-kill-deactivate-mark {
   zle copy-region-as-kill
   zle set-mark-command -n -1
 }
@@ -33,3 +33,11 @@ bindkey '^[w' copy-region-as-kill-deactivate-mark
 zmodload zsh/complist
 bindkey -M menuselect ' ' accept-and-infer-next-history
 bindkey -M menuselect '^?' undo
+
+if [[ ${+debian_missing_features} == 1 ]]
+then
+        function zle-line-init () {
+        }
+        function zle-line-finish () {
+        }
+fi
