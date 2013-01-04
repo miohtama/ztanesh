@@ -1,0 +1,30 @@
+#!/usr/bin/env python
+from __future__ import print_function
+
+import os
+import sys
+import glob
+
+if len(sys.argv) < 2:
+    print("Usage: xlib-command module.name [args]", file=sys.stderr)
+    sys.exit(1)
+
+DISPLAY=os.environ['DISPLAY']
+
+libdir = os.path.abspath(os.path.join(
+    os.path.dirname(__file__),
+    '../python-lib'
+))
+
+sys.path.append(libdir)
+
+module_name = sys.argv[1]
+module = __import__(module_name, globals(), locals(), ['__main__'], level=0)
+
+if not hasattr(module, '__main__'):
+    print("The module %s does not present a runnable command" 
+            % module_name, file=sys.stderr)
+    sys.exit(1)
+
+rc = module.__main__(sys.argv[2:])
+sys.exit(rc or 0)
