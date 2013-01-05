@@ -27,11 +27,19 @@ use of Oh my zsh plugins and themes.
 Features
 ------------
 
-* **Colorize** terminal tabs based on SSH connection. Each server automatically gets its own color. (iTerm2, KDE)
+Out of the box you will be able to
 
-* **No need for cd**: just type in the directory name on the command prompt to enter into it. Cdable environment variables for fast navigation.
+* **Colorize** terminal tabs based on SSH connection. Each server automatically gets its own color. (iTerm2)
 
-* Double-tap TAB for **autocompletion menu with arrow navigation**. Type ./ [TAB] to
+* Automatically update the window title on your terminal based on the currently running command etc.
+
+* Just type in the directory name on the command prompt to enter into it. Cdable environment variables for fast navigation -
+  instead of ``cd $MYDIR/project`` you can now hit in shell prompt ``MY<TAB>p<TAB>``.
+
+* In-word completions - to cd into that ``linux-2.6.28 folder``, just type ``28<TAB>`` - the only matching word is automatically completed.
+  To go to ``/usr/bin`` type in shell prompt ``/u/b<TAB>`` (no **cd** needed).
+
+* Double-tap TAB for **autocompletion menu with arrow navigation**. Type ``./<TAB>`` to
   start file explorer in the current folder. Press space to advance the next folder.
   Press backspace to undo the selection.
 
@@ -41,9 +49,9 @@ Features
 
 * **Improved prompt readability**: bold text by default, timestamps, user, server name and smart current working directory indicator
 
-* Turn on colored output for tools like *less* and *grep* 
+* Turn on colored output for tools like *less* and *grep* automatically
 
-* **Improved ls output colors**
+* **Improved ls output colors** - including grouping filesizes in groups of 3.
 
 * Settings files are preprocessed for **fast shell start-up**
 
@@ -52,24 +60,27 @@ Features
 
 * **Forward- and backward moving in directories stack** using alt+left/right arrows (Linux only)
 
-* **Support for Mac standard edit keys**: *alt+arrow* to move between words. *fn+arrow*
+* **Support for Mac standard edit keys**: *alt+arrow* to move between words. *fn+arrow* (home, end)
   to go to the beginning and end of the line
-  
+
 * **Automatic update** via Github. Global (across machines, autoupdated) and local (macine specific) .rc settings files
 
 * **Over ten years** of running in production experience
 
+* **Upcoming:** intershell clipboard using a pure python X client (you need X forwarding and X11 daemon
+  on an originating computer. Launching local commands from remote commandline over ssh X11 forwarding.
+
 Installation
 ----------------
 
-The installation instructions are based on the assumption you checkout Git repository under *~/tools* folder
+The installation instructions are based on the assumption you checkout Git repository under `~/tools` folder
 in your home directory.
 
 ZSH versions
 ++++++++++++++++
 
 We recommend using `ZSH 5.0 <http://sourceforge.net/projects/zsh/files/>`_ which is the latest stable version.
-As the writing of this most operating systems ship with older versions.
+As the writing of this most operating systems ship with older versions, however, Ubuntu 12.10 defaults to ZSH 5.0.
 
 Ubuntu
 ++++++
