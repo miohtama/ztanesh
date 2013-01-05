@@ -1,91 +1,153 @@
-#!/usr/bin/env perl
-#
-# A wrapper around ls providing extra coloring
-#
-use strict;
+#!/usr/bin/python
+import os
+import sys
+import os.path
+import pwd, grp
+import subprocess
+import re
 
-my $ls_command = '/usr/local/bin/gls';
+ls_commands = '''
+    /usr/local/bin/gls
+    /opt/local/libexec/gnubin/ls
+    /usr/bin/ls
+'''.split()
 
-# OSX + Macports
-$ls_command = '/opt/local/libexec/gnubin/ls' if ! -e $ls_command;
+dont_process_args = '''
+    -1
+    -nc
+    -none
+'''.split()
 
-$ls_command = '/bin/ls' if ! -e $ls_command;
+LINE_REGEX = re.compile('''
+       ^(.{10}\+?                   # drwxrwxrwx + optional +
 
-my %ucs = ();
-my $a;
+       \s+\d+\s+)                   # links
 
-my ($name,$passwd,$uid,$gid,$quota,$comment,$gcos,$dir,$shell,$expire) = getpwuid($<);
+       (\w+)                        # user
+       (\s+)
+       (\w+)                        # group
 
-$dir = "$dir/.zsh";
+       (?:(\s+)(\d+)(\s+))?
+''', re.X)
 
-open UCOLORS, "< $dir/etc/ls_u_colors";
-foreach (<UCOLORS>) {
-  chomp;
-  my ($unames, $color) = split /=/;
+class Runner(object):
+    def read_color_config(self, filename, self_name):
+        colors = { }
+    
+        with open(filename) as config:
+            for i in config:
+                contents = i.split('=', 1)
+    
+                if len(contents) != 2:
+                    continue
+    
+                unames, color = contents
+                color = color.strip()
+                unames = unames.split(';')
+    
+                for u in unames:
+                    u = u.strip()
+                    if u == '%self':
+                        u = self_name
+    
+                    colors[u] = '\033[%s' % color
+    
+        return colors
+    
+    
+    def do_simple_ls(self, ls_command, arguments):
+        rc = subprocess.call([ls_command] + arguments)
+        sys.exit(rc)
+    
 
-  next if !defined $unames or !defined $color;
-  next if $unames =~ /^\s+$/;  
-  foreach $a (split /;/, $unames) {
-    if ($a eq "%self") {
-      $ucs{$name} = $color;
-    }
-    else {
-      $ucs{$a} = $color;
-    }
-  }
-}
-close UCOLORS;
+    def colorize(self, dictionary, value):
+        if value not in dictionary:
+            return value
 
-my %gcs = ();
+        return dictionary[value] + value + '\033[0m'
 
-my $grname = getgrgid($gid);
 
-open GCOLORS, "< $dir/etc/ls_g_colors";
-foreach (<GCOLORS>) {
-  chomp;
-  my $color;
-  my $gnames;
-  ($gnames, $color) = split /=/;
+    def stripe(self, value):
+        parts = []
+        color = 0
+        colorstrings = [ '\033[38;5;227m', '\033[38;5;249m' ]
 
-  next if !defined $gnames or !defined $color;
-  next if $gnames =~ /^\s+$/;  
-  foreach $a (split /;/, $gnames) {
-    if ($a eq "%self") {
-      $gcs{$name} = $color;
-    }
-    else {
-      $gcs{$a} = $color;
-    }
-  }
-}
-close GCOLORS;
+        while value:
+            parts.insert(0, colorstrings[color] + value[-3:])
+            color = not color
+            value = value[:-3]
 
-$0 = $ENV{ARGV0ENV} if defined $ENV{ARGV0ENV};
+        return ''.join(['\033[0m'] + parts + ['\033[0m'])
 
-my $dont_process = 0;
-my $no_ops = 0;
-my @ARGS = ();
 
-foreach (@ARGV) {
-  $dont_process = 1       if m/^-1/;
-  $dont_process = 1, next if m/^-nc/;
-  $no_ops       = 1, next if $_ eq '-none';
-  push @ARGS, $_;
-}
+    def do_line_subst(self, match):
+        m = list(match.groups())
 
-(exec "$ls_command", @ARGS), exit if $dont_process;
+        username = m[1]
+        m[1] = self.colorize(self.user_colors, m[1])
 
-$_ = quotemeta foreach (@ARGS);
+        groupname = m[3]
+        m[3] = self.colorize(self.group_colors, m[3])
 
-my $args = join ' ', @ARGS;
-my @lines = `$ls_command --color -lF $args`;
+        if len(m) > 5:
+            m[5] = self.stripe(m[5])
 
-if ($?) {
-   print @lines;
-   exit $?;
-} 
+        return ''.join(m)
 
-$lines[0] =~ s/^\033\[.*?m//;
+    
+    def main(self):
+        ls_command = '/bin/ls'
+    
+        for i in ls_commands:
+            if os.access(i, os.X_OK):
+                ls_command = i
+                break
+    
+        arguments = sys.argv[1:]
+        argset = set(sys.argv)
+    
+        # if we are doing a simple ls here ... without anything to color
+        for i in dont_process_args:
+            if i in argset:
+                self.do_simple_ls(ls_command, arguments)
+                sys.exit(1)
+    
+        config_path = os.path.expanduser('~/.zsh/etc')
+    
+        try:
+            user = os.getlogin()
+            self.user_colors = self.read_color_config(
+                os.path.join(config_path, 'ls_u_colors'),
+                user)
+    
+        except Exception as e:
+            self.user_colors = {}
+
+    
+        try:
+            group = grp.getgrgid(os.getgid()).gr_name
+            self.group_colors = self.read_color_config(
+                os.path.join(config_path, 'ls_g_colors'),
+                group)
+    
+        except Exception as e:
+            self.group_colors = {}
+    
+        ls_pipe = subprocess.Popen(
+            [ ls_command, '--color', '-lF' ] + arguments,
+            stdout=subprocess.PIPE
+        )
+        
+        for i in ls_pipe.stdout:
+            i = LINE_REGEX.sub(self.do_line_subst, i)
+            sys.stdout.write(i)
+    
+        sys.exit(ls_pipe.returncode)
+
+if __name__ == '__main__':
+    Runner().main()
+
+"""
 
 sub stripe ($) {
     my $rv = scalar(reverse($_[0]));
@@ -103,31 +165,9 @@ sub stripe ($) {
 }
 
 foreach (@lines) {
-    s/
-       ^(.{10}\+?                   # drwxrwxrwx + optional +
-
-       \s+\d+\s+)                   # links
-        
-       (\w+)                        # user
-       (\s+)
-       (\w+)                        # group
-     
-       ((\s+)(\d+)(\s+))?
-       
-     / 
-
-        my $rv = qq{$1${ 
-            exists $ucs{$2} ? \ "\033[$ucs{$2}" : \"" 
-        }$2\033[0m$3${ 
-            exists $gcs{$4} ? \ "\033[$gcs{$4}" : \"" 
-        }$4\033[0m}; # qq
-
-        if ($5) {
-            $rv .= "$6" . stripe($7) . "$8";
-        }
-
         $rv;
     /egx; # s
 
     print "\033[0m$_";
 }
+"""
