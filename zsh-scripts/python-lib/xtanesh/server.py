@@ -4,6 +4,7 @@ from Xlib import X, Xatom
 from Xlib.xobject.drawable import Window
 from Xlib.error import BadWindow
 import sys
+import json
 
 class Server(base.XClientBase, Thread):
     def __init__(self, *a, **kw):
@@ -63,10 +64,19 @@ class Server(base.XClientBase, Thread):
                         sys.exit(0)
 
             elif e.type == X.PropertyNotify and e.atom == self.XTANESH_COMMAND:
-                command_value = self.get_UTF8_property(
+                command_string = self.get_UTF8_property(
                     self.window, self.XTANESH_COMMAND
                 )
-                print command_value
+                if command_string:
+                    self.process_command(command_string)
+
+    def process_command(self, command_string):
+        try:
+            command = json.loads(command_string)
+	    print >> sys.stderr, "Received a command: %s" % command
+
+        except Exception as e:
+            print >> sys.stderr, "Got an exception when parsing command: %s, %s" % (e.__class__.__name__, e)
 
     def cleanup(self):
         try:
