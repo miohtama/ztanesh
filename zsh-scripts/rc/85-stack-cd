@@ -13,7 +13,6 @@ function stack-cd {
 
     if zle
     then
-        setup_prompt
         zle reset-prompt
     fi
     dir_stack=($saved_dirstack)
