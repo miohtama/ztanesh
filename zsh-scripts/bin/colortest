@@ -1,4 +1,5 @@
 #!/usr/bin/python
+
 import sys
 from itertools import izip_longest
 
@@ -21,3 +22,7 @@ for rowno, line in enumerate(grouper(cube_formatted, 6)):
 
 for line in grouper([get_colored_code(j) for j in range(232, 256)], 6):
     print ' '.join(line)
+
+print
+print "To use as a foreground, use \033[1m^[\033[0m[38;5;\033[36;1mn\033[0mm"
+print "To use as a background, use \033[1m^[\033[0m[48;5;\033[36;1mn\033[0mm"
