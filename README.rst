@@ -151,6 +151,7 @@ Then you MIGHT want to `fix locales for OSX <http://const-cast.blogspot.com/2009
 Activate zsh for your user account as the default shell::
 
     sudo dscl . -create /Users/YOURUSERNAME UserShell /opt/local/bin/zsh
+    # or if you use Homebrew before: sudo dscl . -create /Users/YOURUSERNAME UserShell /usr/local/bin/zsh 
 
 Other 'NIX operating systems
 ++++++++++++++++++++++++++++++
