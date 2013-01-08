@@ -114,7 +114,7 @@ Then activat zsh for your user by default::
     sudo usermod -s /bin/zsh TARGETUSERNAME
 
 
-OSX (Macports)
+OSX
 +++++++++++++++++++++++
 
 Install `GNU userland tools <http://opensourcehacker.com/2012/04/27/python-and-javascript-developer-setup-hints-for-osx-lion/>`_ using
