@@ -21,25 +21,43 @@ function update-zsh-rcs {
 }
 
 function get-zsh-tools-file {
-    echo "~/.zsh/$1"
+    echo ~/.zsh/"$1"
 }
 
-function conditional-update {
-    
-    TEMPFILE=`mktemp -t ztanesh-conditional-update-XXXXXXXXXXXX`
+function conditional-update {    
+    local last_updated=$(get-zsh-tools-file var/run/last_updated)
+    local TEMPFILE=`mktemp -t ztanesh-conditional-update-XXXXXXXXXXXX`
+
     touch -d "today 00:00" $TEMPFILE 
 
-    if [[ ! -e ~/.zsh/var/run/last_updated ]]
+
+    if [[ ! -e $last_updated ]]
     then
-        touch -d yesterday ~/.zsh/var/run/last_updated
+        touch -d yesterday $last_updated
     fi
 
-    if [[ "$TEMPFILE" -nt ~/.zsh/var/run/last_updated ]]
+    if [[ "$TEMPFILE" -nt $last_updated ]]
     then
-        rm "$TEMPFILE"
-        echo "Checking updates for RC files"
-        touch ~/.zsh/var/run/last_updated
-        update-zsh-rcs
+        local ans=''
+
+        while true
+        do
+            read -k 1 'ans?Do you want to update the ztanesh files [y/n]> '
+            echo ''
+
+            if [[ $ans == 'y' || $ans == 'Y' ]]
+            then
+                # need to touch it here, otherwise it would be run again.
+                touch $last_updated
+                update-zsh-rcs
+                break
+            elif [[ $ans == 'n' || $ans == 'N' ]]
+            then
+                echo "Not updating (run update-zsh-rcs to force update)"
+                touch $last_updated
+                break
+            fi
+        done
     fi
     rm "$TEMPFILE"
 }
