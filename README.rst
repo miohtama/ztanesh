@@ -114,7 +114,7 @@ Then activat zsh for your user by default::
     sudo usermod -s /bin/zsh TARGETUSERNAME
 
 
-OSX (Macports)
+OSX
 +++++++++++++++++++++++
 
 Install `GNU userland tools <http://opensourcehacker.com/2012/04/27/python-and-javascript-developer-setup-hints-for-osx-lion/>`_ using
@@ -122,6 +122,16 @@ Install `GNU userland tools <http://opensourcehacker.com/2012/04/27/python-and-j
 
     # Note: zsh-devel installs the version 5.0 of zsh shell (latest stable)
     sudo port install zsh-devel perl5 coreutils lesspipe findutils highlight grep +with_default_names
+
+Or use `Homebrew <http://mxcl.github.com/homebrew/>`_::
+
+    brew install zsh coreutils lesspipe findutils highlight
+    # Note: you might have to edit the zsh brew formula if it shows "Error: Download failed: http://www.zsh.org/pub/zsh-5.0.0.tar.bz2"
+    # brew edit zsh
+    # then change: url 'http://www.zsh.org/pub/zsh-5.0.2.tar.bz2' => url 'http://sourceforge.net/projects/zsh/files/zsh/5.0.0/zsh-5.0.0.tar.bz2'
+
+Clone ztanesh:: 
+
     git clone git://github.com/miohtama/ztanesh.git ~/tools
     ~/tools/zsh-scripts/setup.zsh
 
@@ -141,6 +151,7 @@ Then you MIGHT want to `fix locales for OSX <http://const-cast.blogspot.com/2009
 Activate zsh for your user account as the default shell::
 
     sudo dscl . -create /Users/YOURUSERNAME UserShell /opt/local/bin/zsh
+    # or if you use Homebrew before: sudo dscl . -create /Users/YOURUSERNAME UserShell /usr/local/bin/zsh 
 
 Other 'NIX operating systems
 ++++++++++++++++++++++++++++++
