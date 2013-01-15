@@ -1,18 +1,3 @@
-function prepend_to_path {
-    DIR="$1"
-    if [[ -d "$1" ]]
-    then
-        PATH="$1:$PATH"
-    fi
-}
-
-function append_to_path {
-    DIR="$1"
-    if [[ -d "$1" ]]
-    then
-        PATH="$PATH:$1"
-    fi
-}
 
 prepend_to_path "$HOME/.zsh/bin"
 prepend_to_path "$HOME/.bin"

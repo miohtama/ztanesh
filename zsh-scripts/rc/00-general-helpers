@@ -1,0 +1,18 @@
+function _is_command {
+        which "$1" 2>&1 > /dev/null
+        return $?
+}
+
+function prepend_to_path {
+    if [[ -d "$1" ]]
+    then
+        PATH="$1:$PATH"
+    fi
+}
+
+function append_to_path {
+    if [[ -d "$1" ]]
+    then
+        PATH="$PATH:$1"
+    fi
+}
