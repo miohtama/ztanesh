@@ -1,11 +1,11 @@
 Introduction
 ----------------------
 
-Improve your UNIX command line experience and productivity with the  
+Improve your UNIX command line experience and productivity with the
 the configuration provided by **ztanesh** project: the tools
 will make your shell more powerful and easier to use.
 
-.. contents :: 
+.. contents ::
 
 .. image:: https://github.com/downloads/miohtama/ztanesh/Screen%20shot%202012-05-07%20at%207.52.12%20PM.png
 
@@ -19,9 +19,9 @@ will make your shell more powerful and easier to use.
 Oh my ZSH
 ----------------------
 
-As of December 14, 2012, an attempt to merge the code with the `Oh my zsh <https://github.com/robbyrussell/oh-my-zsh>`_ code started, due to the 
+As of December 14, 2012, an attempt to merge the code with the `Oh my zsh <https://github.com/robbyrussell/oh-my-zsh>`_ code started, due to the
 enormous amount of plugins readily available for the latter project. The goal is to merge the both projects into something where the startup
-files could be automatically compiled and catenated for superfast startup as is done for the ztanesh currently, while enabling the drop-in 
+files could be automatically compiled and catenated for superfast startup as is done for the ztanesh currently, while enabling the drop-in
 use of Oh my zsh plugins and themes.
 
 Features
@@ -49,14 +49,14 @@ Out of the box you will be able to
 
 * **Improved prompt readability**: bold text by default, timestamps, user, server name and smart current working directory indicator
 
-* Turn on colored output for tools like *less* and *grep* automatically
+* Turn on colored output for tools like *less* and *grep*
 
 * **Improved ls output colors** - including grouping filesizes in groups of 3.
 
 * Settings files are preprocessed for **fast shell start-up**
 
-* **Mouse support on command line**; press alt-m (meta-m) to toggle mouse mode and 
-  enable position text edit cursor with the mouse 
+* **Mouse support on command line**; press alt-m (meta-m) to toggle mouse mode and
+  enable position text edit cursor with the mouse
 
 * **Forward- and backward moving in directories stack** using alt+left/right arrows (Linux only)
 
@@ -141,7 +141,7 @@ Or use `Homebrew <http://mxcl.github.com/homebrew/>`_::
     # brew edit zsh
     # then change: url 'http://www.zsh.org/pub/zsh-5.0.2.tar.bz2' => url 'http://sourceforge.net/projects/zsh/files/zsh/5.0.0/zsh-5.0.0.tar.bz2'
 
-Clone ztanesh:: 
+Clone ztanesh::
 
     git clone git://github.com/miohtama/ztanesh.git ~/tools
     ~/tools/zsh-scripts/setup.zsh
@@ -150,19 +150,10 @@ Test that ZSH starts properly::
 
     zsh
 
-Then you MIGHT want to `fix locales for OSX <http://const-cast.blogspot.com/2009/04/mercurial-on-mac-os-x-valueerror.html>`_::
-
-    # Fix missing locale environment variables on OSX
-    # XXX: Is this problem with every OSX install or just me?
-    echo "" > ~/.zsh-local/rc/locales
-    echo "export LC_ALL=en_US.UTF-8" >> ~/.zsh-local/rc/locales
-    echo "export LANG=en_US.UTF-8" >> ~/.zsh-local/rc/locales
-    comprc
-
 Activate zsh for your user account as the default shell::
 
     sudo dscl . -create /Users/YOURUSERNAME UserShell /opt/local/bin/zsh
-    # or if you use Homebrew before: sudo dscl . -create /Users/YOURUSERNAME UserShell /usr/local/bin/zsh 
+    # or if you use Homebrew before: sudo dscl . -create /Users/YOURUSERNAME UserShell /usr/local/bin/zsh
 
 Other 'NIX operating systems
 ++++++++++++++++++++++++++++++
@@ -173,8 +164,8 @@ commands according to your distribution and `report back to us how you did it <h
 Autoupdate notes
 ++++++++++++++++++
 
-If you want to autoupdate deploy your own global ZSH rc changes fork this repository on Github under your own user account, or 
-set up your own private fork on anywhere you want. The authors are less benevolent dictators 
+If you want to autoupdate deploy your own global ZSH rc changes fork this repository on Github under your own user account, or
+set up your own private fork on anywhere you want. The authors are less benevolent dictators
 (read: BOFHs) of this project and may feel to change the scripts breaking everything for you any day.
 
 But you can also feel free to hack this project into pieces. If you find good patches
@@ -190,10 +181,10 @@ Misc tips
 
 * Use CTRL+R to search shared ZSH history
 
-Editing global settings 
+Editing global settings
 +++++++++++++++++++++++
 
-ZtaneSH scripts are located in ``~/tools/zsh-scripts/rc`` folder. They are 
+ZtaneSH scripts are located in ``~/tools/zsh-scripts/rc`` folder. They are
 processed pretty much like ``init.d`` scripts (loaded in number prefix order).
 
 Edit these source scripts.

@@ -18,3 +18,10 @@ then
     fi
     unset SUBL
 fi
+
+# OSX locale fix
+# http://const-cast.blogspot.com/2009/04/mercurial-on-mac-os-x-valueerror.html
+if [[ -z "$LC_ALL" ]] ; then
+    export LC_ALL=en_US.UTF-8
+    export LANG=en_US.UTF-8
+fi
