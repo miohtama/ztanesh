@@ -23,6 +23,8 @@ then
         export GNU_USERLAND=1
     elif [[ -e /opt/local/libexec/gnubin ]]
     then
+        echo "xxx"
         export GNU_USERLAND=1
+        export GNU_COREUTILS_DIR=/opt/local/bin
     fi
 fi
