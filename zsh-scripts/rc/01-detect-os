@@ -14,7 +14,7 @@ else
         export OSX=
 fi
 
-# Detect Macports GNU userland installation
+# Detect Homebrew or Macports GNU userland installation
 if [[ "$OSX" == "1" ]]
 then
     if _is_command brew
@@ -23,8 +23,13 @@ then
         export GNU_USERLAND=1
     elif [[ -e /opt/local/libexec/gnubin ]]
     then
-        echo "xxx"
         export GNU_USERLAND=1
         export GNU_COREUTILS_DIR=/opt/local/bin
     fi
+fi
+
+# We need to do this early, as following rc scripts depend on this
+if [[ $GNU_COREUTILS_DIR != '' ]]
+then
+    prepend_to_path $GNU_COREUTILS_DIR
 fi

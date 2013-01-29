@@ -1,10 +1,6 @@
 
 if [[ "$OSX" == "1" ]]
 then
-    if [[ $GNU_COREUTILS_DIR != '' ]]
-    then
-        prepend_to_path $GNU_COREUTILS_DIR
-    fi
     export CLICOLOR=1
     export LESSOPEN='| /opt/local/bin/lesspipe.sh %s'
 

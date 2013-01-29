@@ -3,7 +3,7 @@ function comprc {
     then
         exec zsh
     fi
-} 
+}
 
 function update-zsh-rcs {
     (
@@ -24,16 +24,17 @@ function get-zsh-tools-file {
     echo ~/.zsh/"$1"
 }
 
-function conditional-update {    
+function conditional-update {
     local last_updated=$(get-zsh-tools-file var/run/last_updated)
     local TEMPFILE=`mktemp -t ztanesh-conditional-update-XXXXXXXXXXXX`
 
-    touch -d "today 00:00" $TEMPFILE 
-
+    #touch -d "today 00:00" $TEMPFILE
+    touch -t `date +%m%d0000` $TEMPFILE
 
     if [[ ! -e $last_updated ]]
     then
-        touch -d yesterday $last_updated
+        # touch -d yesterday $last_updated
+        touch -t `printf "%s%02d0000" \`date +%m\` $((\`date +%d\`-1))` ~/.zsh/var/run/last_updated
     fi
 
     if [[ "$TEMPFILE" -nt $last_updated ]]

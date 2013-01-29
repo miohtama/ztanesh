@@ -19,7 +19,24 @@ else
 fi
 unset less_pipe_cmd
 
+DIRCOLORS=""
+
+# Linux
+which dircolors > /dev/null
+if [ $? -eq 0 ] ; then
+    DIRCOLORS=dircolors
+else
+    # Macports with gnu userland
+    which gdircolors > /dev/null
+    if [ $? -eq 0 ] ; then
+        DIRCOLORS=gdircolors
+    fi
+fi
+
+
 # More colors in ls: zips, e.g.
-eval `dircolors ~/.zsh/etc/dircolors` 2>&1 > /dev/null
+if [[ ! -z "$DIRCOLORS" ]] ; then
+    eval `$DIRCOLORS ~/.zsh/etc/dircolors` 2>&1 > /dev/null
+fi
 
 fpath=(~/.zsh/completion/func/ $fpath)
