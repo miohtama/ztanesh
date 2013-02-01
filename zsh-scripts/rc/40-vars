@@ -1,4 +1,3 @@
-
 prepend_to_path "$HOME/.zsh/bin"
 prepend_to_path "$HOME/.bin"
 prepend_to_path "$HOME/tools/bin"
@@ -22,17 +21,10 @@ unset less_pipe_cmd
 DIRCOLORS=""
 
 # Linux
-which dircolors > /dev/null
-if [ $? -eq 0 ] ; then
-    DIRCOLORS=dircolors
-else
-    # Macports with gnu userland
-    which gdircolors > /dev/null
-    if [ $? -eq 0 ] ; then
-        DIRCOLORS=gdircolors
-    fi
-fi
+_is_command dircolors && DIRCOLORS=dircolors
 
+# OSX + Macports
+_is_command gdircolors && DIRCOLORS=gdircolors
 
 # More colors in ls: zips, e.g.
 if [[ ! -z "$DIRCOLORS" ]] ; then
