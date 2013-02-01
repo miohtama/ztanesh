@@ -29,6 +29,8 @@ Features
 
 Out of the box you will be able to
 
+* **Colorize** command line while you are typing it (based on `zsh-syntax-highlighting <https://github.com/zsh-users/zsh-syntax-highlighting/>`_)
+
 * **Colorize** terminal tabs based on SSH connection. Each server automatically gets its own color. (iTerm2)
 
 * Automatically update the window title on your terminal based on the currently running command etc.
