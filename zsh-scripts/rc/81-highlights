@@ -1,0 +1,3 @@
+source ~/tools/zsh-scripts/custom/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor root)

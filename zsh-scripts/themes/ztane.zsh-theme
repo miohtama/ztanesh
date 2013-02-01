@@ -55,13 +55,6 @@ function prompt_bg_color_by_server {
 
 }
 
-#
-# Set typing text to red if you are root'ing
-#
-function get_prompt_text_color {
-
-}
-
 function setup_prompt {
 
     # Right side of the prompt
@@ -78,7 +71,6 @@ function setup_prompt {
     # New line
     # Show the current folder
     PROMPT=`echo -ne '%B$(git_prompt_info)\n%{\033[0m%}%B[%{\033[36m%}%~%b%B]%#'`" "
-
     # Check that if we are in a Python virtualenv folder
     # but virtualenv is not activatd
     PROPOSED_VIRTUAL_ENV=$(check_unset_venv)
@@ -117,6 +109,7 @@ function setup_prompt {
             PROMPT=`echo -ne "%{\033[1;31m%}[%{\033[0;30;41;5m%}$proposed_envname%{\033[0;31;1m%}]%{\033[0m%}"`"$PROMPT"
         fi
     fi
+
 }
 
 if [[ -x /usr/bin/hostname-filter ]]
