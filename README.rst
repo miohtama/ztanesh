@@ -78,6 +78,13 @@ Installation
 The installation instructions are based on the assumption you checkout Git repository under `~/tools` folder
 in your home directory.
 
+Stable vs. dev branch
++++++++++++++++++++++++
+
+If you want to leave on the bleeding edge use *dev* branch::
+
+    git clone -b dev git://github.com/miohtama/ztanesh.git ~/tools
+
 ZSH versions
 ++++++++++++++++
 
