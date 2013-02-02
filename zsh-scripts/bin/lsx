@@ -23,9 +23,9 @@ LINE_REGEX = re.compile('''
 
        \s+\d+\s+)                   # links
 
-       (\w+)                        # user
+       (\S+)                        # user
        (\s+)
-       (\w+)                        # group
+       (\S+)                        # group
 
        (?:(\s+)(\d+)(\s+))?
 ''', re.X)
@@ -81,7 +81,7 @@ class Runner(object):
 
 
     def do_line_subst(self, match):
-        m = list(match.groups())
+        m = list(i or '' for i in match.groups())
 
         username = m[1]
         m[1] = self.colorize(self.user_colors, m[1])
