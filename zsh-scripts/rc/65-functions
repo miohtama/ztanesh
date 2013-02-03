@@ -1,9 +1,36 @@
+function get-zsh-tools-file {
+    echo ~/.zsh/"$1"
+}
+
+function get-gnu-cmd {
+    local CMD="g$1"
+    if _is_command $CMD
+    then
+        echo $CMD
+    else
+        echo $1
+    fi
+}
+
 function comprc {
-    if ~/.zsh/scripts/compile.zsh
+    if $(get-zsh-tools-file scripts/compile.zsh)
     then
         exec zsh
     fi
 } 
+
+zmodload -F zsh/stat b:zstat
+function get-mtime {
+    zstat +mtime "$1"
+}
+
+function get-midnight {
+    if date -v0H > /dev/null 2>&1; then
+        date -v0H -v0M -v0S '+%s'
+    else
+        date --date="today 00:00" '+%s'
+    fi
+}
 
 function update-zsh-rcs {
     (
@@ -20,28 +47,21 @@ function update-zsh-rcs {
     comprc
 }
 
-function get-zsh-tools-file {
-    echo "~/.zsh/$1"
-}
+function conditional-update-zsh-rcs {
+    local LAST_UPDATE_ATTEMPT=$(get-zsh-tools-file var/run/last_updated)
+    local UNCONDITIONAL_UP=
 
-function conditional-update {
-    
-    TEMPFILE=`mktemp -t ztanesh-conditional-update-XXXXXXXXXXXX`
-    touch -d "today 00:00" $TEMPFILE 
-
-    if [[ ! -e ~/.zsh/var/run/last_updated ]]
+    if [[ ! -e $LAST_UPDATE_ATTEMPT ]]
     then
-        touch -d yesterday ~/.zsh/var/run/last_updated
+        UNCONDITIONAL_UP=1
     fi
 
-    if [[ "$TEMPFILE" -nt ~/.zsh/var/run/last_updated ]]
+    if [[ $(get-mtime $LAST_UPDATE_ATTEMPT) -lt $(get-midnight) || $UNCONDITIONAL_UP == 1 ]]
     then
-        rm "$TEMPFILE"
         echo "Checking updates for RC files"
-        touch ~/.zsh/var/run/last_updated
+        touch $LAST_UPDATE_ATTEMPT
         update-zsh-rcs
     fi
-    rm "$TEMPFILE"
 }
 
-conditional-update
+conditional-update-zsh-rcs

@@ -1,5 +1,5 @@
 function prepend_to_path {
-    DIR="$1"
+    local DIR="$1"
     if [[ -d "$1" ]]
     then
         PATH="$1:$PATH"
@@ -7,7 +7,7 @@ function prepend_to_path {
 }
 
 function append_to_path {
-    DIR="$1"
+    local DIR="$1"
     if [[ -d "$1" ]]
     then
         PATH="$PATH:$1"
@@ -35,6 +35,6 @@ fi
 unset less_pipe_cmd
 
 # More colors in ls: zips, e.g.
-eval `dircolors ~/.zsh/etc/dircolors` 2>&1 > /dev/null
+eval $(dircolors ~/.zsh/etc/dircolors) 2>&1 > /dev/null
 
 fpath=(~/.zsh/completion/func/ $fpath)
