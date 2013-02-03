@@ -4,7 +4,7 @@ bell=$(tput bel)
 WHOAMI=$(whoami)
 HOSTNAME=$(hostname)
 
-if echo $TERM | egrep -i "^(xterm|eterm|aterm|rxvt|screen)$" > /dev/null 2>&1
+if [[ $TERM == (xterm|eterm|aterm|rxvt|screen) ]]
 then
         STATUSBAR=1
 fi
