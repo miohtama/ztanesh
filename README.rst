@@ -226,6 +226,13 @@ Submitting patches
 
 5) On your personal Github repo page, press Make pull request button
 
+Related projects
+---------------------
+
+* `Presto <https://github.com/sorin-ionescu/prezto>`_
+
+* `Oh my ZSH <https://github.com/robbyrussell/oh-my-zsh/>`_ - integrated with ZtaneSH
+
 License
 ----------
 
