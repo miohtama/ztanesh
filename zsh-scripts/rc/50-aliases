@@ -4,7 +4,7 @@ function _is_command {
 }
 
 function _alias_if_not_exists {
-         ! _is_command "$1" && alias "$1"="$2"
+         ! _is_command "$1" && _is_command "$2" && alias "$1"="$2"
 }
 
 # Global aliases (inside command arguments too)
@@ -113,4 +113,11 @@ function search() {
 }
 
 _alias_if_not_exists help run-help
-
+_alias_if_not_exists ooffice loffice
+_alias_if_not_exists oocalc localc
+_alias_if_not_exists oodraw lodraw
+_alias_if_not_exists oofromtemplate lofromtemplate
+_alias_if_not_exists oowriter lowriter
+_alias_if_not_exists ooimpress loimpress
+_alias_if_not_exists oomath lomath
+_alias_if_not_exists ooweb loweb
