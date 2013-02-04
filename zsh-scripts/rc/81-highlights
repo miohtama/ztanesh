@@ -1,6 +1,6 @@
 source ~/tools/zsh-scripts/custom/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor root)
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern root)
 
 # Set text color to bright red when playing aroudn with root
 ZSH_HIGHLIGHT_STYLES[root]='fg=red,bold'
