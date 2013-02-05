@@ -132,6 +132,8 @@ from os.path import basename
 from collections import defaultdict
 from intercept import Interceptor
 
+PROGRAM_PATH = os.path.realpath(__file__)
+
 PROGRAM_NAME = basename(__file__)
 PROGRAM_VERSION = '0.1'
 DEBUG=False
@@ -277,7 +279,7 @@ def debug(msg, *args):
 #
 def initialize():
     config_files = [
-        os.path.join(os.path.dirname(__file__), 'acoc.conf'),
+        os.path.join(os.path.dirname(PROGRAM_PATH), 'acoc.conf'),
         '/etc/acoc.conf',
         '/usr/local/etc/acoc.conf',
         '~/.acoc.conf',
