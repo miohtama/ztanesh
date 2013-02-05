@@ -87,6 +87,7 @@ Ubuntu
 
 Ubuntu install commands::
 
+    cd ~
     sudo apt-get install git-core highlight zsh perl
     git clone git://github.com/miohtama/ztanesh.git ~/tools
     ~/tools/zsh-scripts/setup.zsh
