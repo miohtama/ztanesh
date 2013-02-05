@@ -35,9 +35,12 @@ alias exit='clear;exit'
 alias f='finger'
 alias friends='wf'
 
-
 # Super ls
-alias ls='lsx'
+
+if _is_command python2
+then
+    alias ls='lsx'
+fi
 
 # Colored less
 alias less='less +g -RSC~'
