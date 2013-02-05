@@ -1,0 +1,317 @@
+#!/usr/bin/env python
+
+# acoc - Arbitrary Command Output Colourer
+#
+# Python port 
+#
+# Version : 0.1
+# Author : Antti Haapala <antti@haapala.name>
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation under version 3, or (at your option)
+#   any later version.
+# 
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+# 
+#   You should have received a copy of the GNU General Public License
+#   along with this program; if not, write to the Free Software Foundation,
+#   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+#    
+#
+# Originally based on the Ruby language version by Ian McDonald,
+#
+# $Id: acoc,v 1.67 2005/02/27 01:02:24 ianmacd Exp $
+#
+# Version : 0.7.1
+# Author  : Ian Macdonald <ian@caliban.org>
+# 
+# Copyright (C) 2003-2005 Ian Macdonald
+# 
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2, or (at your option)
+#   any later version.
+# 
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+# 
+#   You should have received a copy of the GNU General Public License
+#   along with this program; if not, write to the Free Software Foundation,
+#   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+from __future__ import print_function
+
+import re
+import os
+import pty
+import sys
+
+from os.path import basename
+from collections import defaultdict
+from intercept import Interceptor
+
+
+"""
+=begin
+
+= NAME
+acoc - arbitrary command output colourer
+= SYNOPSIS
+ acoc command [arg1 .. argN]
+ acoc -h|--help|-v|--version
+= DESCRIPTION
+((*acoc*)) is a regular expression based colour formatter for programs that
+display output on the command-line. It works as a wrapper around the target
+program, executing it and capturing the stdout stream. Optionally, stderr can
+be redirected to stdout, so that it, too, can be manipulated.
+
+((*acoc*)) then applies matching rules to patterns in the output and applies
+colour sets to those matches. If the ((|$ACOC|)) environment variable is set
+to 'none', ((*acoc*)) will not perform any colouring.
+= OPTIONS
+: -h or --help
+  Display usage information.
+: -v or --version
+  Display version information.
+= AUTHOR
+Written by Ian Macdonald <ian@caliban.org>
+= COPYRIGHT
+ Copyright (C) 2003-2004 Ian Macdonald
+
+ This is free software; see the source for copying conditions.
+ There is NO warranty; not even for MERCHANTABILITY or FITNESS
+ FOR A PARTICULAR PURPOSE.
+= FILES
+* /usr/local/etc/acoc.conf /etc/acoc.conf ~/.acoc.conf
+= ENVIRONMENT
+: ((|$ACOCRC|))
+  If set, this specifies the location of an additional configuration file.
+= CONTRIBUTING
+acoc is only as good as the configuration file that it uses. If you compose
+pattern-matching rules that you think would be useful to other people, please
+send them to me for inclusion in a subsequent release.
+= SEE ALSO
+* acoc.conf(5)
+* ((<"acoc home page - http://www.caliban.org/ruby/"|URL:http://www.caliban.org/ruby/>))
+* ((<"Term::ANSIColor - http://raa.ruby-lang.org/list.rhtml?name=ansicolor"|URL:http://raa.ruby-lang.org/list.rhtml?name=ansicolor>))
+* ((<"Ruby/TPty - http://www.tmtm.org/ruby/tpty/"|URL:http://www.tmtm.org/ruby/tpty/>))
+= BUGS
+* Nested regular expressions do not work well. Inner subexpressions need to use clustering (?:), not capturing (). In other words, they can be used for matching, but not for colouring.
+
+=end
+"""
+
+PROGRAM_NAME = basename(__file__)
+PROGRAM_VERSION = '0.7.1'
+
+class Program(object):
+    def __init__(self, flags=""):
+        self.flags = flags or ""
+        self.specs = []
+
+    def compile(self):
+        for i in self.specs:
+            i.compile()
+
+def nopmaker():
+    return lambda a: a
+
+ATTRS = dict(
+    bright='1',
+    bold='1',
+    red='31',
+    green='32',
+    yellow='33',
+    blue='34'
+)
+
+def get_set(attr):
+    rv = ATTRS.get(attr)
+    if not rv:
+        return ''
+
+    return '\033[%sm' % rv
+
+def get_reset(attr):
+    if attr in ATTRS:
+        return "\033[0m"
+
+    return ''
+
+class Rule(object):
+    def __init__(self, regex, flags, colours):
+        self.regex   = regex
+        self.flags   = flags
+        self.colours = colours
+        self.colour_brackets = defaultdict(nopmaker)
+        self.create_brackets()
+
+    def create_brackets(self):
+        def make_color_bracket(sets, resets):
+            return lambda x: sets + x + resets
+
+        for n, i in enumerate(self.colours):
+            attrs = i.split('+')
+            sets = ''
+            resets = ''
+            for j in attrs:
+                j = j.strip()
+                sets += get_set(j)
+                resets += get_reset(j)
+
+            if sets:
+                self.colour_brackets[n + 1] = make_color_bracket(sets, resets)
+
+    def compile(self):
+        self.compiled = re.compile(self.regex)
+
+    def do_sub(self, line):
+        if self.flags == 'g':
+            return line
+
+        m = self.compiled.match(line)
+        
+        if m and m.lastindex:
+            last = m.lastindex
+            pos = 0
+            output = ''
+            for i in range(1, last + 1):
+                start, end = m.span(i)
+                if start == -1 or start < pos:
+                    # we do not handle nested grps, sorry :D
+                    continue
+
+                output += line[pos:start]
+                bracketed = line[start:end]
+                output += self.colour_brackets[i](bracketed)
+                pos = end
+
+            output += line[pos:]
+            return output
+
+        return line
+
+DEBUG=True
+
+def debug(msg, *args):
+    if not DEBUG:
+        return
+
+    print(msg % args, file=sys.stderr)
+
+# set things up
+#
+def initialise():
+    global colour
+    # Queen's or Dubya's English?
+    if os.environ.get('LANG') == "en_US" or os.environ.get('LC_ALL') == "en_US":
+       colour = "color"
+    else:
+       colour = "colour"
+
+    config_files = [
+        '/etc/acoc.conf',
+        '/usr/local/etc/acoc.conf',
+        '~/.acoc.conf',
+        os.environ.get('ACOCRC')
+    ]
+
+    if not parse_config(*config_files):
+        print("No readable config files found.", file=sys.stderr)
+        sys.exit(1)
+
+SECTION_HEAD = re.compile(r'\[(.*)\]')
+LINE_REGEX   = re.compile(r'(.)([^\1]*)\1(g?)\s+(.*)')
+
+cmd = defaultdict(Program)
+
+# get configuration data
+#
+def parse_config(*files):
+    parsed = False
+
+    for file in files:
+        if not file:
+            continue
+
+        file = os.path.expanduser(file)
+        if not (os.access(file, os.R_OK) and os.path.isfile(file)):
+            continue
+
+        debug("Attempting to read config file: %s\n", file)
+
+        try:
+            with open(file) as f:
+                for line in f:
+                    line = line.strip()
+                    if not line or line[0] == '#':
+                        continue
+
+                    m = SECTION_HEAD.match(line)
+                    if m:
+                        progs = [ i.strip() for i in m.group(1).split(',') ]
+                        invs = []
+                        for inv in progs:
+                            if '/' in inv:
+                               inv, flags = inv.split('/', 1)
+                            else:
+                               flags = ''
+
+                            if 'r' in flags:
+                                program = inv.split()[0]
+                                for k in list(cmd.keys()):
+                                    if k.split()[0] == program:
+                                        del cmd[k]
+
+                                flags = flags.replace('r', '')
+
+                            cmd[inv].flags += flags
+                            invs.append(inv)
+
+                        continue
+                    
+                    match = LINE_REGEX.match(line)  
+                    if not match:
+                        print("Ignoring bad config line: %s" % line, file=sys.stderr)
+                        continue
+
+                    # numbering 0 based in match.groups!
+                    regex, flags, colours = match.groups()[1:4]
+                    colours = [ i.strip() for i in colours.split(',') ]
+                    for i in invs:
+                        cmd[i].specs.append(Rule(regex, flags, colours))
+
+                parsed = True
+
+        except Exception as e:
+            debug("Got exception: %s\n", e)
+
+    return parsed
+
+parse_config('acoc.conf')
+
+argv = [ 'df' ]
+
+class Colorizer(Interceptor):
+    def __init__(self, prog):
+        self.prog = prog
+        self.prog.compile()
+        self.flags = prog.flags
+        self.specs = prog.specs
+        super(Colorizer, self).__init__()
+
+    def do_process(self, data):
+        lines = data.split('\n')
+        for i in range(len(lines)):
+            for j in self.specs:
+                lines[i] = j.do_sub(lines[i])
+
+        return '\n'.join(lines)
+
+colorizer = Colorizer(cmd['df'])
+colorizer.spawn(argv)
