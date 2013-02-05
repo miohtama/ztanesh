@@ -1,4 +1,4 @@
-prepend_to_path ~/.zsh/binx
+prepend_to_path ~/.zsh/bin
 prepend_to_path ~/.bin
 prepend_to_path ~/tools/bin
 
