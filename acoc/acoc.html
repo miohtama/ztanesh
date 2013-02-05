@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>acoc</title>
+</head>
+<body>
+<h1><a id="label-0">NAME</a></h1>
+<p>acoc - arbitrary command output colourer</p>
+<h1><a id="label-1">SYNOPSIS</a></h1>
+<pre>acoc command [arg1 .. argN]
+acoc -h|--help|-v|--version</pre>
+<h1><a id="label-2">DESCRIPTION</a></h1>
+<p><em>acoc</em> is a regular expression based colour formatter for programs that
+display output on the command-line. It works as a wrapper around the target
+program, executing it and capturing the stdout stream. Optionally, stderr can
+be redirected to stdout, so that it, too, can be manipulated.</p>
+<p><em>acoc</em> then applies matching rules to patterns in the output and applies
+colour sets to those matches. If the <var>$ACOC</var> environment variable is set
+to 'none', <em>acoc</em> will not perform any colouring.</p>
+<h1><a id="label-3">OPTIONS</a></h1>
+<dl>
+<dt><a id="label-4">-h or --help</a></dt>
+<dd>
+Display usage information.
+</dd>
+<dt><a id="label-5">-v or --version</a></dt>
+<dd>
+Display version information.
+</dd>
+</dl>
+<h1><a id="label-6">AUTHOR</a></h1>
+<p>Written by Ian Macdonald &lt;ian@caliban.org&gt;</p>
+<h1><a id="label-7">COPYRIGHT</a></h1>
+<pre>
+Copyright (C) 2013 Antti Haapala
+
+Copyright (C) 2003-2004 Ian Macdonald
+
+This is free software; see the source for copying conditions.
+There is NO warranty; not even for MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.</pre>
+<h1><a id="label-8">FILES</a></h1>
+<ul>
+<li>acoc.conf /usr/local/etc/acoc.conf /etc/acoc.conf ~/.acoc.conf</li>
+</ul>
+<h1><a id="label-9">ENVIRONMENT</a></h1>
+<dl>
+<dt><a id="label-10"><var>$ACOCRC</var></a></dt>
+<dd>
+If set, this specifies the location of an additional configuration file.
+</dd>
+</dl>
+<h1><a id="label-11">CONTRIBUTING</a></h1>
+<p>acoc is only as good as the configuration file that it uses. If you compose
+pattern-matching rules that you think would be useful to other people, please
+send them to me for inclusion in a subsequent release.</p>
+<h1><a id="label-12">SEE ALSO</a></h1>
+<ul>
+<li>acoc.conf(5)</li>
+<li><a href="http://www.caliban.org/ruby/">acoc home page - http://www.caliban.org/ruby/</a></li>
+</ul>
+<h1><a id="label-13">BUGS</a></h1>
+<ul>
+<li>Nested regular expressions do not work well. Inner subexpressions need to use clustering (?:), not capturing (). In other words, they can be used for matching, but not for colouring.</li>
+</ul>
+
+</body>
+</html>
