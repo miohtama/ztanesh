@@ -138,13 +138,13 @@ class Runner(object):
             stdout=subprocess.PIPE
         )
         
-        for i in ls_pipe.stdout:
-            i = LINE_REGEX.sub(self.do_line_subst, i)
-            sys.stdout.write(i)
-   
+        try:
+            for i in ls_pipe.stdout:
+                i = LINE_REGEX.sub(self.do_line_subst, i)
+                sys.stdout.write(i)
         # In case python points to python3, use python2 instead
         except TypeError:
-            subprocess.call(['/usr/bin/env', 'python2', '%s' % sys.argv[0]]) 
+            subprocess.call(['/usr/bin/env', 'python2', '%s' % sys.argv[0]])
         sys.exit(ls_pipe.returncode)
 
 if __name__ == '__main__':
