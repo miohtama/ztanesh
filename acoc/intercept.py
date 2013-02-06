@@ -100,17 +100,40 @@ class Interceptor(object):
         '''
         assert self.master_fd is not None
         master_fd = self.master_fd
+
+        cached_master_data = ''
+
         while 1:
             try:
+                timeout = 0.05 if cached_master_data else 0
+
                 rfds, wfds, xfds = select.select([master_fd,
-                      pty.STDIN_FILENO], [], [])
+                      pty.STDIN_FILENO], [], [], timeout)
             except select.error, e:
                 if e[0] == 4:   # Interrupted system call.
                     continue
 
+            full_buffer = False
             if master_fd in rfds:
                 data = os.read(self.master_fd, 1024)
-                self.master_read(data)
+                full_buffer = len(data) == 1024
+
+                master_data = cached_master_data + data
+
+            else:
+                master_data = cached_master_data
+
+            if master_data:
+                cached_master_data = ''
+                lines = master_data.splitlines(True)
+
+                for i in lines:
+                    if not full_buffer or i.endswith('\n'):
+                        self.master_read(i)
+
+                    else:
+                        cached_master_data = i
+
             if pty.STDIN_FILENO in rfds:
                 data = os.read(pty.STDIN_FILENO, 1024)
                 self.stdin_read(data)
