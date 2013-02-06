@@ -36,4 +36,4 @@ if [[ ! -z "$DIRCOLORS" ]] ; then
     eval `$DIRCOLORS ~/.zsh/etc/dircolors` 2>&1 > /dev/null
 fi
 
-fpath=(~/.zsh/completion/func/ $fpath)
+fpath=(~/.zsh/completion/funcs/ $fpath)

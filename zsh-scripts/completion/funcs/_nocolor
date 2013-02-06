@@ -1,0 +1,5 @@
+#compdef nocolor
+
+touch /tmp/comp
+
+_arguments '(-):command: _command_names' '*::arguments: _normal'

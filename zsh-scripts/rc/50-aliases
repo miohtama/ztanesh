@@ -36,9 +36,6 @@ alias friends='wf'
 # Colored less
 alias less='less +g -RSC~'
 
-# Make sudo expand command
-alias sudo='sudo '
-
 # alias logout as it might not work in all cases
 alias logout='exit'
 
@@ -55,12 +52,13 @@ _alias_unexisting_command xcopy   'cp'
 _alias_unexisting_command rd      'rmdir'
 _alias_unexisting_command ren     'mv'
 _alias_unexisting_command deltree 'rm -r'
-_alias_unexisting_command dir     'ls'
 _alias_unexisting_command del     'rm'
 _alias_unexisting_command edit    'nano'
 _alias_unexisting_command md      'mkdir'
 _alias_unexisting_command more    'less'
 _alias_unexisting_command move    'mv'
+
+alias dir='ls'
 
 # World stopped using pico long time ago
 _alias_unexisting_command pico    'nano -wz'
@@ -128,3 +126,19 @@ then
         alias svn='acoc svn'
     fi
 fi
+
+function nocolor {
+    if [[ "$1" == acoc ]]
+    then
+        shift
+        "$@"
+        return $?
+    elif [[ "$1" == lsx ]]
+    then
+        "$@" -lc
+        return $?
+    fi
+
+    "$@"
+    return $?        
+}
