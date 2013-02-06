@@ -50,7 +50,7 @@ sudo -i chmod -R og-rwx /home/$target/.ssh
 echo "Example to be added to your ~/.ssh/config on your local computer"
 echo ""
 echo "Host $target"
-echo "Hostname $host"
+echo "Hostname $host  # Fix this to your server full DNS if needed"
 echo "User $target"
 echo "ForwardAgent yes"
 echo ""
