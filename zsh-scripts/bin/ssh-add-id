@@ -1,0 +1,60 @@
+#!/bin/zsh
+#
+# A helper script to add your current SSH agent's public key to another user on the server.
+#
+# http://opensourcehacker.com/2012/10/24/ssh-key-and-passwordless-login-basics-for-developers/
+#
+
+# b0rk on error
+set -e
+
+target=$1
+
+# Room for improvement
+# http://serverfault.com/questions/367141/how-to-get-the-fully-qualified-name-fqn-on-unix-in-a-bash-script
+host=`hostname -f`
+
+if [[ -z "$target" ]]
+then
+    echo "Adds your SSH public key on another user on this server"
+    echo "Usage: shh-add-id [username]"
+    exit 1
+fi
+
+keys=`ssh-add -L`
+
+if [[ "$keys" = "Could not" ]]
+then
+    echo "Looks like SSH agent is not connected"
+    exit 1
+fi
+
+if [[ -z "$keys" ]]
+then
+    echo "No public keys added for this SSH agent session"
+    exit 1
+fi
+
+echo "Adding the following keys for user $target@$host"
+echo "Give sudo password if prompted"
+
+sudo -i -u $target install -d /home/$target/.ssh
+sudo -i -u $target echo $keys >> /home/$target/.ssh/authorized_keys
+
+# Fix SSH folder permissions
+sudo -i chown -R $target:$target /home/$target/.ssh
+sudo -i chmod -R og-rwx /home/$target/.ssh
+
+# Generate help
+
+echo "Example to be added to your ~/.ssh/config on your local computer"
+echo ""
+echo "Host $target"
+echo "Hostname $host"
+echo "User $target"
+echo "ForwardAgent yes"
+echo ""
+echo "And then you can login as this user:"
+echo ""
+echo "ssh $target"
+echo ""
