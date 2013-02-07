@@ -175,7 +175,8 @@ ATTRS = dict(
     magenta='1;35',
     cyan='1;36',
     white='1;37',
-    blink='5'
+    blink='5',
+    on_red='41'
 )
 
 def get_set(attr):
