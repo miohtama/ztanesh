@@ -17,22 +17,27 @@ host=`hostname -f`
 if [[ -z "$target" ]]
 then
     echo "Adds your SSH public key on another user on this server"
-    echo "Usage: shh-add-id [username]"
+    echo "Usage: ssh-enable-authorized-key [username]"
     exit 1
 fi
 
-keys=`ssh-add -L`
-
-if [[ "$keys" = "Could not" ]]
-then
-    echo "Looks like SSH agent is not connected"
-    exit 1
-fi
+set +e
+# Only add the first key
+keys=`ssh-add -L|head -n 1`
+set -e
 
 if [[ -z "$keys" ]]
 then
     echo "No public keys added for this SSH agent session"
+    echo "Check SSH agent status with ssh-add -L"
     exit 1
+fi
+
+grep "$keys" /home/$target/.ssh/authorized_keys > /dev/null
+if [[ $? == 0 ]]
+then
+    echo "The key already is added"
+    exit 0
 fi
 
 echo "Adding the following keys for user $target@$host"
@@ -58,3 +63,4 @@ echo "And then you can login as this user:"
 echo ""
 echo "ssh $target"
 echo ""
+exit 0
