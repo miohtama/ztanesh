@@ -4,6 +4,10 @@
 #
 # http://opensourcehacker.com/2012/10/24/ssh-key-and-passwordless-login-basics-for-developers/
 #
+# Copyright 2013 Mikko Ohtamaa http://opensourcehacker.com
+#
+# License BSD
+#
 
 # b0rk on error
 set -e
@@ -33,17 +37,23 @@ then
     exit 1
 fi
 
+echo "Give sudo password if prompted"
+
+sudo -i -u $target install -d /home/$target/.ssh
+sudo -i -u $target touch /home/$target/.ssh/authorized_keys
+
+echo "Adding the following keys for user $target@$host"
+echo $keys
+
+set +e
 grep "$keys" /home/$target/.ssh/authorized_keys > /dev/null
 if [[ $? == 0 ]]
 then
     echo "The key already is added"
     exit 0
 fi
+set -e
 
-echo "Adding the following keys for user $target@$host"
-echo "Give sudo password if prompted"
-
-sudo -i -u $target install -d /home/$target/.ssh
 sudo -i -u $target echo $keys >> /home/$target/.ssh/authorized_keys
 
 # Fix SSH folder permissions
@@ -52,6 +62,7 @@ sudo -i chmod -R og-rwx /home/$target/.ssh
 
 # Generate help
 
+echo ""
 echo "Example to be added to your ~/.ssh/config on your local computer"
 echo ""
 echo "Host $target"
