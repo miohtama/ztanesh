@@ -6,7 +6,7 @@ then
     do
         if _is_command "python$i"
         then
-            ln -s `which "python$i"` ~/tools/binfix/python2
+            ln -s $(which "python$i") ~/tools/binfix/python2
             break
         fi
     done

@@ -24,16 +24,20 @@ else
 fi
 unset less_pipe_cmd
 
-DIRCOLORS=""
+function setup-dircolors {
+    local DIRCOLORS
 
-# Linux
-_is_command dircolors && DIRCOLORS=dircolors
+    # Linux
+    _is_command dircolors && DIRCOLORS=dircolors
 
-# OSX + Macports
-_is_command gdircolors && DIRCOLORS=gdircolors
+    # OSX + Macports
+    _is_command gdircolors && DIRCOLORS=gdircolors
 
-if [[ ! -z "$DIRCOLORS" ]] ; then
-    eval `$DIRCOLORS ~/.zsh/etc/dircolors` 2>&1 > /dev/null
-fi
+    if [[ ! -z "$DIRCOLORS" ]] ; then
+        eval $($DIRCOLORS ~/.zsh/etc/dircolors) 2>&1 > /dev/null
+    fi
+}
+
+setup-dircolors
 
 fpath=(~/.zsh/completion/funcs/ $fpath)
