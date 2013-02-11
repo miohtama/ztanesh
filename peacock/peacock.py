@@ -1,8 +1,8 @@
 #!/usr/bin/env python2
 
-# acoc - Arbitrary Command Output colorer
+# peacock - Pretty Enhanced Arbitrary Command Output Coloring Kit
 #
-# Python port 
+# Python port of acoc
 #
 # Version : 0.1
 # Author : Antti Haapala <antti@haapala.name>
@@ -48,17 +48,17 @@
 from __future__ import with_statement
 
 """
-ACOC
+peacock
 ====
 
-acoc is a regular expression based color formatter for programs that
+peacock is a regular expression based color formatter for programs that
 display output on the command-line. It works as a wrapper around the target
 program, executing it and capturing the stdout stream. Optionally, stderr can
 be redirected to stdout, so that it, too, can be manipulated.
 
-acoc then applies matching rules to patterns in the output and applies
+peacock then applies matching rules to patterns in the output and applies
 color sets to those matches. If the ACOC environment variable is set
-to 'none', acoc will not perform any coloring.
+to 'none', peacock will not perform any coloring.
 
 OPTIONS
 --------
@@ -102,12 +102,13 @@ ENVIRONMENT
 -----------
 
 $ACOCRC
+$PEACOCKRC
   If set, this specifies the location of an additional configuration file.
 
 CONTRIBUTING
 -------------
 
-acoc is only as good as the configuration file that it uses. If you compose
+peacock is only as good as the configuration file that it uses. If you compose
 pattern-matching rules that you think would be useful to other people, please
 send them to me for inclusion in a subsequent release.
 
@@ -285,7 +286,8 @@ def initialize():
         '/etc/acoc.conf',
         '/usr/local/etc/acoc.conf',
         '~/.acoc.conf',
-        os.environ.get('ACOCRC')
+        os.environ.get('ACOCRC'),
+        os.environ.get('PEACOCKRC')
     ]
 
     if not parse_config(*config_files):
@@ -378,7 +380,7 @@ initialize()
 
 argv = sys.argv[1:]
 if not argv:
-    myprint("Usage: acoc PROGRAM ARGUMENTS...", file=sys.stderr)
+    myprint("Usage: peacock PROGRAM ARGUMENTS...", file=sys.stderr)
     sys.exit(1)
 
 argsjoined = ' '.join(argv)
@@ -399,7 +401,7 @@ if not bestmatch:
     try:
         os.execvp(argv[0], argv)
     except:
-        myprint("acoc: command not found: %s" % argv[0], file=sys.stderr)
+        myprint("peacock: command not found: %s" % argv[0], file=sys.stderr)
         sys.exit(1)
 
 rules = cmd[bestmatch]

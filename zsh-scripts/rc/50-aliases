@@ -121,14 +121,14 @@ _alias_unexisting_with_existing ooweb loweb
 if _is_command python2
 then
     alias ls='lsx'
-    if _is_command acoc
+    if _is_command peacock
     then
-        alias svn='acoc svn'
+        alias svn='peacock svn'
     fi
 fi
 
 function nocolor {
-    if [[ "$1" == acoc ]]
+    if [[ "$1" == peacock ]]
     then
         shift
         "$@"
