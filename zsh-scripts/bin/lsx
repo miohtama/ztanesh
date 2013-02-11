@@ -117,12 +117,12 @@ class Runner(object):
         config_path = os.path.expanduser('~/.zsh/etc')
     
         try:
-            user = os.getlogin()
+            user = pwd.getpwuid(os.getuid()).pw_name
             self.user_colors = self.read_color_config(
                 os.path.join(config_path, 'ls_u_colors'),
                 user)
     
-        except Exception:
+        except Exception as e:
             self.user_colors = {}
 
     
