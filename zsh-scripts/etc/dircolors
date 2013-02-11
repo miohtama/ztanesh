@@ -83,7 +83,7 @@ EXEC 01;32
 
 # If you use DOS-style suffixes, you may want to uncomment the following:
 #.cmd 01;32 # executables (bright green)
-#.exe 01;32
+.exe 01;32
 #.com 01;32
 #.btm 01;32
 #.bat 01;32
@@ -95,6 +95,8 @@ EXEC 01;32
 .arj 01;31
 .taz 01;31
 .lzh 01;31
+.lz  01;31
+.lzma 01;31
 .zip 01;31
 .z   01;31
 .Z   01;31
@@ -107,9 +109,12 @@ EXEC 01;32
 .deb 01;31
 .rpm 01;31
 .jar 01;31
+.ear 01;31
+.war 01;31
 .rar 01;31  # rar
 .ace 01;31  # unace
 .zoo 01;31  # zoo
+.xz  01;31
 .cpio 01;31 # cpio
 .7z  01;31  # p7zip
 .rz  01;31  # rzip
@@ -147,15 +152,19 @@ EXEC 01;32
 .asf 01;35  # Advanced Systems Format (contains Windows Media Video)
 .rm 01;35   # Real Media
 .rmvb 01;35 # Real Media Variable Bitrate
-.flc 01;35  # AutoDesk Animator
+
 .avi 01;35
+
+.flc 01;35  # AutoDesk Animator
 .fli 01;35
+.flv 01;35 # flash video
 .gl 01;35
 .dl 01;35
 .xcf 01;35
 .xwd 01;35
 .svg 01;35
-
+.wmf 01;35
+.emf 01;35
 
 # Document files
 .pdf 00;32
@@ -186,17 +195,18 @@ EXEC 01;32
 
 # audio formats
 .flac 01;35
-.mp3 01;35
-.mpc 00;36
-.ogg 00;36
-.wav 00;36
-.mid 00;36
-.midi 00;36
-.au 00;36
-.flac 00;36
-.aac 00;36
-.ra 01;36
-.mka 01;36
+.mp3  01;35
+.mpc  01;35
+.ogg  01;35
+.oga  01;35
+.wav  01;35
+.mid  01;35
+.midi 01;35
+.au   01;35
+.flac 01;35
+.aac  01;35
+.ra   01;35
+.mka  01;35
 
 # Config files
 .conf 00;36
@@ -235,5 +245,3 @@ EXEC 01;32
 .o 01;30
 .obj 01;30
 .egg-info 01;30
-
-
