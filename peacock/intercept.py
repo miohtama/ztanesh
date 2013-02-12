@@ -46,18 +46,23 @@ class Interceptor(object):
         if not argv:
             argv = [os.environ['SHELL']]
 
+        self.isatty = os.isatty(pty.STDOUT_FILENO)
         pid, master_fd = pty.fork()
         self.master_fd = master_fd
         if pid == pty.CHILD:
             os.execlp(argv[0], *argv)
 
         old_handler = signal.signal(signal.SIGWINCH, self._signal_winch)
-        try:
-            mode = tty.tcgetattr(pty.STDIN_FILENO)
-            tty.setraw(pty.STDIN_FILENO)
-            restore = 1
-        except tty.error:    # This is the same as termios.error
-            restore = 0
+        restore = 0
+        if self.isatty:
+            try:
+                mode = tty.tcgetattr(pty.STDIN_FILENO)
+                tty.setraw(pty.STDIN_FILENO)
+                restore = 1
+
+            except tty.error:    # This is the same as termios.error
+                pass
+
         self._init_fd()
         try:
             self._copy()
@@ -90,7 +95,13 @@ class Interceptor(object):
 
         # Get the terminal size of the real terminal, set it on the pseudoterminal.
         buf = array.array('h', [0, 0, 0, 0])
-        fcntl.ioctl(pty.STDOUT_FILENO, termios.TIOCGWINSZ, buf, True)
+        if self.isatty:
+            fcntl.ioctl(pty.STDOUT_FILENO, termios.TIOCGWINSZ, buf, True)
+        else:
+            # set default size...
+            buf[0] = 25
+            buf[1] = 80
+
         fcntl.ioctl(self.master_fd, termios.TIOCSWINSZ, buf)
 
     def _copy(self):
@@ -142,6 +153,9 @@ class Interceptor(object):
         '''
         Writes to stdout as if the child process had written the data.
         '''
+        if not self.isatty:
+            data = data.replace('\r\n', '\n')
+
         os.write(pty.STDOUT_FILENO, data)
 
     def write_master(self, data):

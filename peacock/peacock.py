@@ -366,7 +366,13 @@ class Colorizer(Interceptor):
         super(Colorizer, self).__init__()
 
     def do_process(self, data):
-        lines = data.split('\n')
+        line_end = ''
+        if data.endswith('\n'):
+            line_end = '\n'
+            if data.endswith('\r\n'):
+                line_end = '\r\n'
+
+        lines = data.splitlines(False)
         for i in range(len(lines)):
             for j in self.specs:
                 replaced = j.do_sub(lines[i])
@@ -374,7 +380,7 @@ class Colorizer(Interceptor):
                     lines[i] = replaced
                     break	
 
-        return '\n'.join(lines)
+        return '\r\n'.join(lines) + line_end
 
 initialize()
 
