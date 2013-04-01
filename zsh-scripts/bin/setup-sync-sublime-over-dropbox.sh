@@ -32,8 +32,8 @@ else
 fi
 
 # Check that settings really exist on this computer
-if [ ! -e "$SOURCE/Packages/" ]; then
-        echo "Could not find $SOURCE/Settings/"
+if [ ! -e "$SOURCE/Packages" ]; then
+        echo "Could not find $SOURCE/Packages/"
         exit 1
 fi
 
