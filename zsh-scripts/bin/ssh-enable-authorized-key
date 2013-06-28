@@ -1,0 +1,109 @@
+#!/bin/zsh
+#
+# A helper script to add your current SSH agent's public key to another user on the server.
+#
+# http://opensourcehacker.com/2012/10/24/ssh-key-and-passwordless-login-basics-for-developers/
+#
+# Copyright 2013 Mikko Ohtamaa http://opensourcehacker.com
+#
+# License BSD
+#
+# Examples:
+#
+# Add your current SSH agent public key to some user
+#
+#    ssh-enable-authorized-key userx
+#
+# Add a speciic key to a specific user on the server
+#
+#    ssh-enable-authorized-key user2 "`cat /home/user1/.ssh/id_rsa.pub`"
+#
+# Automatically add connection from plone1@localhost to plone@localhost to SSH known hosts
+#
+#    sudo -i -u plone1 ssh -oStrictHostKeyChecking=no plone2@localhost echo ""
+#
+
+# b0rk on error
+set -e
+
+target=$1
+
+key=$2
+
+# Room for improvement
+# http://serverfault.com/questions/367141/how-to-get-the-fully-qualified-name-fqn-on-unix-in-a-bash-script
+host=`hostname -f`
+
+if [[ -z "$target" ]]
+then
+    echo "Adds your SSH public key on another user on this server"
+    echo "Usage: ssh-enable-authorized-key [username] [key]"
+    echo ""
+    echo "If key is not given the first key from your SSH agent ssh-add -L listing is used"
+    exit 1
+fi
+
+# Automatically pick up the SSH agent key
+if [[ -z "$key" ]]
+then
+
+    set +e
+    # Only add the first key
+    keys=`ssh-add -L|head -n 1`
+    set -e
+
+    if [[ -z "$keys" ]]
+    then
+        echo "No public keys added for this SSH agent session"
+        echo "Check SSH agent status with ssh-add -L"
+        exit 1
+    fi
+    key=$keys
+fi
+
+# http://www.zsh.org/mla/users/2006/msg00038.html
+if [[ ! $key == "ssh-"* ]]
+then
+    echo "Does not look legit SSH public key"
+    echo $key
+    exit 1
+fi
+
+echo "Now setting the key on $target. Give sudo password if prompted"
+
+sudo -i -u $target install -d /home/$target/.ssh
+sudo -i -u $target touch /home/$target/.ssh/authorized_keys
+
+echo "Adding the following keys for user $target@$host"
+echo $key
+
+set +e
+grep "$key" /home/$target/.ssh/authorized_keys > /dev/null
+if [[ $? == 0 ]]
+then
+    echo "The key already is added"
+    exit 0
+fi
+set -e
+
+sudo -i -u $target echo $key >> /home/$target/.ssh/authorized_keys
+
+# Fix SSH folder permissions
+sudo -i chown -R $target:$target /home/$target/.ssh
+sudo -i chmod -R og-rwx /home/$target/.ssh
+
+# Generate help
+
+echo ""
+echo "Example to be added to your ~/.ssh/config on your local computer"
+echo ""
+echo "Host $target"
+echo "Hostname $host  # Fix this to your server full DNS if needed"
+echo "User $target"
+echo "ForwardAgent yes"
+echo ""
+echo "And then you can login as this user:"
+echo ""
+echo "ssh $target"
+echo ""
+exit 0

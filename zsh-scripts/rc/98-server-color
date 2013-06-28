@@ -1,5 +1,5 @@
 #
-# Decorate terminal based on the server name
+# Decorate terminal color based on the server name
 #
 
 
@@ -13,10 +13,10 @@ TAB_DECORATOR="$(rainbow-parade.py 0.7 0.4)"
 
 if [[ "$LC_TERM_PROGRAM" == "iTerm.app" ]]
 then
-        function tab_color_precmd {
-                echo -n "$TAB_DECORATOR"
-        }
+    function tab_color_precmd {
+            echo -n "$TAB_DECORATOR"
+    }
 
-        autoload -U add-zsh-hook
-        add-zsh-hook precmd statusbar_precmd
+    autoload -U add-zsh-hook
+    add-zsh-hook precmd tab_color_precmd
 fi

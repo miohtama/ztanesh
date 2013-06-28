@@ -1,4 +1,6 @@
 #!/usr/bin/python
+from __future__ import with_statement
+
 import os
 import sys
 import os.path
@@ -23,9 +25,9 @@ LINE_REGEX = re.compile('''
 
        \s+\d+\s+)                   # links
 
-       (\w+)                        # user
+       (\S+)                        # user
        (\s+)
-       (\w+)                        # group
+       (\S+)                        # group
 
        (?:(\s+)(\d+)(\s+))?
 ''', re.X)
@@ -81,7 +83,7 @@ class Runner(object):
 
 
     def do_line_subst(self, match):
-        m = list(match.groups())
+        m = list(i or '' for i in match.groups())
 
         username = m[1]
         m[1] = self.colorize(self.user_colors, m[1])
@@ -120,7 +122,7 @@ class Runner(object):
                 os.path.join(config_path, 'ls_u_colors'),
                 user)
     
-        except Exception as e:
+        except Exception:
             self.user_colors = {}
 
     
@@ -130,7 +132,7 @@ class Runner(object):
                 os.path.join(config_path, 'ls_g_colors'),
                 group)
     
-        except Exception as e:
+        except Exception:
             self.group_colors = {}
     
         ls_pipe = subprocess.Popen(
