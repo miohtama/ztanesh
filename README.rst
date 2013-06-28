@@ -252,7 +252,7 @@ If ZSH does not start up properly (CTRL+C interruption, Git update failure, etc.
 
 You can fix this issue by enabling ``comprc`` function by hand and run it to rebuild startup files::
 
-     source ~/tools/zsh-scripts/rc/65-functions
+     source ~/tools/zsh-scripts/rc/03-functions
      comprc
 
 License
