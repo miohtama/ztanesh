@@ -1,10 +1,9 @@
-function _is_command {
-         which "$1" 2>&1 > /dev/null
-         return $?
+function _alias_unexisting_with_existing {
+    ! _is_command "$1" && _is_command "$2" && alias "$1"="$2"
 }
 
-function _alias_if_not_exists {
-         ! _is_command "$1" && alias "$1"="$2"
+function _alias_unexisting_command {
+    ! _is_command "$1" && alias "$1"="$2"
 }
 
 # Global aliases (inside command arguments too)
@@ -25,7 +24,6 @@ alias cd....='cd ../../..'
 alias cd...='cd ../..'
 alias cd..='cd ..'
 alias cls='clear'
-alias copy='cp'
 
 alias d='ls'
 alias e='exit'
@@ -35,41 +33,35 @@ alias exit='clear;exit'
 alias f='finger'
 alias friends='wf'
 
-
-# Super ls
-alias ls='lsx'
-
 # Colored less
 alias less='less +g -RSC~'
 
+# alias logout as it might not work in all cases
 alias logout='exit'
-alias m='more'
 
-alias q='exit'
-alias quit='exit'
-alias reset='echo -e \\017; reset'
-alias save="echo SAVED."
-alias sudo='sudo '
+
+_alias_unexisting_command q       'exit'
+_alias_unexisting_command quit    'exit'
+_alias_unexisting_command reset   'echo -e \\017; reset'
+_alias_unexisting_command save    'echo SAVED.'
+_alias_unexisting_command m       'more'
 
 # Windows/DOS still in your muscle memory
-alias xcopy='cp'
-alias rd='rmdir'
-alias ren='mv'
-alias deltree='rm -r'
+_alias_unexisting_command copy    'cp'
+_alias_unexisting_command xcopy   'cp'
+_alias_unexisting_command rd      'rmdir'
+_alias_unexisting_command ren     'mv'
+_alias_unexisting_command deltree 'rm -r'
+_alias_unexisting_command del     'rm'
+_alias_unexisting_command edit    'nano'
+_alias_unexisting_command md      'mkdir'
+_alias_unexisting_command more    'less'
+_alias_unexisting_command move    'mv'
+
 alias dir='ls'
-alias del='rm'
-alias edit='nano'
-alias md='mkdir'
-alias more='less'
-alias move='mv'
-
-# Colored svn output
-# Please see https://github.com/miohtama/ztanesh/issues/9
-#alias svn='colorsvn'
-
 
 # World stopped using pico long time ago
-alias pico='nano -wz'
+_alias_unexisting_command pico    'nano -wz'
 
 # Display processes listening to TCP/IP ports
 alias openports="lsof -n -P -i4TCP|grep LISTEN"
@@ -112,5 +104,41 @@ function search() {
         grep -Ri "$1" --line-number --before-context=3 --after-context=3 --color=always --include="$2" --exclude=".*" "$search_path"/*
 }
 
-_alias_if_not_exists help run-help
+_alias_unexisting_with_existing help run-help
 
+# Make LibreOffice a substitute for OpenOffice ;)
+_alias_unexisting_with_existing ooffice loffice
+_alias_unexisting_with_existing oocalc localc
+_alias_unexisting_with_existing oodraw lodraw
+_alias_unexisting_with_existing oofromtemplate lofromtemplate
+_alias_unexisting_with_existing oowriter lowriter
+_alias_unexisting_with_existing ooimpress loimpress
+_alias_unexisting_with_existing oomath lomath
+_alias_unexisting_with_existing ooweb loweb
+
+
+# Super colorizations - these absolutely require python2
+if _is_command python2
+then
+    alias ls='lsx'
+    if _is_command peacock
+    then
+        alias svn='peacock svn'
+    fi
+fi
+
+function nocolor {
+    if [[ "$1" == peacock ]]
+    then
+        shift
+        "$@"
+        return $?
+    elif [[ "$1" == lsx ]]
+    then
+        "$@" -lc
+        return $?
+    fi
+
+    "$@"
+    return $?        
+}

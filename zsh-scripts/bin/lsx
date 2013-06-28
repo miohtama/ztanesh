@@ -1,4 +1,5 @@
-#!/usr/bin/python
+#!/usr/bin/env python2
+
 from __future__ import with_statement
 
 import os
@@ -32,8 +33,14 @@ LINE_REGEX = re.compile('''
        (?:(\s+)(\d+)(\s+))?
 ''', re.X)
 
+def grname(gid):
+    try:
+        return grp.getgrgid(gid).gr_name
+    except:
+        return str(gid)
+
 class Runner(object):
-    def read_color_config(self, filename, self_name):
+    def read_color_config(self, filename, self_name, aux_list=[]):
         colors = { }
     
         with open(filename) as config:
@@ -47,15 +54,21 @@ class Runner(object):
                 color = color.strip()
                 unames = unames.split(';')
     
+                unames = [ u.strip() for u in unames ]
+
+                if '%self' in unames:
+                    unames.append(self_name)
+                    unames.remove('%self')
+
+                if '%aux' in unames:
+                    unames.extend(aux_list)
+                    unames.remove('%aux')
+
                 for u in unames:
-                    u = u.strip()
-                    if u == '%self':
-                        u = self_name
-    
                     colors[u] = '\033[%s' % color
     
         return colors
-    
+
     
     def do_simple_ls(self, ls_command, arguments):
         rc = subprocess.call([ls_command] + arguments)
@@ -117,20 +130,24 @@ class Runner(object):
         config_path = os.path.expanduser('~/.zsh/etc')
     
         try:
-            user = os.getlogin()
+            user = pwd.getpwuid(os.getuid()).pw_name
             self.user_colors = self.read_color_config(
                 os.path.join(config_path, 'ls_u_colors'),
                 user)
     
         except Exception:
             self.user_colors = {}
-
     
         try:
-            group = grp.getgrgid(os.getgid()).gr_name
+            group = grname(os.getgid())
+            auxgroups = set(grname(i) for i in os.getgroups())
+            auxgroups.discard(group)
+            auxgroups = list(auxgroups)
+
             self.group_colors = self.read_color_config(
                 os.path.join(config_path, 'ls_g_colors'),
-                group)
+                group,
+                auxgroups)
     
         except Exception:
             self.group_colors = {}

@@ -3,7 +3,7 @@ function check_unset_venv {
     do
         if [[ -r "$i/.venv-path" ]]
         then
-            cat "$i/.venv-path"
+            <"$i/.venv-path"
 	    return
         fi
     done

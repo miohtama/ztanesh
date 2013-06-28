@@ -1,0 +1,3 @@
+#compdef nocolor
+
+_arguments '(-):command: _command_names' '*::arguments: _normal'

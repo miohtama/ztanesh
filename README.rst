@@ -29,6 +29,8 @@ Features
 
 Out of the box you will be able to
 
+* **Colorize** command line while you are typing it (based on `zsh-syntax-highlighting <https://github.com/zsh-users/zsh-syntax-highlighting/>`_)
+
 * **Colorize** terminal tabs based on SSH connection. Each server automatically gets its own color. (iTerm2)
 
 * Automatically update the window title on your terminal based on the currently running command etc.
@@ -75,6 +77,13 @@ Installation
 
 The installation instructions are based on the assumption you checkout Git repository under `~/tools` folder
 in your home directory.
+
+Stable vs. dev branch
++++++++++++++++++++++++
+
+If you want to leave on the bleeding edge use *dev* branch::
+
+    git clone -b dev git://github.com/miohtama/ztanesh.git ~/tools
 
 ZSH versions
 ++++++++++++++++
