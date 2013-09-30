@@ -1,4 +1,8 @@
 change-insert-cursor () {
+    if [[ "$STATUSBAR" != '1' ]]
+    then
+        return
+    fi
     if [[ "$ZLE_STATE" == *overwrite* ]]
     then
         echo -ne '\033]50;CursorShape=0\007'
