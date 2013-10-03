@@ -59,15 +59,11 @@ fi
 # Dropbox has not been set-up on any computer before?
 if [ ! -e "$SYNC_FOLDER" ] ; then
         echo "Setting up Dropbox sync folder"
-        
-        # Creating the folders in separated categories
-        mkdir -p "$SYNC_FOLDER/Installed Packages"
-        mkdir -p "$SYNC_FOLDER/Packages"
-#        mkdir -p "$SYNC_FOLDER/Settings"
+        mkdir -p "$SYNC_FOLDER/"
         
         # Copy the files into their respective folder
-        cp -r "$SOURCE/Installed Packages/" "$SYNC_FOLDER/Installed Packages"
-        cp -r "$SOURCE/Packages/" "$SYNC_FOLDER/Packages"
+        cp -r "$SOURCE/Installed Packages/" "$SYNC_FOLDER/"
+        cp -r "$SOURCE/Packages/" "$SYNC_FOLDER/"
 #        cp -r "$SOURCE/Settings/" "$SYNC_FOLDER/Settings"
 fi
 
