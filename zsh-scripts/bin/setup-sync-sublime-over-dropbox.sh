@@ -25,7 +25,14 @@ SYNC_FOLDER="$DROPBOX/Sublime"
 if [ `uname` = "Darwin" ];then
         SOURCE="$HOME/Library/Application Support/Sublime Text 2"
 elif [ `uname` = "Linux" ];then
-        SOURCE="$HOME/.config/sublime-text-2"
+		if [ -e $HOME/.config/sublime-text-3 ]; then
+				SOURCE="$HOME/.config/sublime-text-3"
+		elif [ -e $HOME/.config/sublime-text-2 ]; then
+				SOURCE="$HOME/.config/sublime-text-2"
+		else
+				echo "Unknown SublimeText version"
+				exit 1
+		fi
 else
         echo "Unknown operating system"
         exit 1
@@ -33,7 +40,7 @@ fi
 
 # Check that settings really exist on this computer
 if [ ! -e "$SOURCE/Packages/" ]; then
-        echo "Could not find $SOURCE/Settings/"
+        echo "Could not find $SOURCE/Packages/"
         exit 1
 fi
 
