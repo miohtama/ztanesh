@@ -7,9 +7,15 @@
 
 SUBL="/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl"
 
-if [ ! -e "$SUBL" ] ; then
-    echo "Sublime not found: $SUBL"
-    exit 1
+if [ ! -e "$SUBL" ]
+then
+    SUBL="/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl"
+    if [ ! -e "$SUBL" ]
+    then
+        echo "Sublime not found: $SUBL"
+        exit 1
+    fi
 fi
+
 
 "$SUBL" --new-window -wait $@
