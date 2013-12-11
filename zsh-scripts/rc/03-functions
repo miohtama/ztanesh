@@ -24,14 +24,6 @@ function get-mtime {
     zstat +mtime "$1"
 }
 
-function get-midnight {
-    if date -v0H > /dev/null 2>&1; then
-        date -v0H -v0M -v0S '+%s'
-    else
-        date --date="today 00:00" '+%s'
-    fi
-}
-
 function update-zsh-rcs {
     (
        cd ~/tools/
@@ -46,22 +38,3 @@ function update-zsh-rcs {
 
     comprc
 }
-
-function conditional-update-zsh-rcs {
-    local LAST_UPDATE_ATTEMPT=$(get-zsh-tools-file var/run/last_updated)
-    local UNCONDITIONAL_UP=
-
-    if [[ ! -e $LAST_UPDATE_ATTEMPT ]]
-    then
-        UNCONDITIONAL_UP=1
-    fi
-
-    if [[ $(get-mtime $LAST_UPDATE_ATTEMPT) -lt $(get-midnight) || $UNCONDITIONAL_UP == 1 ]]
-    then
-        echo "Checking updates for RC files"
-        touch $LAST_UPDATE_ATTEMPT
-        update-zsh-rcs
-    fi
-}
-
-conditional-update-zsh-rcs
