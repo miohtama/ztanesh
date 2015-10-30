@@ -120,25 +120,9 @@ _alias_unexisting_with_existing ooweb loweb
 # Super colorizations - these absolutely require python2
 if _is_command python2
 then
-    alias ls='lsx'
+    alias ls='lsx -lac'
     if _is_command peacock
     then
         alias svn='peacock svn'
     fi
 fi
-
-function nocolor {
-    if [[ "$1" == peacock ]]
-    then
-        shift
-        "$@"
-        return $?
-    elif [[ "$1" == lsx ]]
-    then
-        "$@" -lc
-        return $?
-    fi
-
-    "$@"
-    return $?        
-}
