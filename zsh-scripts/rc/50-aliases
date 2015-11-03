@@ -58,8 +58,6 @@ _alias_unexisting_command md      'mkdir'
 _alias_unexisting_command more    'less'
 _alias_unexisting_command move    'mv'
 
-alias dir='ls'
-
 # World stopped using pico long time ago
 _alias_unexisting_command pico    'nano -wz'
 
@@ -120,7 +118,7 @@ _alias_unexisting_with_existing ooweb loweb
 # Super colorizations - these absolutely require python2
 if _is_command python2
 then
-    alias ls='lsx -lac'
+    alias ls='lsx -lach'
     if _is_command peacock
     then
         alias svn='peacock svn'
