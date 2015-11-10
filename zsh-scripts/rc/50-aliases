@@ -13,9 +13,6 @@ alias -g .....='../../../..'
 alias -g ....='../../..'
 alias -g ...='../..'
 
-# This ain't IRC
-alias /quit=exit
-
 alias c='clear'
 alias cd.......='cd ../../../../../..'
 alias cd......='cd ../../../../..'
@@ -25,9 +22,6 @@ alias cd...='cd ../..'
 alias cd..='cd ..'
 alias cls='clear'
 
-alias d='ls'
-alias e='exit'
-
 alias exit='clear;exit'
 
 alias f='finger'
@@ -36,30 +30,12 @@ alias friends='wf'
 # Colored less
 alias less='less +g -RSC~'
 
-# alias logout as it might not work in all cases
-alias logout='exit'
+alias rl='source ~/.zprofile'
 
-
-_alias_unexisting_command q       'exit'
 _alias_unexisting_command quit    'exit'
 _alias_unexisting_command reset   'echo -e \\017; reset'
 _alias_unexisting_command save    'echo SAVED.'
 _alias_unexisting_command m       'more'
-
-# Windows/DOS still in your muscle memory
-_alias_unexisting_command copy    'cp'
-_alias_unexisting_command xcopy   'cp'
-_alias_unexisting_command rd      'rmdir'
-_alias_unexisting_command ren     'mv'
-_alias_unexisting_command deltree 'rm -r'
-_alias_unexisting_command del     'rm'
-_alias_unexisting_command edit    'nano'
-_alias_unexisting_command md      'mkdir'
-_alias_unexisting_command more    'less'
-_alias_unexisting_command move    'mv'
-
-# World stopped using pico long time ago
-_alias_unexisting_command pico    'nano -wz'
 
 # Display processes listening to TCP/IP ports
 alias openports="lsof -n -P -i4TCP|grep LISTEN"
