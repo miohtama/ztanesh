@@ -31,6 +31,7 @@ alias friends='wf'
 alias less='less +g -RSC~'
 
 alias rl='source ~/.zprofile'
+alias rmpyc='find . -name "*.pyc" -exec rm -rf {} \;'
 
 _alias_unexisting_command quit    'exit'
 _alias_unexisting_command reset   'echo -e \\017; reset'
