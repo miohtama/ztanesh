@@ -1,24 +1,14 @@
-function prepend_to_path {
-    DIR="$1"
-    if [[ -d "$1" ]]
-    then
-        PATH="$1:$PATH"
-    fi
-}
+prepend_to_path ~/.zsh/bin
+prepend_to_path ~/.bin
+prepend_to_path ~/tools/bin
 
-function append_to_path {
-    DIR="$1"
-    if [[ -d "$1" ]]
-    then
-        PATH="$PATH:$1"
-    fi
-}
-
-prepend_to_path "$HOME/.zsh/bin"
-prepend_to_path "$HOME/.bin"
-prepend_to_path "$HOME/tools/bin"
+if [[ ! -z "$GNU_COREUTILS_DIR" ]]
+then
+    prepend_to_path "$GNU_COREUTILS_DIR"
+fi
 
 append_to_path  "/opt/bin"
+append_to_path  ~/tools/binfix
 
 export GREP_COLOR="1;31"
 
@@ -34,7 +24,20 @@ else
 fi
 unset less_pipe_cmd
 
-# More colors in ls: zips, e.g.
-eval `dircolors ~/.zsh/etc/dircolors` 2>&1 > /dev/null
+function setup-dircolors {
+    local DIRCOLORS
 
-fpath=(~/.zsh/completion/func/ $fpath)
+    # Linux
+    _is_command dircolors && DIRCOLORS=dircolors
+
+    # OSX + Macports
+    _is_command gdircolors && DIRCOLORS=gdircolors
+
+    if [[ ! -z "$DIRCOLORS" ]] ; then
+        eval $($DIRCOLORS ~/.zsh/etc/dircolors) 2>&1 > /dev/null
+    fi
+}
+
+setup-dircolors
+
+fpath=(~/.zsh/completion/funcs/ $fpath)

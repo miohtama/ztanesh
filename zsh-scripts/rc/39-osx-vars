@@ -1,17 +1,23 @@
-
-
-if [[ `uname` == "Darwin" ]] ; then
-    export PATH=/opt/local/libexec/gnubin:/opt/local/bin:/opt/local/sbin:$PATH
+if [[ $OSX == 1 ]]
+then
     export CLICOLOR=1
     export LESSOPEN='| /opt/local/bin/lesspipe.sh %s'
 
-    # Sublime Edit 2
+    # Sublime Text
     SUBL='/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl'
     if [[ -e "$SUBL" ]]
     then
         alias subl="'$SUBL'"
         alias nano="subl"
         export EDITOR="subl-wrapper"
+    else
+        SUBL='/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl'
+        if [[ -e "$SUBL" ]]
+        then
+            alias subl="'$SUBL'"
+            alias nano="subl"
+            export EDITOR="subl-wrapper"
+        fi
     fi
     unset SUBL
 fi

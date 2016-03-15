@@ -58,6 +58,7 @@ LOCATIONS = [
     "C:\\Program Files\\Sublime Text 2\\sublime_text.exe",
     "/home/ed/apps/sublime_text_2/sublime_tex",
     "/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl"
+    "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl"
 ]
 
 

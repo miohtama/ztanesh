@@ -1,0 +1,40 @@
+function get-zsh-tools-file {
+    echo ~/.zsh/"$1"
+}
+
+function get-gnu-cmd {
+    local CMD="g$1"
+    if _is_command $CMD
+    then
+        echo $CMD
+    else
+        echo $1
+    fi
+}
+
+function comprc {
+    if $(get-zsh-tools-file scripts/compile.zsh)
+    then
+        exec zsh
+    fi
+} 
+
+zmodload -F zsh/stat b:zstat
+function get-mtime {
+    zstat +mtime "$1"
+}
+
+function update-zsh-rcs {
+    (
+       cd ~/tools/
+       if [[ -e .git ]]
+       then
+           echo "Updating ~/tools"
+           git pull
+       else
+           echo "Do not know how to up" ~/tools
+       fi
+    )
+
+    comprc
+}

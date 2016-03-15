@@ -29,6 +29,8 @@ Features
 
 Out of the box you will be able to
 
+* **Colorize** command line while you are typing it (based on `zsh-syntax-highlighting <https://github.com/zsh-users/zsh-syntax-highlighting/>`_)
+
 * **Colorize** terminal tabs based on SSH connection. Each server automatically gets its own color. (iTerm2)
 
 * Automatically update the window title on your terminal based on the currently running command etc.
@@ -76,55 +78,6 @@ Installation
 The installation instructions are based on the assumption you checkout Git repository under `~/tools` folder
 in your home directory.
 
-ZSH versions
-++++++++++++++++
-
-We recommend using `ZSH 5.0 <http://sourceforge.net/projects/zsh/files/>`_ which is the latest stable version.
-As the writing of this most operating systems ship with older versions, however, Ubuntu 12.10 defaults to ZSH 5.0.
-
-Ubuntu
-++++++
-
-Ubuntu install commands::
-
-    cd ~
-    sudo apt-get install git-core highlight zsh perl
-    git clone git://github.com/miohtama/ztanesh.git ~/tools
-    ~/tools/zsh-scripts/setup.zsh
-
-Test that ZSH starts properly::
-
-    zsh
-
-Then activat zsh for your user by default::
-
-  chsh -s /bin/zsh $USER
-
-... or for the other users::
-
-    sudo usermod -s /bin/zsh TARGETUSERNAME
-
-Gentoo
-+++++++
-
-Gentoo Linux install commands::
-
-    sudo emerge -av git highlight zsh
-    git clone git://github.com/miohtama/ztanesh.git ~/tools
-    ~/tools/zsh-scripts/setup.zsh
-
-Test that ZSH starts properly::
-
-    zsh
-
-Then activat zsh for your user by default::
-
-  chsh -s /bin/zsh $USER
-
-... or for the other users::
-
-    sudo usermod -s /bin/zsh TARGETUSERNAME
-
 
 OSX
 +++++++++++++++++++++++
@@ -132,19 +85,11 @@ OSX
 Install `GNU userland tools <http://opensourcehacker.com/2012/04/27/python-and-javascript-developer-setup-hints-for-osx-lion/>`_ using
 `Macports <http://macports.org>`_::
 
-    # Note: zsh-devel installs the version 5.0 of zsh shell (latest stable)
-    sudo port install zsh-devel perl5 coreutils lesspipe findutils highlight grep +with_default_names
-
-Or use `Homebrew <http://mxcl.github.com/homebrew/>`_::
-
     brew install zsh coreutils lesspipe findutils highlight
-    # Note: you might have to edit the zsh brew formula if it shows "Error: Download failed: http://www.zsh.org/pub/zsh-5.0.0.tar.bz2"
-    # brew edit zsh
-    # then change: url 'http://www.zsh.org/pub/zsh-5.0.2.tar.bz2' => url 'http://sourceforge.net/projects/zsh/files/zsh/5.0.0/zsh-5.0.0.tar.bz2'
 
 Clone ztanesh::
 
-    git clone git://github.com/miohtama/ztanesh.git ~/tools
+    git clone git://github.com/h25/ztanesh.git ~/tools
     ~/tools/zsh-scripts/setup.zsh
 
 Test that ZSH starts properly::
@@ -153,24 +98,8 @@ Test that ZSH starts properly::
 
 Activate zsh for your user account as the default shell::
 
-    sudo dscl . -create /Users/YOURUSERNAME UserShell /opt/local/bin/zsh
-    # or if you use Homebrew before: sudo dscl . -create /Users/YOURUSERNAME UserShell /usr/local/bin/zsh
+    sudo dscl . -create /Users/YOURUSERNAME UserShell /usr/local/bin/zsh
 
-Other 'NIX operating systems
-++++++++++++++++++++++++++++++
-
-Other UNIX flavour operating systems should work just fine. Please adjust the installation
-commands according to your distribution and `report back to us how you did it <https://github.com/miohtama/ztanesh/issues>`_.
-
-Autoupdate notes
-++++++++++++++++++
-
-If you want to autoupdate deploy your own global ZSH rc changes fork this repository on Github under your own user account, or
-set up your own private fork on anywhere you want. The authors are less benevolent dictators
-(read: BOFHs) of this project and may feel to change the scripts breaking everything for you any day.
-
-But you can also feel free to hack this project into pieces. If you find good patches
-just make Pull request on Github.
 
 Usage
 -------------
@@ -239,12 +168,12 @@ Troubleshooting
 
 If ZSH does not start up properly (CTRL+C interruption, Git update failure, etc.) you may see the error::
 
-      /Users/mikko/.zsh//lib/ztanesh-rcs.zsh:103: command not found: rainbow-parade.py
+    /Users/mikko/.zsh//lib/ztanesh-rcs.zsh:103: command not found: rainbow-parade.py
 
 You can fix this issue by enabling ``comprc`` function by hand and run it to rebuild startup files::
 
-     source ~/tools/zsh-scripts/rc/65-functions
-     comprc
+    source ~/tools/zsh-scripts/rc/03-functions
+    comprc
 
 License
 ----------

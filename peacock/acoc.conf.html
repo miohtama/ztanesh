@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>acoc.conf.rd</title>
+</head>
+<body>
+<h1><a name="label-0" id="label-0">NAME</a></h1>
+<p>acoc.conf - configuration file for acoc(1)</p>
+<h1><a name="label-1" id="label-1">SYNOPSIS</a></h1>
+<p>/etc/acoc.conf</p>
+<h1><a name="label-2" id="label-2">DESCRIPTION</a></h1>
+<pre>acoc is a regular expression based colour formatter for programs that
+display output on the command-line. It works as a wrapper around the
+target program, executing it and capturing the stdout stream.
+Optionally, stderr can be redirected to stdout, so that it, too, can
+be manipulated.
+
+acoc then applies matching rules to patterns in the output and
+applies colour sets to those matches.
+
+The configuration files used by the program are /etc/acoc.conf,
+/usr/local/etc/acoc.conf and ~/.acoc.conf. They are sought and read
+in that order. Obviously, at least one of them should exist on the
+system.
+
+A sample acoc.conf file is supplied with some sample matching rules.
+
+The system configuration file is parsed before the user configuration
+file. This allows the user to override the system configuration file
+at will.
+
+Blank lines and those that begin with a '#' are ignored.
+
+A program configuration stanza is introduced as follows:
+
+[program_spec]
+
+The square brackets are mandatory literal characters. Alternatively,
+the '@' symbol may be used, to allow '[' and ']' to retain their
+usual semantics in program specs comprising a regular expression:
+
+@program_spec@
+
+'program_spec' is defined as one or more instances of the following
+component, separated by a comma:
+
+invocation[/flags]
+
+where 'invocation' consists of the program's name (not including its
+directory path component) plus any initial arguments.
+
+Alternatively, 'invocation' may be a regular expression, which can be
+used to match multiple programs and/or command-line arguments in
+arbitrary order. Regular expressions are automatically anchored
+to the beginning of the command line.
+
+'flags', if present, is separated from 'invocation' by a slash and
+consists of one or more of the following characters:
+
+a - continue to attempt to find matching patterns after the first
+    match has been found. By default, acoc will stop processing a
+    line and display it after the first match has been found.
+
+e - redirect the target program's stderr to stdout, allowing it, too,
+    to be matched by rules.
+
+p - allocate a pseudo-terminal in which to run the target program.
+
+    Some programs, such as ls(1), behave differently when their
+    stdout is not connected to a tty. Use of this option will fool
+    the target program into believing it is outputting to a tty,
+    rather than a pipe to acoc.
+
+    Use of this flag requires Masahiro Tomita's Ruby/TPty library to
+    be installed. Otherwise, the flag is silently ignored.
+
+    Note that the pseudo-terminal communication enabled by this flag
+    is one-way only, from the target program to acoc. It is thus not
+    possible to use acoc in combination with interactive programs,
+    such as the interactive Ruby interpreter (irb).
+
+r - remove all previous rules for this program, regardless of
+    invocation. This is useful if you want to override the global
+    configuration file's settings for a given program in the user
+    configuration file.
+
+t - apply colour formatting even if stdout is not a tty. By default,
+    formatting is not applied if the output stream is not attached to
+    a terminal.
+
+Here's an example of a line that introduces a configuration stanza:
+
+[rpm/ae,rpmbuild/ae]
+
+which says to apply the rules that follow to the rpm(8) and
+rpmbuild(8) commands, attempt to apply all matching rules, and also
+apply those rules to the programs' stderr stream.
+
+Another example:
+
+[ls/p]
+
+This says to allocate a pseudo-terminal to ls(1), fooling it into
+believing that its output is being sent to a regular terminal instead
+of a pipe to acoc.
+
+With this flag, the effect will be this:
+
+$ ls
+file1  file2  file3  file4  file5  file6
+
+Without it, ls will detect that its stdout is connected to a pipe and
+behave accordingly:
+
+$ ls
+file1
+file2
+file3
+file4
+file5
+file6
+
+A third example:
+
+[diff/t,rcsdiff/t,cvs diff/t,p4 diff/t]
+
+This says that the rules that follow should be applied to all
+invocations of diff(1) and rcsdiff(1), as well as those invocations
+of cvs(1) and p4 that are followed by the argument 'diff'.
+
+Additionally, colouring should be applied even when stdout is not
+connected to a tty, so that the colours still show up when the output
+is displayed in a pager such as more(1) or less(1).
+
+Yet another example:
+
+/ps -.*(e.*f|f.*e)/
+
+In this example, the ps(1) command will be matched, as long as the
+'e' and 'f' options are both passed in either order.
+
+An alternative way to write the above spec is:
+
+@ps -.*[ef].*[ef]@
+
+There are two things to note in this alternative:
+
+1. '@' has been used to delimit the spec, because '[' and ']' are
+   required for the character lists in the regular expression.
+
+2. While this form is less specific (in that it allows matches
+   against duplicated command line options), it makes for
+   considerably shorter specs if one wishes to test for the inclusion
+   of a set of more than 2 or 3 command line flags. In the original
+   form, one must manually list all of the possible permutations,
+   which is equal to x! (factorial). For 3 command line flags, this
+   is 6 permutations; for 4, it is 24, etc.
+
+Here's one more example:
+
+[tcpdump/r]
+
+If this were placed in ~/.acoc.conf, it would remove any matching
+rules that had been installed for the tcpdump command by either
+/etc/acoc.conf or /usr/local/etc/acoc.conf.
+
+After defining the program name and operational flags, matching rules
+can be defined. These take the following form:
+
+/regex/[flags]		    colour_spec
+
+where 'regex' is a Ruby-compatible regular expression. The delimiting
+'/' characters can be any character, as long as that character is not
+present in the regular expression itself.
+
+'flags', if present, consists of one or more characters from the
+following list:
+
+g - find every match on the line, not just the first. When using this
+    flag, 'regex' should not include parentheses.
+
+'colour_spec' is defined as a comma-separated list of one or more
+'colour_groups', which are defined as a plus-separated (+) list of
+one or more of the following:
+
+black
+blink
+blue
+bold
+clear
+concealed
+cyan
+dark
+green
+italic
+magenta
+negative
+on_black
+on_blue
+on_cyan
+on_green
+on_magenta
+on_red
+on_white
+on_yellow
+rapid_blink
+red
+reset
+strikethrough
+underline
+underscore
+white
+yellow
+
+Examples of a 'colour_group' are 'white+bold', 'black+on_white', etc.
+A complete 'colour_spec' might look like this:
+
+red+bold,white,yellow+bold,black+on_green
+
+Except when using the 'g' flag, each component of the 'regex' that
+you wish to colour should be placed in parentheses. Text outside
+parentheses will be used for matching, but will not be coloured.
+
+For example, examine the following:
+
+/^(\d+)foo\s*(\w+)/
+
+This will match a line that starts with more or one digits, followed
+by the string 'foo' and any amount of white space, followed by one or
+more 'word' characters. However, only the initial group of digits and
+the group of word characters will be coloured. The string 'foo' and
+the white space that follows it will be used for matching, but will
+not be coloured.
+
+Separated from the 'regex' by white space is the 'colour_spec'.
+Usually, you will include in this as many colours (separated by
+commas) as you have parenthesised expressions in the 'regex'.
+However, it's also permissible to have fewer. If, for example, you
+have three parenthesised expressions in the 'regex', but only two
+colours listed in the 'colour_spec', then the second colour will be
+used for colouring both the second and third matches.
+
+If you have more colours listed in the 'colour_spec' than there are
+parenthesised expressions in the 'regex', the surplus colours are
+ignored.
+
+When using the 'g' flag to perform a global match on the line, you
+may list as many colours as you want. The same rules apply here. If
+there are more matches than colours, the remaining matches will be
+coloured using the last colour listed. Surplus colours are ignored.</pre>
+<h1><a name="label-3" id="label-3">NOTES</a></h1>
+<h2><a name="label-4" id="label-4">Multiple 'program_spec' entries for a single program</a></h2>
+<pre>An identical program invocation may be listed in more than one
+'program_spec'. For example, you might wish to add all of gcc(1)'s
+matching rules to those used by rpmbuild(8) without having to list
+them twice. You would therefore first define a stanza that contained
+the matching rules that apply to both programs:
+
+[rpmbuild -b,gcc]
+...
+
+and then later define a second stanza for 'rpmbuild -b' only, in
+which you would list only the rules that apply to that one program.
+
+Note, however, that a 'program_spec' that is a substring of another
+will not have its rules added to the longer spec. For example, the
+rules pertaining to a spec for 'rpmbuild -b' would not be added to
+those pertaining to a spec for 'rpmbuild -ba'.</pre>
+<h2><a name="label-5" id="label-5">Command-line matching precedence</a></h2>
+<pre>A similar issue to the previous one is the question of what happens
+when a command line starts with, say, 'ps ax' and there are matching
+rules for both 'ps ax' and 'ps a', both of which match the command
+line when reading from left to right.
+
+In such cases, the longer (or more specific) match takes precedence.</pre>
+<h2><a name="label-6" id="label-6">The 'default' 'program_spec'</a></h2>
+<pre>A 'program_spec' may be defined with the name 'default'. If this is
+done, the rules in this stanza will be used to match the output of
+any program that doesn not have its own specific 'program_spec'.</pre>
+<h2><a name="label-7" id="label-7">Nesting of regular expression components</a></h2>
+<pre>Nesting parenthesised regular expression components is possible, but
+will have unexpected results if the inner match creates a
+backreference.
+
+As an example, the following 'regex' could be used to superficially
+match an IP address:
+
+((\d?\d?\d\.){3}\d?\d?\d)/
+
+but the second '(' starts a new backreference. Use this instead:
+
+((?:\d?\d?\d\.){3}\d?\d?\d)/
+
+The (?:pattern) construct clusters, but does not capture, so no
+backreference will be made.
+
+Another way of saying this is to say that nested subexpressions can
+be used for matching, but cannot be coloured.</pre>
+<h1><a name="label-8" id="label-8">AUTHOR</a></h1>
+<p>Python by Antti Haapala &lt;antti@haapala.name&gt;</p>
+<p>Original Ruby implementation written by Ian Macdonald &lt;ian@caliban.org&gt;</p>
+<h1><a name="label-9" id="label-9">CONTRIBUTING</a></h1>
+<p>acoc is only as good as the configuration file that it uses. If you compose
+pattern-matching rules that you think would be useful to other people, please
+send them to me for inclusion in a subsequent release.</p>
+<h1><a name="label-10" id="label-10">SEE ALSO</a></h1>
+<ul>
+<li>acoc(1)</li>
+<li><a href="http://www.caliban.org/ruby/">acoc home page - http://www.caliban.org/ruby/</a></li>
+</ul>
+
+</body>
+</html>

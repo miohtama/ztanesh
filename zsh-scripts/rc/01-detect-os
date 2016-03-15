@@ -1,24 +1,30 @@
-if [[ `uname` == 'Linux' ]]
-then
-        export LINUX=1
-        export GNU_USERLAND=1
-else
-        export LINUX=
-fi
+OS_BY_UNAME=$(uname) 
 
-if [[ `uname` == 'Darwin' ]]
+export LINUX=
+export GNU_USERLAND=
+export OSX=
+
+if [[ $OS_BY_UNAME == Linux ]]
 then
-        export OSX=1
-else
-        export OSX=
+        LINUX=1
+        GNU_USERLAND=1
+elif [[ $OS_BY_UNAME == Darwin ]]
+then
+        OSX=1
 fi
 
 # Detect Macports GNU userland installation
-if [[ "$OSX" == "1" ]]
+if [[ $OSX == 1 ]]
 then
-    if [[ -e /opt/local/libexec/gnubin ]]
+    export GNU_COREUTILS_DIR
+    GNU_USERLAND=1
+
+    if _is_command brew
     then
-        export GNU_USERLAND=1
+        GNU_COREUTILS_DIR="$(brew --prefix coreutils)/libexec/gnubin"
+    elif [[ -e /opt/local/libexec/gnubin ]]
+    then
+        GNU_COREUTILS_DIR=/opt/local/bin
     fi
 fi
 

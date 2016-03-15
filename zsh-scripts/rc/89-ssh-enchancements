@@ -13,27 +13,26 @@
 # as looks like Ubuntu hosts are configured to pass in thru by default -
 # all other SendEnv forwards are being ignored
 # in /etc/ssh/sshd_config
-FORWARD_TERM="SendEnv LC_TERM_PROGRAM"
 
-CONFIG=~/.ssh/config
+function do-ssh-config-modify {
+    local FORWARD_TERM="SendEnv LC_TERM_PROGRAM"
+    local CONFIG=~/.ssh/config
 
-# Make sure we have ~/.ssh/config
-if [ ! -e ~/.ssh ] ; then
-       mkdir ~/.ssh
-fi
+    if [[ ! -e $CONFIG ]]
+    then
+        mkdir -p ~/.ssh
+        touch $CONFIG
+    fi
 
-if [ ! -e "$CONFIG" ] ; then
-       touch "$CONFIG"
-fi
+    # Make sure our SendEnv forwards are in place in ssh config
+    if ! grep "$FORWARD_TERM" $CONFIG >/dev/null 2>&1
+    then
+        local CONTENT="$(<$CONFIG)" # no cat abuse this time
+        printf "%s\n\n%s" "$FORWARD_TERM" "$CONTENT" > "$CONFIG"
+    fi
 
-# Make sure our SendEnv forwards are in place in ssh config
-grep "$FORWARD_TERM" "$CONFIG" >/dev/null
+    # Export our terminal (iTerm 2)
+    [[ "$TERM_PROGRAM" != "" ]] && export LC_TERM_PROGRAM="$TERM_PROGRAM"
+}
 
-if [ $? -eq 1 ] ; then
-       CONTENT=$(cat $CONFIG) # no cat abuse this time
-       echo -en "$FORWARD_TERM\n\n$CONTENT" > $CONFIG
-fi
-
-# Export our terminal (iTerm 2)
-[[ "$TERM_PROGRAM" != "" ]] && export LC_TERM_PROGRAM="$TERM_PROGRAM"
-
+do-ssh-config-modify

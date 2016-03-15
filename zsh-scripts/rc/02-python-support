@@ -1,0 +1,13 @@
+if [[ ! -e ~/tools/binfix/python2 ]]
+then
+    mkdir -p ~/tools/binfix
+    
+    for i in 2.7 27 2.6 26 2.5 25
+    do
+        if _is_command "python$i"
+        then
+            ln -s $(which "python$i") ~/tools/binfix/python2
+            break
+        fi
+    done
+fi

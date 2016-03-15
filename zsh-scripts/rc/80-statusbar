@@ -1,6 +1,10 @@
 autoload -U add-zsh-hook
 
-if echo $TERM | egrep -i "^(xterm|eterm|aterm|rxvt|screen)$" > /dev/null 2>&1
+bell=$(tput bel)
+WHOAMI=$(whoami)
+HOSTNAME=$(hostname)
+
+if [[ $TERM == (xterm|eterm|aterm|rxvt|screen) ]]
 then
         STATUSBAR=1
 fi
@@ -8,7 +12,7 @@ fi
 function statusbar_preexec {
 	if [[ "$STATUSBAR" == "1" ]]
 	then
-		echo -ne "\e]1;\a\e]2;`whoami`@`hostname` - $1\a"
+		echo -ne "\e]1;\a\e]2;$WHOAMI@$HOSTNAME - $1\a"
        	fi
 	echo -ne "\033[0m"
 
@@ -17,27 +21,26 @@ add-zsh-hook preexec statusbar_preexec
 
 stacked_dirs=()
 
-bell=`tput bel`
-
 function statusbar_precmd {
        setup_prompt
-       stacked_dirs=("`pwd`" $dirstack);
+       stacked_dirs=("$(pwd)" $dirstack);
        saved_dirstack=($dirstack)
        stacked_dirs_current=1
 
        if [[ "$STATUSBAR" == "1" ]]
        then
-              echo -ne "\e]1;\a\e]2;`whoami`@`hostname` - zsh (`pwd`)\a"
+              echo -ne "\e]1;\a\e]2;$WHOAMI@$HOSTNAME - zsh ($(pwd))\a"
 
               # Set tab (not window) title on iTerm.
               # We only set the last part of the directory and the server due to limited space
               if [[ "$LC_TERM_PROGRAM" == "iTerm.app" ]] then
                      # http://stackoverflow.com/a/1371283/315168
-                     tab_title="${PWD##*/} @ `hostname`"
+                     tab_title="${PWD##*/} @ $HOSTNAME"
                      echo -ne "\033]0;"$tab_title"\007"
               fi
        fi
 
        echo -ne "\017"
 }
+
 add-zsh-hook precmd statusbar_precmd
