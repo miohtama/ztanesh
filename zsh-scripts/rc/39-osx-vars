@@ -1,7 +1,13 @@
 
 
 if [[ `uname` == "Darwin" ]] ; then
-    export PATH=/opt/local/libexec/gnubin:/opt/local/bin:/opt/local/sbin:$PATH
+
+    # Use Homebrew coreutils
+    # http://www.conrad.id.au/2013/07/making-mac-os-x-usable-part-1-terminal.html
+    export PATH=/usr/local/opt/coreutils/libexec/gnubin:/opt/local/bin:/opt/local/sbin:$PATH
+
+    # Macports version
+    # export PATH=/opt/local/libexec/gnubin:/opt/local/bin:/opt/local/sbin:$PATH
     export CLICOLOR=1
     export LESSOPEN='| /opt/local/bin/lesspipe.sh %s'
 
