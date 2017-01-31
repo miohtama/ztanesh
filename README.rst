@@ -96,7 +96,7 @@ Test that ZSH starts properly::
 
     zsh
 
-Then activat zsh for your user by default::
+Then activate zsh for your user by default::
 
   chsh -s /bin/zsh $USER
 
@@ -117,7 +117,7 @@ Test that ZSH starts properly::
 
     zsh
 
-Then activat zsh for your user by default::
+Then activate zsh for your user by default::
 
   chsh -s /bin/zsh $USER
 
