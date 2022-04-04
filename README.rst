@@ -151,7 +151,7 @@ Test that ZSH starts properly::
 
 Activate zsh for your user account as the default shell::
 
-    sudo dscl . -create /Users/$USER UserShell /opt/local/bin/zsh
+    sudo dscl . -create /Users/$USER UserShell /opt/homebrew/bin/zsh
     # or if you use Homebrew before: sudo dscl . -create /Users/#$USER UserShell /usr/local/bin/zsh
 
 Other 'NIX operating systems
