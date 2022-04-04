@@ -110,7 +110,7 @@ Gentoo
 Gentoo Linux install commands::
 
     sudo emerge -av git highlight zsh
-    git clone git://github.com/miohtama/ztanesh.git ~/tools
+    git clone https://github.com/miohtama/ztanesh.git ~/tools
     ~/tools/zsh-scripts/setup.zsh
 
 Test that ZSH starts properly::
@@ -129,13 +129,7 @@ Then activate zsh for your user by default::
 OSX
 +++++++++++++++++++++++
 
-Install `GNU userland tools <http://opensourcehacker.com/2012/04/27/python-and-javascript-developer-setup-hints-for-osx-lion/>`_ using
-`Macports <http://macports.org>`_::
-
-    # Note: zsh-devel installs the version 5.0 of zsh shell (latest stable)
-    sudo port install zsh-devel perl5 coreutils lesspipe findutils highlight grep +with_default_names
-
-Or use `Homebrew <http://mxcl.github.com/homebrew/>`_::
+Woth `Homebrew <http://mxcl.github.com/homebrew/>`_::
 
     brew install zsh coreutils lesspipe findutils highlight
     # Note: you might have to edit the zsh brew formula if it shows "Error: Download failed: http://www.zsh.org/pub/zsh-5.0.0.tar.bz2"
@@ -144,7 +138,7 @@ Or use `Homebrew <http://mxcl.github.com/homebrew/>`_::
 
 Clone ztanesh::
 
-    git clone git://github.com/miohtama/ztanesh.git ~/tools
+    git clone https://github.com/miohtama/ztanesh.git ~/tools
     ~/tools/zsh-scripts/setup.zsh
 
 Test that ZSH starts properly::
@@ -153,8 +147,8 @@ Test that ZSH starts properly::
 
 Activate zsh for your user account as the default shell::
 
-    sudo dscl . -create /Users/YOURUSERNAME UserShell /opt/local/bin/zsh
-    # or if you use Homebrew before: sudo dscl . -create /Users/YOURUSERNAME UserShell /usr/local/bin/zsh
+    sudo dscl . -create /Users/$USER UserShell /opt/local/bin/zsh
+    # or if you use Homebrew before: sudo dscl . -create /Users/#$USER UserShell /usr/local/bin/zsh
 
 Other 'NIX operating systems
 ++++++++++++++++++++++++++++++
