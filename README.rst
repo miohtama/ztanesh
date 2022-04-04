@@ -140,6 +140,10 @@ Clone ztanesh::
 
     git clone https://github.com/miohtama/ztanesh.git ~/tools
     ~/tools/zsh-scripts/setup.zsh
+    
+GNU coreutils are not enabled by default by Homebrew. Edit `~/.zshrc` and add at the *beginning* of the file:
+
+    PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
 
 Test that ZSH starts properly::
 
@@ -193,33 +197,6 @@ Editing local settings
 
 Put your local settings to ``~/.zsh-local/rc``
 and run ``comprc`` alias to make them effective for the next zsh startup.
-
-Community
------------
-
-IRC
-++++
-
-Join us at *#ztanesh* on irc.freenode.org.
-
-Submitting patches
-++++++++++++++++++++
-
-1) Press *Fork* button on Github -> creates your personal ZtaneSH repo on github.com
-
-2) Checkout your personal repo as ~/tools
-
-       git clone git@github.com:xxx/ztanesh.git # Your personal repo address
-
-3) Edit files
-
-4) Commit changes, push back to your personal repo
-
-       git add -A
-       git commit -m "Why I did this"
-       git push
-
-5) On your personal Github repo page, press Make pull request button
 
 Related projects
 ---------------------
