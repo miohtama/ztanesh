@@ -129,7 +129,7 @@ Then activate zsh for your user by default::
 OSX
 +++++++++++++++++++++++
 
-Woth `Homebrew <http://mxcl.github.com/homebrew/>`_::
+With `Homebrew <http://mxcl.github.com/homebrew/>`_::
 
     brew install zsh coreutils lesspipe findutils highlight
     # Note: you might have to edit the zsh brew formula if it shows "Error: Download failed: http://www.zsh.org/pub/zsh-5.0.0.tar.bz2"
