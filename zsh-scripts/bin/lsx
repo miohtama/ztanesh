@@ -1,4 +1,7 @@
-#!/usr/bin/python
+#!/usr/local/bin/python
+#
+# Needs Python 2.7
+#
 from __future__ import with_statement
 
 import os
