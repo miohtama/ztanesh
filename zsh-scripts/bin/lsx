@@ -1,5 +1,4 @@
-#!/usr/local/bin/python
-#
+#!/usr/bin/env python3
 # Needs Python 2.7
 #
 from __future__ import with_statement
@@ -144,6 +143,7 @@ class Runner(object):
         )
         
         for i in ls_pipe.stdout:
+            i = i.decode("utf-8")
             i = LINE_REGEX.sub(self.do_line_subst, i)
             sys.stdout.write(i)
     
