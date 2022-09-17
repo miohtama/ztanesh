@@ -11,15 +11,9 @@ if [[ `uname` == "Darwin" ]] ; then
     export CLICOLOR=1
     export LESSOPEN='| /opt/local/bin/lesspipe.sh %s'
 
-    # Sublime Edit 2
-    SUBL='/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl'
-    if [[ -e "$SUBL" ]]
-    then
-        alias subl="'$SUBL'"
-        alias nano="subl"
-        export EDITOR="subl-wrapper"
-    fi
-    unset SUBL
+    # Default to Visual Studio Code as editor
+    export EDITOR="code --wait"
+    export VISUAL="$EDITOR"
 fi
 
 # OSX locale fix
