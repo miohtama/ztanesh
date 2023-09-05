@@ -25,57 +25,50 @@ SYNC_FOLDER="$DROPBOX/Sublime"
 if [ `uname` = "Darwin" ];then
         SOURCE="$HOME/Library/Application Support/Sublime Text 2"
 elif [ `uname` = "Linux" ];then
-        SOURCE="$HOME/.config/sublime-text-2"
+		if [ -e $HOME/.config/sublime-text-3 ]; then
+				SOURCE="$HOME/.config/sublime-text-3"
+		elif [ -e $HOME/.config/sublime-text-2 ]; then
+				SOURCE="$HOME/.config/sublime-text-2"
+		else
+				echo "Unknown SublimeText version"
+				exit 1
+		fi
 else
         echo "Unknown operating system"
         exit 1
 fi
 
 # Check that settings really exist on this computer
-if [ ! -e "$SOURCE/Packages/" ]; then
-        echo "Could not find $SOURCE/Settings/"
+if [ ! -e "$SOURCE/Packages" -o ! -e "$SOURCE/Installed Packages" ]; then
+        echo "Could not find SublimeText setup files!"
         exit 1
+fi
+
+# SublimeText has not been set up on Dropbox?
+if [ ! -e "$SYNC_FOLDER" ]; then
+        echo "Setting up Dropbox sync folder"
+        mkdir -p "$SYNC_FOLDER/"
+fi
+
+# Dropbox not populated, copy from this computer.
+if [ ! -e "$SYNC_FOLDER/Installed Packages" ]; then
+		cp -r "$SOURCE/Installed Packages" "$SYNC_FOLDER/"
+fi
+if [ ! -e "$SYNC_FOLDER/Packages" ]; then
+		cp -r "$SOURCE/Packages" "$SYNC_FOLDER/"
 fi
 
 # Detect that we don't try to install twice and screw up
-if [ -L "$SOURCE/Packages" ] ; then
-        echo "Dropbox settings already symlinked"
+if [ -L "$SOURCE/Packages" -o -L "$SOURCE/Installed Packages" ] ; then
+        echo "Dropbox folders already symlinked"
         exit 1
 fi
 
-# XXX: Disabled Settings/ folder syncing as looks like
-# Sublime keeps only license and .sublime_session files -
-# the latter
-# which are autosaved and would cause unnecessary conflicts
-# and traffic
+# Rename the local copies.
+mv "$SOURCE/Installed Packages" "$SOURCE/Installed Packages.old"
+mv "$SOURCE/Packages" "$SOURCE/Packages.old"
 
-# Dropbox has not been set-up on any computer before?
-if [ ! -e "$SYNC_FOLDER" ] ; then
-        echo "Setting up Dropbox sync folder"
-        
-        # Creating the folders in separated categories
-        mkdir -p "$SYNC_FOLDER/Installed Packages"
-        mkdir -p "$SYNC_FOLDER/Packages"
-#        mkdir -p "$SYNC_FOLDER/Settings"
-        
-        # Copy the files into their respective folder
-        cp -r "$SOURCE/Installed Packages/" "$SYNC_FOLDER/Installed Packages"
-        cp -r "$SOURCE/Packages/" "$SYNC_FOLDER/Packages"
-#        cp -r "$SOURCE/Settings/" "$SYNC_FOLDER/Settings"
-fi
-
-# Now when settings are in Dropbox delete existing files
-rm -rf "$SOURCE/Installed Packages"
-rm -rf "$SOURCE/Packages"
-#rm -rf "$SOURCE/Settings"
-
-# Symlink settings folders from Drobox
-# The "Installed Packages" and "Packages" was never
-# created inside of Dropbox folder. These lines are not working.
-# Fixed to the correct folder.
-
+# Symlink folders from Drobox.
 ln -s "$SYNC_FOLDER/Installed Packages" "$SOURCE/Installed Packages"
 ln -s "$SYNC_FOLDER/Packages" "$SOURCE/Packages"
-#ln -s "$SYNC_FOLDER/Settings" "$SOURCE/Settings"
-
 
