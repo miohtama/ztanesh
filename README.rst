@@ -1,3 +1,5 @@
+**This project is almost 25 years old.** [Use Oh My Zsh instead](https://ohmyz.sh/).
+
 Introduction
 ----------------------
 
