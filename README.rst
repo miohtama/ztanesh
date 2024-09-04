@@ -1,4 +1,4 @@
-**This project is almost 25 years old.** [Use Oh My Zsh instead](https://ohmyz.sh/).
+**This project is almost 25 years old.** `Use Oh My Zsh instead <https://ohmyz.sh/>`__.
 
 Introduction
 ----------------------
